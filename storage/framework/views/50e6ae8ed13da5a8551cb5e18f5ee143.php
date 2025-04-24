@@ -35,4 +35,19 @@
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </select>
 </div>
+
+<div>
+    <label class="block text-sm font-medium mb-1">Image du produit</label>
+
+    <?php if($product && $product->images->isNotEmpty()): ?>
+        <div class="mb-2">
+            <img src="<?php echo e(asset('storage/' . $product->images->first()->url)); ?>" alt="Image actuelle"
+                 class="w-40 rounded border">
+            <p class="text-xs text-gray-500 mt-1">Image actuelle — sera remplacée si une nouvelle est choisie</p>
+        </div>
+    <?php endif; ?>
+
+    <input type="file" name="image" accept="image/*" class="w-full border rounded px-3 py-2">
+</div>
+
 <?php /**PATH C:\wamp64\www\laravelWeb\resources\views/partner/products/_form.blade.php ENDPATH**/ ?>

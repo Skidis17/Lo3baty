@@ -4,7 +4,7 @@
 <div class="p-6 max-w-xl mx-auto">
     <h1 class="text-2xl font-semibold mb-6">Modifier le Produit</h1>
 
-    <form action="<?php echo e(route('partner.products.update', $product)); ?>" method="POST" class="space-y-4">
+    <form action="<?php echo e(route('partner.products.update', $product)); ?>" method="POST" enctype="multipart/form-data" class="space-y-4">
         <?php echo csrf_field(); ?>
         <?php echo method_field('PUT'); ?>
 

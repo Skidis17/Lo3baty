@@ -38,7 +38,7 @@ class Objet extends Model
 
     public function images()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Image::class, 'objet_id');
     }
 
     /*public function annonces()
