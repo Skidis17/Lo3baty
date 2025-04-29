@@ -18,3 +18,6 @@ Route::get('/', function () {
          ->name('reservations.store');
      Route::get('/proprietaires/{id}', [UtilisateurController::class, 'show'])
          ->name('proprietaires.show');
+
+require __DIR__ . '/client.php';
+

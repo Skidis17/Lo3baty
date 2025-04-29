@@ -4,39 +4,43 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
+
 
 class Utilisateur extends Model
 {
-    use HasFactory, Notifiable;
+    use HasFactory;
 
     protected $table = 'utilisateurs';
+
     protected $fillable = [
-        'nom', 
-        'prenom', 
-        'email', 
-        'mot_de_passe', 
-        'role', 
-        'image_profil', 
-        'cin_recto', 
-        'cin_verso'
+        'nom',
+        'prenom',
+        'email',
+        'mot_de_passe',
+        'role',
+        'image_profil',
+        'cin_recto',
+        'cin_verso',
     ];
 
     protected $casts = [
-        'date_inscription' => 'datetime',
-        'role' => 'string'
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];    
+
+    protected $hidden = [
+        'mot_de_passe',
     ];
 
-    protected $dates = ['date_inscription'];
+    // Relationships
 
-    // Relations
     public function objets()
     {
         return $this->hasMany(Objet::class, 'proprietaire_id');
     }
 
-    public function annonces()
+
+    /*public function annonces()
     {
         return $this->hasMany(Annonce::class, 'proprietaire_id');
     }
@@ -52,3 +56,4 @@ class Utilisateur extends Model
         $this->attributes['mot_de_passe'] = Hash::make($value);
     }
 }
+

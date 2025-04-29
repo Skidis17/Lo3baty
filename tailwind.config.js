@@ -1,16 +1,15 @@
-module.exports = {
+
+/** @type {import('tailwindcss').Config} */
+export default {
   content: [
-    "./resources/**/*.blade.php",
-    "./resources/**/*.js",
+    './resources/**/*.blade.php',
+    './resources/**/*.js',
+    './resources/**/*.vue',
   ],
   theme: {
-    extend: {
-      colors: {
-        'kid-blue': '#3b82f6',
-        'kid-orange': '#f59e0b',
-        'kid-pink': '#ec4899',
-      },
-    },
+    extend: {},
   },
   plugins: [],
 }
+
+

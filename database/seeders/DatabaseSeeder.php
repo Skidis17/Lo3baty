@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
+
     public function run()
 {
     $this->call([
@@ -23,4 +24,5 @@ class DatabaseSeeder extends Seeder
         EvaluationsTableSeeder::class,
     ]);
 }
+
 }
