@@ -19,5 +19,5 @@ Route::get('/', function () {
      Route::get('/proprietaires/{id}', [UtilisateurController::class, 'show'])
          ->name('proprietaires.show');
 
-require __DIR__ . '/client.php';
+//require __DIR__ . '/client.php';
 
