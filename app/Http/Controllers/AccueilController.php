@@ -12,8 +12,16 @@ class AccueilController extends Controller
     
     public function index()
     {
-    $objet = Objet::with('images')->get();
-    return view('client/acceuil', compact('objet'));
+        $objet = Objet::with(['images', 'annonces' => function ($query) {
+            $query->orderByDesc('premium')
+                  ->orderByDesc('date_publication');
+        }])
+        ->withMax(['annonces as latest_premium_date' => function ($query) {
+            $query->where('premium', true);
+        }], 'date_publication')
+        ->orderByDesc('latest_premium_date')
+        ->get();
+        return view('client/acceuil', compact('objet'));
 
     }
 
@@ -25,10 +33,9 @@ class AccueilController extends Controller
 
     public function annonceById($id)
     {
-    $annonce = Annonce::findOrFail($id); 
-    return view('annonce', compact('annonce'));
+    $annonce = Annonce::with('objet', 'objet.images')->findOrFail($id);
+    return view('client.annonce', compact('annonce'));
     }
-
 
     public function reservations()
     {

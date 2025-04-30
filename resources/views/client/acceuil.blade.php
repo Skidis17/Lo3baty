@@ -121,37 +121,46 @@
 </section>
 
 <!-- Dynamic Cards Section -->
-<section id="annonces" class="py-20 bg-emerald-50"">
+<section id="annonces" class="py-20 bg-emerald-50">
     <div class="max-w-7xl mx-auto px-4">
         <h2 class="text-3xl font-bold text-center mb-12">Annonces de Jouets</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach ($objet as $objet)
-            <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                <div class="relative">
-                    @foreach ($objet->images as $image)
-                    <img src="{{ asset($image->url) }}" 
-                         class="w-full h-64 object-cover rounded-t-2xl"
-                         alt="{{ $objet->nom }}">
-                    @endforeach
-                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 to-transparent p-4">
-                        <span class="text-white font-medium">{{ $objet->prix_journalier }} DH/jour</span>
+                @php
+                    $annonce = $objet->annonces->first(); 
+                @endphp
+
+                <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="relative">
+                        @if ($objet->images->first())
+                            <img 
+                                src="{{ asset($objet->images->first()->url) }}" 
+                                class="w-full h-64 object-cover rounded-t-2xl"
+                                alt="{{ $objet->nom }}">
+                        @endif
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 to-transparent p-4 flex justify-between items-end">
+                            <span class="text-white font-medium">{{ $objet->prix_journalier }} DH/jour</span>
+                            @if ($annonce && $annonce->premium)
+                                <span class="text-yellow-300 text-xs font-bold bg-yellow-800 px-2 py-1 rounded-full">Premium</span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">{{ $objet->nom }}</h3>
+                        <p class="text-gray-600 text-sm mb-4">{{ Str::limit($objet->description, 100) }}</p>
+                        @if ($annonce)
+                        <a href="{{ route('annonceID', ['id' => $annonce->id]) }}" class="inline-flex items-center text-blue-600 font-medium hover:text-blue-800">
+                        Voir plus
+                            </a>
+                        @endif
                     </div>
                 </div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-2">{{ $objet->nom }}</h3>
-                    <p class="text-gray-600 text-sm mb-4">{{ Str::limit($objet->description, 100) }}</p>
-                    <a href="#" class="inline-flex items-center text-blue-600 font-medium hover:text-blue-800">
-                        Voir plus
-                        <!-- <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                        </svg> -->
-                    </a>
-                </div>
-            </div>
             @endforeach
         </div>
     </div>
 </section>
+
 
 <!-- Footer -->
 <footer class="bg-gray-900 text-white">

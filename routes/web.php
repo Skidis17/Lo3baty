@@ -9,7 +9,7 @@ Route::get('/', [AccueilController::class, 'index'])->name('accueil');
 
 //annonce by id
 Route::get('/annonces', [AccueilController::class, 'annonces'])->name('annonces');
-// Route::get('/annonce/{id}', [AccueilController::class, 'annonceById'])->name('annonce');
+Route::get('/annonce/{id}', [AccueilController::class, 'annonceById'])->name('annonceID');
 
 //reservations
 Route::get('/reservations', [AccueilController::class, 'reservations'])->name("reservations");
