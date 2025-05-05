@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 
+
 class Utilisateur extends Model
 {
     use HasFactory, Notifiable;
@@ -29,15 +30,15 @@ class Utilisateur extends Model
 
     protected $dates = ['date_inscription'];
 
-    // Relations
+
 
     public function objets()
     {
         return $this->hasMany(Objet::class, 'proprietaire_id');
     }
 
-
     public function annonces()
+
     {
         return $this->hasMany(Annonce::class, 'proprietaire_id');
     }
@@ -56,7 +57,7 @@ class Utilisateur extends Model
     {
     return $this->hasMany(Evaluation_on_partners::class, 'client_id');
     }
-    
+
     // Mutator pour le mot de passe
     public function setMotDePasseAttribute($value)
     {

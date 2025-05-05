@@ -15,5 +15,10 @@ class Categorie extends Model
     {
         return $this->hasMany(Objet::class);
     }
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];  
 }
 

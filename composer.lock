@@ -1067,6 +1067,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/framework/zipball/3264999c3123f55b7651c275efb6942034c47eda",
                 "reference": "3264999c3123f55b7651c275efb6942034c47eda",
+
                 "shasum": ""
             },
             "require": {
@@ -1270,6 +1271,7 @@
             },
 
             "time": "2025-04-23T14:49:24+00:00"
+
         },
         {
             "name": "laravel/prompts",
@@ -6120,6 +6122,7 @@
         },
         {
             "name": "laravel/sail",
+
             "version": "v1.41.1",
             "source": {
                 "type": "git",
@@ -6130,6 +6133,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/sail/zipball/e5692510f1ef8e0f5096cde2b885d558f8d86592",
                 "reference": "e5692510f1ef8e0f5096cde2b885d558f8d86592",
+
                 "shasum": ""
             },
             "require": {
@@ -6179,7 +6183,9 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2025-04-22T13:39:39+00:00"
+
+            "time": "2025-01-24T15:45:36+00:00"
+
         },
         {
             "name": "mockery/mockery",
@@ -6866,6 +6872,7 @@
         },
         {
             "name": "phpunit/phpunit",
+
             "version": "11.5.18",
             "source": {
                 "type": "git",
@@ -6876,6 +6883,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/fc3e887c7f3f9917e1bf61e523413d753db00a17",
                 "reference": "fc3e887c7f3f9917e1bf61e523413d753db00a17",
+
                 "shasum": ""
             },
             "require": {
@@ -6947,6 +6955,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
+
                 "source": "https://github.com/sebastianbergmann/phpunit/tree/11.5.18"
             },
             "funding": [
@@ -6959,6 +6968,7 @@
                     "type": "github"
                 },
                 {
+
                     "url": "https://liberapay.com/sebastianbergmann",
                     "type": "liberapay"
                 },
@@ -6971,7 +6981,9 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-04-22T06:09:49+00:00"
+
+            "time": "2025-04-08T07:59:11+00:00"
+
         },
         {
             "name": "sebastian/cli-parser",
