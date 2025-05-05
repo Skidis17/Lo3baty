@@ -127,29 +127,80 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach ($objet as $objet)
                 @php
-                    $annonce = $objet->annonces->first(); 
+                    $annonce = $objet->annonces->first();
+                  
                 @endphp
 
-                <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-                    <div class="relative">
+                <div 
+                    class="relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer group"
+                >
+                    <!-- Category Ribbon -->
+                    <div class="absolute -top-3 -right-3 z-10">
+                        <span class=" px-3 py-1 rounded-full text-sm font-medium shadow-md">
+                        </span>
+                    </div>
+
+                    <!-- Image Section -->
+                    <div class="relative h-64 overflow-hidden rounded-t-2xl">
                         @if ($objet->images->first())
                             <img 
                                 src="{{ asset($objet->images->first()->url) }}" 
-                                class="w-full h-64 object-cover rounded-t-2xl"
+                                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                                 alt="{{ $objet->nom }}">
+                        @else
+                            <div class="w-full h-full bg-gray-100 flex items-center justify-center">
+                                <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
                         @endif
-                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 to-transparent p-4 flex justify-between items-end">
-                            <span class="text-white font-medium">{{ $objet->prix_journalier }} DH/jour</span>
-                            @if ($annonce && $annonce->premium)
-                                <span class="text-yellow-300 text-xs font-bold bg-yellow-800 px-2 py-1 rounded-full">Premium</span>
-                            @endif
+
+                        <!-- Price and Rating Badge -->
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-gray-900 via-gray-900/70 to-transparent p-4">
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <span class="text-white font-bold text-xl">{{ $annonce->prix_journalier }} DH/jour</span>
+                                    <div class="flex items-center mt-1">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                            </svg>
+                                        @endfor
+                                        <span class="ml-2 text-white text-sm"></span>
+                                    </div>
+                                </div>
+                                @if ($annonce->premium)
+                                    <div class="flex items-center bg-yellow-500/90 px-3 py-1 rounded-full">
+                                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M5 2a2 2 0 012-2h6a2 2 0 012 2v2h2a2 2 0 012 2v9a2 2 0 01-2 2H3a2 2 0 01-2-2V6a2 2 0 012-2h2V2zm6 0H9v2h2V2z" clip-rule="evenodd"/>
+                                        </svg>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
                     </div>
 
+                    <!-- Content Section -->
                     <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">{{ $objet->nom }}</h3>
+                        <div class="flex justify-between items-start mb-3">
+                            <h3 class="text-xl font-bold text-gray-900">{{ $objet->nom }}</h3>
+                            <span class="text-sm text-gray-500">{{ $annonce->date_publication }}</span>
+                        </div>
+
                         <p class="text-gray-600 text-sm mb-4">{{ Str::limit($objet->description, 100) }}</p>
-                        @if ($annonce)
+
+                        <div class="flex items-center text-sm text-gray-500">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                            <span>{{ $annonce->adresse }}</span>
+                        </div>
+                    </div>
+
+                    <!-- Hover Overlay -->
+                    <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl flex items-center justify-center">
+                    @if ($annonce)
                         <a href="{{ route('annonceID', ['id' => $annonce->id]) }}" class="inline-flex items-center text-blue-600 font-medium hover:text-blue-800">
                         Voir plus
                             </a>
@@ -160,6 +211,13 @@
         </div>
     </div>
 </section>
+
+<!-- Add this to your layout file -->
+<style>
+    .group:hover .group-hover\:scale-105 {
+        transform: scale(1.05);
+    }
+</style>
 
 
 <!-- Footer -->

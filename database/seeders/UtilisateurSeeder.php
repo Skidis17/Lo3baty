@@ -2,38 +2,37 @@
 
 namespace Database\Seeders;
 
+use App\Models\Utilisateur;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Carbon\Carbon; // for generating current date and time
-
+use Illuminate\Support\Facades\Hash;
 
 class UtilisateurSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
-        DB::table('utilisateur')->insert([
+        Utilisateur::insert([
             [
-                'nom' => 'John',
-                'prenom' => 'Doe',
-                'email' => 'john.doe@example.com',
-                'mot_de_passe' => bcrypt('password'),
+                'nom' => 'Mohamed',
+                'prenom' => 'Partenaire',
+                'surnom' => 'MedBensPartner1',
+                'email' => 'partner@example.com',
+                'mot_de_passe' => Hash::make('password'),
+                'role' => 'partenaire',
+                'image_profil' => null,
+                'cin_recto' => null,
+                'cin_verso' => null,
+            ],
+            [
+                'nom' => 'Omar',
+                'prenom' => 'Client',
+                'surnom' => 'OmarBensClient1',
+                'email' => 'client@example.com',
+                'mot_de_passe' => Hash::make('password'),
                 'role' => 'client',
                 'image_profil' => null,
                 'cin_recto' => null,
                 'cin_verso' => null,
-                'date_inscription' => Carbon::now(),
             ],
-            [
-                'nom' => 'Jane',
-                'prenom' => 'Smith',
-                'email' => 'jane.smith@example.com',
-                'mot_de_passe' => bcrypt('password'),
-                'role' => 'proprietaire',
-                'image_profil' => null,
-                'cin_recto' => null,
-                'cin_verso' => null,
-                'date_inscription' => Carbon::now(),
-            ]
         ]);
     }
 }

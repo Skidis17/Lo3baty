@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class GetById extends Controller
+class ReservationHistorique extends Controller
 {
- public function GetById() {
-    
- }
+    //
 }

@@ -9,7 +9,6 @@ class Annonce extends Model
 {
     use HasFactory;
 
-    protected $table='annonce';
     protected $fillable = [
         'date_debut',
         'date_fin',
@@ -36,4 +35,8 @@ class Annonce extends Model
         return $this->hasMany(Reservation::class);
     }
     
+    public function utilisateur()
+    {
+    return $this->belongsTo(Utilisateur::class);
+    }
 }

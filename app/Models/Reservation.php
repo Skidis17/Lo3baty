@@ -9,7 +9,6 @@ class Reservation extends Model
 {
     use HasFactory;
 
-    protected $table= 'reservation'; 
     protected $fillable = [
         'client_id',
         'annonce_id',
@@ -18,6 +17,7 @@ class Reservation extends Model
         'statut',
         'evaluation_date',
         'is_evaluation',
+        'is_email',
     ];
 
     protected $casts = [
@@ -40,4 +40,9 @@ class Reservation extends Model
     {
         return $this->belongsTo(Objet::class);
     }
+
+    public function evaluationOnPartner()
+{
+    return $this->hasOne(Evaluation_on_partners::class);
+}
 }

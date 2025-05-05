@@ -11,7 +11,6 @@ class Utilisateur extends Model
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'utilisateur';
     protected $fillable = [
         'nom', 
         'prenom', 
@@ -46,6 +45,16 @@ class Utilisateur extends Model
         return $this->hasMany(Reservation::class, 'client_id');
     }
 
+    public function partnerEvaluations()
+    {
+    return $this->hasMany(Evaluation_on_partners::class, 'partner_id');
+    }
+
+    public function clientEvaluations()
+    {
+    return $this->hasMany(Evaluation_on_partners::class, 'client_id');
+    }
+    
     // Mutator pour le mot de passe
     public function setMotDePasseAttribute($value)
     {

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Objet;
 use App\Models\Annonce;
@@ -37,17 +37,43 @@ class AccueilController extends Controller
     return view('client.annonce', compact('annonce'));
     }
 
+
     public function reservations()
     {
-    $reservations = Reservation::all(); 
-    return view('client/reservations', compact('reservations'));
+        $clientId = 2;
+        $statuses = ['en attente', 'acceptée', 'archivee'];
+    
+        $counts = [];
+        foreach ($statuses as $status) {
+            $counts[$status] = Reservation::where('client_id', $clientId)
+                ->where('statut', $status)
+                ->count();
+        }
+    
+        $reservations = Reservation::with([
+                'annonce.utilisateur.partnerEvaluations',
+                'annonce.objet.images',
+                'evaluationOnPartner'
+            ])
+            ->where('client_id', $clientId)
+            ->get();
+    
+        return view('client.reservations', [
+            'reservations' => $reservations,
+            'counts' => $counts
+        ]);
     }
 
-    
-    // public function objet() 
-    // {
-    //     $objets = Objet::all(); 
-    //     return view('acceuil', compact('objets')); 
-    // }
 
-}
+
+
+
+
+
+
+
+
+
+
+    }
+

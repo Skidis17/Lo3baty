@@ -1,35 +1,33 @@
 <?php
+
 namespace Database\Seeders;
 
+use App\Models\Objet;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Carbon\Carbon; // for generating current date and time
 
 class ObjetSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
-        DB::table('objet')->insert([
+        Objet::insert([
             [
-                'nom' => 'Laptop',
-                'description' => 'A high-performance laptop.',
-                'ville' => 'Paris',
-                'prix_journalier' => 30.00,
+                'nom' => 'Lego Star Wars',
+                'description' => 'Un set complet de Lego Star Wars.',
+                'ville' => 'Tétouan',
                 'etat' => 'neuf',
-                'categorie_id' => 1, // Example category ID
-                'proprietaire_id' => 2, // Example proprietor ID
-                'date_ajout' => Carbon::now(),
+                'categorie_id' => 3,
+                'proprietaire_id' => 1,
             ],
             [
-                'nom' => 'Sofa',
-                'description' => 'Comfortable leather sofa.',
-                'ville' => 'Lyon',
-                'prix_journalier' => 15.00,
-                'etat' => 'bon etat',
-                'categorie_id' => 2,
-                'proprietaire_id' => 2,
-                'date_ajout' => Carbon::now(),
-            ]
+                'nom' => 'Voiture télécommandée',
+                'description' => 'Voiture rapide et résistante.',
+                'ville' => 'Tétouan',
+                'etat' => 'bon_etat',
+                'categorie_id' => 5,
+                'proprietaire_id' => 1,
+            ],
         ]);
     }
 }
+

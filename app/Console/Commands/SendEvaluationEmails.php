@@ -19,23 +19,8 @@ class SendEvaluationEmails extends Command
         $now = Carbon::now();
     
         $this->info("Starting process at {$now->toDateTimeString()}");
-    
-        // Debug: Show the exact query being executed
-        $query = Reservation::whereDate('date_fin', $today)
-            ->whereNull('evaluation_date')
-            ->where('is_evaluation')
-            ->with(['utilisateur:id,email', 'objet']);
-    
-        $this->info("SQL Query: " . $query->toSql());
-        $this->info("Query Bindings: " . json_encode($query->getBindings()));
-    
-        $reservations = $query->get();
-        $this->info("Found {$reservations->count()} reservations");
-    
-    // Get reservations ending today that haven't been evaluated
     $reservations = Reservation::whereDate('date_fin', $today) 
-        ->whereNull('evaluation_date')
-        ->where('is_evaluation') 
+        ->where('is_email', 0) 
         ->with(['utilisateur:id,email', 'objet'])
         ->get();
 
@@ -45,7 +30,7 @@ class SendEvaluationEmails extends Command
 
     foreach ($reservations as $reservation) {
         try {
-            // Validate reservation data
+
             if (!$reservation->relationLoaded('utilisateur') || !$reservation->utilisateur) {
                 $this->error("No user found for reservation ID: {$reservation->id}");
                 continue;
@@ -66,10 +51,12 @@ class SendEvaluationEmails extends Command
 
             Mail::to($userEmail)->send(new EvaluationMail($reservation));
             
-            $reservation->update([
-                'evaluation_date' => $now,
-                'is_evaluation' => true
-            ]);
+            Reservation::withoutTimestamps(function () use ($reservation, $now) {
+                $reservation->update([
+                    'evaluation_date' => $now,
+                    'is_email' => 1
+                ]);
+            });
 
             $sentCount++;
             $this->info("Successfully sent to: {$userEmail}");
