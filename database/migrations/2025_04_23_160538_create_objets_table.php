@@ -13,8 +13,8 @@ return new class extends Migration
             $table->string('nom');
             $table->text('description')->nullable();
             $table->string('ville');
-            $table->decimal('prix_journalier', 8, 2);
-            $table->string('etat');
+            $table->enum('etat', ['neuf', 'bon_etat', 'use']);
+
             $table->foreignId('categorie_id')->constrained()->onDelete('cascade');
             $table->foreignId('proprietaire_id')->constrained('utilisateurs')->onDelete('cascade');
             $table->timestamps();
