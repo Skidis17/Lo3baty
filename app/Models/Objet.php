@@ -16,16 +16,14 @@ class Objet extends Model
         'prix_journalier',
         'etat',
         'categorie_id',
-        'proprietaire_id',
+        'proprietaire_id'
     ];
 
     protected $casts = [
-        'prix_journalier' => 'decimal:2',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime',
+        'date_ajout' => 'datetime',
+        'etat' => 'string'
     ];
 
-    // Relations
     public function categorie()
     {
         return $this->belongsTo(Categorie::class);
@@ -38,11 +36,12 @@ class Objet extends Model
 
     public function images()
     {
-        return $this->hasMany(Image::class, 'objet_id');
+        return $this->hasMany(Image::class);
     }
 
-    /*public function annonces()
+    public function annonces()
     {
         return $this->hasMany(Annonce::class);
-    }*/
+    }
 }
+

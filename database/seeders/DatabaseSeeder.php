@@ -24,6 +24,16 @@ class DatabaseSeeder extends Seeder
             UtilisateurSeeder::class,
             ObjetSeeder::class,
             ImageSeeder::class,
+            AnnonceSeeder::class,
+            ReservationSeeder::class,
+            EvaluationOnPartnerSeeder::class,
+            EvaluationOnClientSeeder::class,
+            EvaluationOnAnnonceSeeder::class,
+            ReclamationSeeder::class,
+            NotificationSeeder::class,
+            PaiementClientSeeder::class,
+            PaiementPartenaireSeeder::class,
+
         ]);
     }
 }
