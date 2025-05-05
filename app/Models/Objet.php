@@ -44,3 +44,4 @@ class Objet extends Model
         return $this->hasMany(Annonce::class);
     }
 }
+

@@ -17,3 +17,4 @@ Route::get('/reservations', [AccueilController::class, 'reservations'])->name("r
 
 //profile
 // Route::get('/profile', [AccueilController::class], 'profile')->name("/profile");
+

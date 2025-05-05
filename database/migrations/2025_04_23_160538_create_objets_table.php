@@ -14,6 +14,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('ville');
             $table->enum('etat', ['neuf', 'bon_etat', 'use']);
+
             $table->foreignId('categorie_id')->constrained()->onDelete('cascade');
             $table->foreignId('proprietaire_id')->constrained('utilisateurs')->onDelete('cascade');
             $table->timestamps();

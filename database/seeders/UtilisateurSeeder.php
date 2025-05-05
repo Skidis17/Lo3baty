@@ -15,6 +15,7 @@ class UtilisateurSeeder extends Seeder
                 'nom' => 'Mohamed',
                 'prenom' => 'Partenaire',
                 'surnom' => 'MedBensPartner1',
+
                 'email' => 'partner@example.com',
                 'mot_de_passe' => Hash::make('password'),
                 'role' => 'partenaire',
@@ -26,6 +27,7 @@ class UtilisateurSeeder extends Seeder
                 'nom' => 'Omar',
                 'prenom' => 'Client',
                 'surnom' => 'OmarBensClient1',
+
                 'email' => 'client@example.com',
                 'mot_de_passe' => Hash::make('password'),
                 'role' => 'client',

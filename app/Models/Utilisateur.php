@@ -30,10 +30,12 @@ class Utilisateur extends Model
     protected $dates = ['date_inscription'];
 
     // Relations
+
     public function objets()
     {
         return $this->hasMany(Objet::class, 'proprietaire_id');
     }
+
 
     public function annonces()
     {
@@ -61,3 +63,4 @@ class Utilisateur extends Model
         $this->attributes['mot_de_passe'] = Hash::make($value);
     }
 }
+

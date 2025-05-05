@@ -16,6 +16,7 @@ class ObjetSeeder extends Seeder
                 'description' => 'Un set complet de Lego Star Wars.',
                 'ville' => 'Tétouan',
                 'etat' => 'neuf',
+
                 'categorie_id' => 3,
                 'proprietaire_id' => 1,
             ],
@@ -24,6 +25,7 @@ class ObjetSeeder extends Seeder
                 'description' => 'Voiture rapide et résistante.',
                 'ville' => 'Tétouan',
                 'etat' => 'bon_etat',
+
                 'categorie_id' => 5,
                 'proprietaire_id' => 1,
             ],

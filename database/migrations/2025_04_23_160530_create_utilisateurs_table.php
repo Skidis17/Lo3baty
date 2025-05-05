@@ -13,6 +13,7 @@ return new class extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->string('surnom')->unique();
+
             $table->string('email')->unique();
             $table->string('mot_de_passe');
             $table->enum('role', ['client', 'partenaire', 'admin']);

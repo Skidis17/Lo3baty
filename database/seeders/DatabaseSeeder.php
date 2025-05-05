@@ -33,6 +33,7 @@ class DatabaseSeeder extends Seeder
             NotificationSeeder::class,
             PaiementClientSeeder::class,
             PaiementPartenaireSeeder::class,
+
         ]);
     }
 }
