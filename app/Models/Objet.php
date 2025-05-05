@@ -43,5 +43,10 @@ class Objet extends Model
     {
         return $this->hasMany(Annonce::class);
     }
+
+    public function evaluations()
+    {
+    return $this->hasMany(Evaluation::class, 'objet_id');
+    }
 }
 

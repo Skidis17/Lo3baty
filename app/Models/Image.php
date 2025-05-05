@@ -15,5 +15,10 @@ class Image extends Model
     {
         return $this->belongsTo(Objet::class);
     }
+
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];    
 }
 

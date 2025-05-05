@@ -18,6 +18,7 @@ class Reservation extends Model
         'evaluation_date',
         'is_evaluation',
         'is_email',
+
     ];
 
     protected $casts = [
@@ -45,4 +46,5 @@ class Reservation extends Model
 {
     return $this->hasOne(Evaluation_on_partners::class);
 }
+
 }
