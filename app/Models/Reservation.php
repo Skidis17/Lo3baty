@@ -26,16 +26,16 @@ class Reservation extends Model
     ];
 
     // Relations
-    public function utilisateur()
+    public function client()
     {
         return $this->belongsTo(Utilisateur::class, 'client_id');
     }
 
     public function annonce()
     {
-        return $this->belongsTo(Annonce::class);
+        return $this->belongsTo(Annonce::class, 'annonce_id');
     }
-    
+ 
     public function objet()
     {
         return $this->belongsTo(Objet::class);

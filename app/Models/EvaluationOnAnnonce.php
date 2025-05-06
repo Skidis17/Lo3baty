@@ -9,7 +9,6 @@ class EvaluationOnAnnonce extends Model
 {
     use HasFactory;
 
-    protected $table = 'evaluation_on_annonce';
 
     protected $fillable = [
         'objet_id',

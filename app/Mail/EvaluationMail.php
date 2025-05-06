@@ -16,7 +16,7 @@ class EvaluationMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public $utilisateur;
+    public $client;
     public $reservation;
     public $objet;
 
@@ -24,7 +24,7 @@ class EvaluationMail extends Mailable
     { 
        
         $this->reservation = $reservation;
-        $this->utilisateur = $reservation->utilisateur;
+        $this->client = $reservation->client;
         $this->objet = $reservation->objet; 
     }
     
@@ -33,7 +33,7 @@ class EvaluationMail extends Mailable
         return $this->subject('Merci pour votre réservation chez Lo3baty     !')
                     ->view('client.evaluation_email')
                     ->with([
-                        'utilisateur' => $this->utilisateur,
+                        'client' => $this->client,
                         'reservation' => $this->reservation,
                         'objet' => $this->objet,
                     ]);

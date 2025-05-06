@@ -34,7 +34,7 @@ class AccueilController extends Controller
     public function annonceById($id)
     {
     $annonce = Annonce::with('objet', 'objet.images')->findOrFail($id);
-    return view('client.annonce', compact('annonce'));
+    return view('client.details_annonce', compact('annonce'));
     }
 
     }

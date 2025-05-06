@@ -10,7 +10,9 @@ class Objet extends Model
     use HasFactory;
 
     protected $fillable = [
+        'date_ajout',
         'nom',
+        'tranche_age',
         'description',
         'ville',
         'prix_journalier',
@@ -20,9 +22,9 @@ class Objet extends Model
     ];
 
     protected $casts = [
-        'date_ajout' => 'datetime',
         'etat' => 'string'
     ];
+    protected $dates = ['date_ajout'];
 
     public function categorie()
     {

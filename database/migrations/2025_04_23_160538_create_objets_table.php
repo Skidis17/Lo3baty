@@ -12,9 +12,10 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->text('description')->nullable();
+            $table->enum('tranche_age', ['<3','3-5','6-8','9-12','13+']);
             $table->string('ville');
             $table->enum('etat', ['neuf', 'bon_etat', 'use']);
-            $table->foreignId('categorie_id')->constrained()->onDelete('cascade');
+            $table->foreignId('categorie_id')->constrained('categories')->onDelete('cascade');
             $table->foreignId('proprietaire_id')->constrained('utilisateurs')->onDelete('cascade');
             $table->timestamps();
         });

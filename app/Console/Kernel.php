@@ -11,12 +11,15 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         \App\Console\Commands\SendEvaluationEmails::class,
         \App\Console\Commands\RunScheduler::class,
+        \App\Console\Commands\CheckReservations::class
     ];
 
 
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('send:evaluation-emails')->everyMinute();
+        $schedule->command('reservations:check')->hourly();
+
     }
     
 
