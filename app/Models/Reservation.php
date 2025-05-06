@@ -42,7 +42,7 @@ class Reservation extends Model
     }
 
     public function evaluationOnPartner()
-{
-    return $this->hasOne(Evaluation_on_partners::class);
-}
+    {
+        return $this->hasOne(EvaluationOnPartner::class, 'reservation_id');
+    }
 }

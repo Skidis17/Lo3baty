@@ -35,8 +35,8 @@ class Annonce extends Model
         return $this->hasMany(Reservation::class);
     }
     
-    public function utilisateur()
+    public function proprietaire()
     {
-    return $this->belongsTo(Utilisateur::class);
+    return $this->belongsTo(Utilisateur::class, 'proprietaire_id');
     }
 }

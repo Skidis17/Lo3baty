@@ -6,52 +6,54 @@
     <title>Mes Réservations</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Lato', sans-serif; }
+        body {
+        font-family: 'Nunito', sans-serif;
+    }
         .statut-badge {
             padding: 0.25rem 0.75rem;
             border-radius: 9999px;
             font-size: 0.875rem;
         }
         .statut-en_attente { background-color: #fef3c7; color: #d97706; }
-        .statut-acceptée { background-color: #d1fae5; color: #059669; }
-        .statut-archivee { background-color: #f3f4f6; color: #6b7280; }
+        .statut-acceptée { background-color: #d1fae5; color:rgb(13, 122, 88); }
+        .statut-passé { background-color: #f3f4f6; color: #6b7280; }
         [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="bg-gray-100" x-data="{ 
+<body class="bg-white-100" x-data="{ 
     activeStatus: 'all',
     selectedReservation: null,
     getStatusColor(status) {
         return {
             'en_attente': 'statut-en_attente',
             'acceptée': 'statut-acceptée',
-            'archivee': 'statut-archivee'
+            'passé': 'statut-passé'
         }[status] || 'bg-gray-100';
     }}" x-cloak>
     
     @include('components.navbar')
 
     <!-- Sidebar -->
-    <div class="fixed left-0 top-0 h-full w-64 bg-white shadow-lg p-4 z-10">
-        <h2 class="text-lg font-semibold mb-4">Filtrer par statut</h2>
+    <div class="fixed left-0 top-15 h-full w-64 bg-white p-4 z-10">
+        <h2 class="text-lg font-bold mb-3"> Filtrer par statut</h2>
         <nav class="space-y-2">
-            <template x-for="status in ['all', 'en_attente', 'acceptée', 'archivee']" :key="status">
+            <template x-for="status in ['all', 'en_attente', 'acceptée', 'passé']" :key="status">
                 <button 
                     @click="activeStatus = status"
                     :class="activeStatus === status ? 
-                        {'bg-blue-100 text-blue-600': status === 'all',
-                         'bg-yellow-100 text-yellow-600': status === 'en_attente',
-                         'bg-green-100 text-green-600': status === 'acceptée',
-                         'bg-gray-100 text-gray-600': status === 'archivee'} : 
-                        'text-gray-600 hover:bg-gray-100'"
+                        {'bg-purple-100 text-purple-700': status === 'all',
+                         'bg-yellow-100 text-yellow-700': status === 'en_attente',
+                         'bg-green-100 text-green-700': status === 'acceptée',
+                         'bg-gray-100 text-gray-700': status === 'passé'} : 
+                        'text-gray-600 hover:bg-gray-200'"
                     class="w-full text-left px-4 py-2 rounded-lg transition-colors">
                     <span x-text="{
                         all: 'Toutes les réservations',
                         en_attente: 'En attente',
                         acceptée: 'Acceptée',
-                        archivee: 'Archivées'
+                        passé: 'Passé'
                     }[status]"></span>
                 </button>
             </template>
@@ -65,30 +67,30 @@
         <div class="space-y-6">
             @forelse($reservations as $reservation)
                 @php
-                    // Dates avec valeurs absolues
+                    // Dates
                     $dateDebut = $reservation->date_debut ? Carbon\Carbon::parse($reservation->date_debut) : null;
                     $dateFin = $reservation->date_fin ? Carbon\Carbon::parse($reservation->date_fin) : null;
                     $duree = $dateDebut && $dateFin ? abs($dateDebut->diffInDays($dateFin)) : 0;
                     
-                    // Relations avec vérification null
+                    // Relations
                     $annonce = $reservation->annonce ?? null;
                     $objet = $annonce->objet ?? null;
                     $image = $objet?->images->first() ?? null;
                     
-                    // Calculs financiers avec valeurs absolues
+                    // Calculs financiers
                     $prixJournalier = $annonce->prix_journalier ?? 0;
                     $prixTotal = abs($prixJournalier * $duree);
 
                     // Info partenaire
-                    $evaluationDate = $reservation->evaluation_on_partners ? 
-                    $reservation->evaluation_on_partners->created_at->translatedFormat('d M Y') : 
-                    'Non évalué';    
-                    $notePartenaire = $annonce?->utilisateur?->partnerEvaluations?->avg('note') ?? 0;
-
+                    $partenaire = $annonce?->proprietaire;
+                    $estPartenaire = $partenaire && strtolower(trim($partenaire->role)) === 'partenaire';                    
+                    $notePartenaire = $estPartenaire 
+                        ? ($partenaire->evaluationsPartenaire->avg('note') ?? 0)
+                        : 0;
                 @endphp
 
                 <div 
-                    class="bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow p-6 cursor-pointer group relative"
+                    class="bg-blue rounded-xl border border-gray-300 shadow-sm hover:shadow-md p-4 cursor-pointer group relative"
                     x-show="activeStatus === 'all' || activeStatus === '{{ $reservation->statut }}'"
                     @click="selectedReservation = {
                         objet: @js($objet?->nom ?? 'N/A'),
@@ -98,47 +100,49 @@
                         duree: @js($duree),
                         prixJournalier: @js(number_format(abs($prixJournalier), 0, ',', ' ') . ' DH'),
                         prixTotal: @js(number_format($prixTotal, 0, ',', ' ') . ' DH'),
+                        annonceId: @js($annonce?->id ?? 'N/A'),
                         statut: @js($reservation->statut),
                         evaluationDate: @js($reservation->evaluation_date ? Carbon\Carbon::parse($reservation->evaluation_date)->translatedFormat('d M Y') : 'Non évalué'),
-                        emailStatus: @js($reservation->is_email ? 'Email dévaluation été reçu' : 'Email dévaluation na pas été encore reçu'),
+                        emailStatus: @js($reservation->is_email ? 'Email devaluation reçu (Voir boite mail!)' : 'Email devaluation non reçu'),
                         details: @js($objet?->description ?? 'Aucune description disponible'),
-                        partenaire: {
-                            nom: @js($partenaire->nom ?? 'N/A'),
-                            email: @js($partenaire->email ?? 'N/A'),
-                            telephone: @js($partenaire->telephone ?? 'N/A'),
-                            note: @js(number_format($notePartenaire, 1)),
-                            entreprise: @js($annonce->partenaire->nom_entreprise ?? 'N/A')
+                        partenaire: {  
+                            estPartenaire: @js($estPartenaire), 
+                        nom: @js($estPartenaire ? ($partenaire->nom ?? 'N/A') : 'N/A'),
+                        email: @js($estPartenaire ? ($partenaire->email ?? 'N/A') : 'N/A'),
+                        note: @js($estPartenaire ? number_format($notePartenaire, 1) : 'N/A')
                         }
                     }"
                 >
                     <div class="flex justify-between items-start">
-                        <div class="flex-1">
-                            <div class="flex items-start gap-4">
+                        <div class="">
+                            <div class="flex items-start gap-9">
                                 @if($image)
                                 <img src="{{ asset($image->url) }}" 
                                      class="w-24 h-24 object-cover rounded-lg" 
                                      alt="Image du jouet">
                                 @endif
                                 <div class="flex-1">
-                                    <h2 class="text-lg font-semibold">
+                                <h2 class=" text-xl font-bold text-black">
                                         {{ $objet->nom ?? 'Annonce #'.$reservation->annonce_id }}
                                     </h2>
-                                    <div class="text-sm text-gray-600 mt-2">
+                                    <div class="text-sm text-black-600 mt-2">
                                         @if($dateDebut && $dateFin)
                                             {{ $dateDebut->translatedFormat('d M Y') }} - 
                                             {{ $dateFin->translatedFormat('d M Y') }}
-                                            <span class="mx-2">•</span>
+                                            <br>
+                                    <div class="mt-2 text-xs ">
                                             {{ $duree }} jours
                                         @else
                                             Dates non spécifiées
                                         @endif
                                     </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="flex flex-col items-end gap-2">
-                            <span class="text-lg font-semibold text-blue-600">
+                        <div class="flex flex-col items-end gap-4 mt-2 mr-4">
+                            <span class="text-3xl font-bold text-black-100">
                                 {{ number_format($prixTotal, 0, ',', ' ') }} DH
                             </span>
                             <span class="statut-badge {{ [
@@ -151,7 +155,7 @@
                         </div>
                     </div>
 
-                    <div class="mt-4 pt-4 border-t border-gray-100">
+                    <!-- <div class="mt-4 pt-4 border-t border-black-100">
                         <div class="flex justify-between items-center">
                             <span class="text-sm text-gray-600">
                                 @if($reservation->evaluation_date)
@@ -161,11 +165,11 @@
                                 @endif
                             </span>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             @empty
                 <div class="col-span-full text-center py-12 bg-white rounded-lg">
-                    <p class="text-gray-500">Aucune réservation trouvée</p>
+                    <p class="text-black-500">Aucune réservation trouvée</p>
                 </div>
             @endforelse
         </div>
@@ -175,44 +179,56 @@
     <div x-show="selectedReservation !== null" 
          class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
          @click.away="selectedReservation = null">
-        <div class="bg-white rounded-xl max-w-2xl w-full p-6">
-            <div class="flex justify-between items-start mb-6">
-                <h3 class="text-2xl font-bold" x-text="selectedReservation.objet"></h3>
+        <div class="bg-white rounded-xl max-w-2xl w-full p-8">
+            <div class="flex justify-between items-start mb-2"> <!-- Changed mb-6 to mb-2 -->
+                <div>
+                    <h3 class="text-2xl font-bold mb-1" x-text="selectedReservation.objet"></h3>
+                    <div class="flex text-sm mt-1">
+                        <span class="text-gray-500">ID Annonce:</span>
+                        <span class="font-mono text-gray-700 ml-1 mb-3" x-text="selectedReservation.annonceId"></span>
+                    </div>
+                </div>
+
                 <button @click="selectedReservation = null" class="text-gray-500 hover:text-gray-700">
-                    ✕
+                ✕
                 </button>
+
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="space-y-4">
                     <div>
-                        <p class="text-sm text-gray-500">Période de location</p>
+                        <p class="text-sm text-gray-500 mb-2">Période de location</p>
                         <p class="font-semibold" x-text="`${selectedReservation.dateDebut} - ${selectedReservation.dateFin}`"></p>
-                        <p class="text-sm text-gray-600" x-text="`(${selectedReservation.duree} jours)`"></p>
+                        <p class="text-sm text-black-600" x-text="`(${selectedReservation.duree} jours)`"></p>
                     </div>
                     
                     <div>
-                        <p class="text-sm text-gray-500">Détails financiers</p>
-                        <div class="space-y-2 mt-2">
-                            <div class="flex justify-between">
+                        <p class="text-sm text-gray-500 mb-2">Détails financiers</p>
+                        <div class="">
+                            <div class="flex justify-between ">
                                 <span>Prix journalier:</span>
-                                <span x-text="selectedReservation.prixJournalier"></span>
+                                <span class="font-bold" x-text="selectedReservation.prixJournalier"></span>
                             </div>
                             <div class="flex justify-between">
-                                <span>Total payé:</span>
-                                <span class="text-green-600" x-text="selectedReservation.prixTotal"></span>
+                                <span>Total (à) payé(r):</span>
+                                <span class="text-green-600 font-bold" x-text="selectedReservation.prixTotal"></span>
                             </div>
-        
                         </div>
                     </div>
 
-                    <div>
-                        <p class="text-sm text-gray-500">Partenaire</p>
-                        <div class="mt-2 space-y-1">
-                            <p x-text="`Nom: ${selectedReservation.partenaire.entreprise}`"></p>
-                            <p x-text="`Email: ${selectedReservation.partenaire.email}`"></p>
-                            <p x-text="`Note: ${selectedReservation.partenaire.note}/5`"></p>
-                        </div>
+                    <div class="mt-2 space-y-1">
+                    <p class="text-sm text-gray-500 mb-2">Détails de Partenaire</p>
+                        <template x-if="selectedReservation.partenaire && selectedReservation.partenaire.nom !== 'N/A'">
+                            <div>
+                                <p class="font-medium" x-text="'Nom: ' + selectedReservation.partenaire.nom"></p>
+                                <p x-text="'Email: ' + selectedReservation.partenaire.email"></p>
+                                <p x-text="'Note moyenne:  ' + (selectedReservation.partenaire.note || '0') + '/ 5'"></p>
+                            </div>
+                        </template>
+                        <template x-if="!selectedReservation.partenaire || selectedReservation.partenaire.nom === 'N/A'">
+                            <p class="text-black-500">Information partenaire non disponible</p>
+                        </template>
                     </div>
                 </div>
 
@@ -224,21 +240,21 @@
                     </div>
                     
                     <div>
-                        <p class="text-sm text-gray-500">État de la réservation</p>
+                        <p class="text-sm text-gray-500 mb-2">État de la réservation</p>
                         <span class="statut-badge" 
                               :class="getStatusColor(selectedReservation.statut)"
                               x-text="selectedReservation.statut ? selectedReservation.statut.replace('_', ' ') : 'N/A'"></span>
                     </div>
 
                     <div>
-                        <p class="text-sm text-gray-500">Description</p>
-                        <p class="text-gray-600" x-text="selectedReservation.details"></p>
+                        <p class="text-sm text-gray-500 mt-0">Description</p>
+                        <p class="text-black-600" x-text="selectedReservation.details"></p>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-6 pt-4 border-t border-gray-100">
-                <div class="flex justify-between text-sm text-gray-600">
+            <div class="mt-8 pt-1 border-t border-black-100">
+                <div class="flex justify-between text-sm text-gray-600 mt-3 mb-0">
                     <span x-text="selectedReservation.emailStatus"></span>
                     <span x-text="`Évaluation: ${selectedReservation.evaluationDate}`"></span>
                 </div>

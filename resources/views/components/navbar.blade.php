@@ -8,24 +8,24 @@
 
             <!-- Navigation Links - Improved spacing and hover effects -->
             <div class="hidden md:flex items-center space-x-8 ml-10">
-                <a href="{{ route('accueil') }}" class="relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors duration-200">
+                <a href="{{ route('accueil') }}" class="relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-red-600 transition-colors duration-200">
                     <span class="relative group">
                         Accueil
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-600 transition-all duration-300 group-hover:w-full"></span>
                     </span>
                 </a>
                 
-                <a href="{{ route('annonces') }}" class="relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors duration-200">
+                <a href="{{ route('annonces') }}" class="relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-red-600 transition-colors duration-200">
                     <span class="relative group">
                         Annonces
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-600 transition-all duration-300 group-hover:w-full"></span>
                     </span>
                 </a>
                 
-                <a href="{{ route('reservations') }}" class="relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors duration-200">
+                <a href="{{ route('reservations') }}" class="relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-red-600 transition-colors duration-200">
                     <span class="relative group">
                         Réservations
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-red-600 transition-all duration-300 group-hover:w-full"></span>
                     </span>
                 </a>
             </div>

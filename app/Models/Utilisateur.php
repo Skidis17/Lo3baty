@@ -45,16 +45,26 @@ class Utilisateur extends Model
         return $this->hasMany(Reservation::class, 'client_id');
     }
 
-    public function partnerEvaluations()
+    public function evaluationsPartenaire()
     {
-    return $this->hasMany(Evaluation_on_partners::class, 'partner_id');
+    return $this->hasMany(EvaluationOnPartner::class, 'partner_id');
     }
 
-    public function clientEvaluations()
+    public function evaluationsClient()
     {
-    return $this->hasMany(Evaluation_on_partners::class, 'client_id');
+    return $this->hasMany(EvaluationOnPartner::class, 'client_id');
+    }
+
+    public function getNoteMoyenneAttribute()
+    {
+        return $this->evaluationsPartenaire->avg('note') ?? 0;
     }
     
+    public function isPartner()
+    {
+    return $this->role === 'partenaire';
+    }
+
     // Mutator pour le mot de passe
     public function setMotDePasseAttribute($value)
     {
