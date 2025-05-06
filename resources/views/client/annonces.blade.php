@@ -82,20 +82,28 @@
                 </div>
             </div>
         </div>
-
+        
         <section class="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
+            
             @forelse ($objets as $objet)
+               @php
+                    $annonce = $objet->annonces->first();
+                  
+                @endphp 
+                
                 <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
                     <a href="#">
-                        <img src="{{ $objet->image_url ?? 'https://via.placeholder.com/288x320' }}" alt="{{ $objet->nom }}" class="h-80 w-72 object-cover rounded-t-xl" />
+                        <img src="{{ $objet->image }}" alt="{{ $objet->nom }}" class="h-80 w-72 object-cover rounded-t-xl" />
                         <div class="px-4 py-3 w-72">
                             <p class="text-lg font-bold text-black truncate block capitalize">{{ $objet->nom }}</p>
                             <div class="flex items-center justify-between mt-2">
                                 <p class="text-lg font-semibold text-black">{{ $objet->prix }} Dhs</p>
-                                <a href="" 
+                                @if($annonce)
+                                <a href="{{ route('annonceID', ['id' => $annonce->id]) }}" 
                                 class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm inline-block">
                                 Découvrir
                                 </a>
+                                @endif
                             </div>
                         </div>
                     </a>

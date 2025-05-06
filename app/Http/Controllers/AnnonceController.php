@@ -10,51 +10,55 @@ class AnnonceController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Objet::query();
-
+        $query = Objet::query()
+            ->with('annonces')
+            ->join('annonces', 'objets.id', '=', 'annonces.objet_id') // join annonces table
+            ->select('objets.*'); // ensure only objet columns are selected to avoid conflicts
+    
         if ($request->filled('search')) {
-            $query->where('nom', 'like', '%' . $request->search . '%');
+            $query->where('objets.nom', 'like', '%' . $request->search . '%');
         }
-
+    
         if ($request->has('ages')) {
-            $query->whereIn('tranche_age', $request->ages); 
+            $query->whereIn('objets.tranche_age', $request->ages); 
         }
-
+    
         if ($request->has('prices')) {
             $query->where(function ($q) use ($request) {
                 foreach ($request->prices as $price) {
                     if ($price == '150+') {
-                        $q->orWhere('prix', '>', 150);
+                        $q->orWhere('annonces.prix_journalier', '>', 150);
                     } else {
                         [$min, $max] = explode('-', $price);
-                        $q->orWhereBetween('prix', [(int) $min, (int) $max]);
+                        $q->orWhereBetween('annonces.prix_journalier', [(int) $min, (int) $max]);
                     }
                 }
             });
         }
-
+    
         if ($request->has('types')) {
-            $query->whereIn('type', $request->types); 
+            $query->whereIn('objets.type', $request->types); 
         }
-
+    
         if ($request->filled('sort')) {
             switch ($request->sort) {
                 case 'price_asc':
-                    $query->orderBy('prix', 'asc');
+                    $query->orderBy('annonces.prix_journalier', 'asc');
                     break;
                 case 'price_desc':
-                    $query->orderBy('prix', 'desc');
+                    $query->orderBy('annonces.prix_journalier', 'desc');
                     break;
                 case 'newest':
-                    $query->orderBy('created_at', 'desc');
+                    $query->orderBy('objets.created_at', 'desc');
                     break;
             }
         }
-
+    
         $objets = $query->paginate(9);
-
+    
         return view('client.annonces', compact('objets'));
     }
+    
 
   
 }
