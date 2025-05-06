@@ -368,7 +368,7 @@
 </div>
 
 <!-- Passer les données PHP à JavaScript -->
-<!-- <script>
+ <script>
     window.reservationData = {
         reservedPeriods: @json($reservedPeriods),
         annonceStartDate: '{{ \Carbon\Carbon::parse($annonce->date_debut)->format("Y-m-d") }}',
