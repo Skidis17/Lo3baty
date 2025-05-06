@@ -17,6 +17,7 @@ class Utilisateur extends Model
         'email', 
         'mot_de_passe', 
         'role', 
+        'is_active',
         'image_profil', 
         'cin_recto', 
         'cin_verso'
@@ -64,6 +65,28 @@ class Utilisateur extends Model
     {
     return $this->role === 'partenaire';
     }
+    
+    public function getAuthPassword()
+    {
+      return $this->mot_de_passe;
+    }
+  
+    
+  // Méthodes pratiques
+  public function activate()
+  {
+    $this->update(['is_active' => true]);
+  }
+
+  public function deactivate()
+  {
+    $this->update(['is_active' => false]);
+  }
+
+  public function isActive(): bool
+  {
+    return $this->is_active;
+  }
 
     // Mutator pour le mot de passe
     public function setMotDePasseAttribute($value)
