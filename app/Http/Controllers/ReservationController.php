@@ -2,44 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Annonce;
 use App\Models\Reservation;
+use App\Models\Annonce;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
-    public function store(Request $request, Annonce $annonce)
+    public function store(Request $request)
     {
         $request->validate([
+            'annonce_id' => 'required|exists:annonces,id',
             'date_debut' => 'required|date|after_or_equal:today',
-            'date_fin' => 'required|date|after:date_debut'
+            'date_fin' => 'required|date|after_or_equal:date_debut',
         ]);
 
-        // Vérifier les conflits de dates
-        $existingReservation = Reservation::where('annonce_id', $annonce->id)
-            ->where(function($query) use ($request) {
-                $query->whereBetween('date_debut', [$request->date_debut, $request->date_fin])
-                      ->orWhereBetween('date_fin', [$request->date_debut, $request->date_fin])
-                      ->orWhere(function($query) use ($request) {
-                          $query->where('date_debut', '<=', $request->date_debut)
-                                ->where('date_fin', '>=', $request->date_fin);
-                      });
-            })
-            ->exists();
+        $annonce = Annonce::findOrFail($request->annonce_id);
 
-        if ($existingReservation) {
-            return back()->withErrors(['date' => 'Ces dates ne sont pas disponibles']);
+        if (!$annonce->isAvailable($request->date_debut, $request->date_fin)) {
+            return back()->with('error', 'Cette période est déjà réservée. Veuillez choisir d\'autres dates.');
         }
 
-        Reservation::create([
+        $reservation = Reservation::create([
             'client_id' => Auth::id(),
-            'annonce_id' => $annonce->id,
+            'annonce_id' => $request->annonce_id,
             'date_debut' => $request->date_debut,
             'date_fin' => $request->date_fin,
-            'statut' => 'en attente'
+            'statut' => 'en attente',
         ]);
 
-        return redirect()->back()->with('success', 'Votre demande de réservation a été envoyée');
+        return back()->with('success', 'Votre demande de réservation a été envoyée avec succès.');
     }
 }
