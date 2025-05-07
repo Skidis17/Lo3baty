@@ -86,7 +86,7 @@
                     </div>
                     
                     <div class="flex items-center">
-                        <input type="radio" id="livraison" name="livraison" value="1" class="mr-2">
+                        <input type="radio" id="avec_livraison" name="livraison" value="1" class="mr-2">
                         <label for="avec_livraison" class="flex-grow">
                             <span class="font-medium">Avec livraison</span>
                             <p class="text-sm text-gray-600">Livraison à votre domicile (+5% du prix total)</p>
