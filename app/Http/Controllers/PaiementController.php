@@ -50,7 +50,7 @@ public function process(Request $request)
     // Calcul du montant
     $days = $reservation->date_debut->diffInDays($reservation->date_fin) + 1;
     $baseAmount = $reservation->annonce->prix_journalier * $days;
-    $deliveryAmount = $request->livraison ? $baseAmount * 1.05 : 0;
+    $deliveryAmount = $request->livraison ? $baseAmount * 0.05 : 0;
     $totalAmount = $baseAmount + $deliveryAmount;
 
     // Enregistrement du paiement
