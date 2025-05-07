@@ -369,7 +369,7 @@
 </div>
 
 <!-- Passer les données PHP à JavaScript -->
-<script>
+<!-- <script>
     window.reservationData = {
         reservedPeriods: @json($reservedPeriods),
         annonceStartDate: '{{ \Carbon\Carbon::parse($annonce->date_debut)->format("Y-m-d") }}',
@@ -378,7 +378,7 @@
         locale: 'fr',
         currency: 'MAD'
     };
-</script> 
+</script>  -->
 
  <!-- Initialiser Swiper pour la galerie d'images -->
  @if($annonce->objet->images->isNotEmpty())

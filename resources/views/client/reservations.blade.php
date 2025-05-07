@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mes Réservations</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        body {
+        /* body {
         font-family: 'Nunito', sans-serif;
-    }
-        .statut-badge {
+    }*/
+        .statut-badge { 
             padding: 0.25rem 0.75rem;
             border-radius: 9999px;
             font-size: 0.875rem;

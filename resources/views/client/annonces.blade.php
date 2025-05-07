@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>Accueil</title>
+    
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100">

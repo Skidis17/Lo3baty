@@ -9,7 +9,7 @@ class EvaluationController extends Controller
 {
     public function create(Reservation $reservation)
     {
-        return view('evaluations.eval_Annonce', [
+        return view('client.eval_Annonce', [
             'reservation' => $reservation,
             'annonce' => $reservation->annonce,
             'partner' => $reservation->annonce->proprietaire,
@@ -30,7 +30,6 @@ class EvaluationController extends Controller
             'client_id' => 'required|exists:utilisateurs,id'
         ]);
 
-        // Create evaluations
         EvaluationOnAnnonce::create([
             'reservation_id' => $validated['reservation_id'],
             'objet_id' => $validated['objet_id'],
