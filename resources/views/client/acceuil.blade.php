@@ -234,7 +234,7 @@
             <div>
                 <h4 class="text-lg font-semibold mb-4">Navigation</h4>
                 <ul class="space-y-2">
-                    <li><a href="{{ route('accueil') }}" class="text-gray-400 hover:text-white">Accueil</a></li>
+                    <li><a href="{{ route('acceuil') }}" class="text-gray-400 hover:text-white">Accueil</a></li>
                     <li><a href="{{ route('annonces') }}" class="text-gray-400 hover:text-white">Annonces</a></li>
                     <li><a href="{{ route('reservations') }}" class="text-gray-400 hover:text-white">Réservations</a></li>
                 </ul>

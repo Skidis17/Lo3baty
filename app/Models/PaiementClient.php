@@ -15,7 +15,10 @@ class PaiementClient extends Model
         'methode',
         'date_paiement',
         'etat',
+        'livraison',
+        'montant_livraison',
     ];
+    
 
     protected $casts = [
         'date_paiement' => 'datetime',

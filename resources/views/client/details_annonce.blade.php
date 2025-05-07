@@ -20,6 +20,7 @@
     @stack('styles')
 </head>
 <body class="bg-gray-50">
+    @include('components.navbar')
     <div class="min-h-screen">
 @section('content')
 <div class="container mx-auto px-4 py-8">
@@ -368,7 +369,7 @@
 </div>
 
 <!-- Passer les données PHP à JavaScript -->
- <script>
+<script>
     window.reservationData = {
         reservedPeriods: @json($reservedPeriods),
         annonceStartDate: '{{ \Carbon\Carbon::parse($annonce->date_debut)->format("Y-m-d") }}',
@@ -377,7 +378,7 @@
         locale: 'fr',
         currency: 'MAD'
     };
-</script> -->
+</script> 
 
  <!-- Initialiser Swiper pour la galerie d'images -->
  @if($annonce->objet->images->isNotEmpty())

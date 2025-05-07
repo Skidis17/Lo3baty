@@ -13,7 +13,8 @@ return new class extends Migration {
             $table->foreignId('annonce_id')->constrained('annonces')->cascadeOnDelete();
             $table->date('date_debut');
             $table->date('date_fin');
-            $table->string('statut');
+            $table->boolean('is_email')->default(0);
+            $table->enum('statut', ['en_attente', 'confirmée', 'refusée'])->default('en_attente');
             $table->timestamps();
         });
     }

@@ -36,6 +36,15 @@ class AccueilController extends Controller
     $annonce = Annonce::with('objet', 'objet.images')->findOrFail($id);
     return view('client.details_annonce', compact('annonce'));
     }
-
+    public function destroy(Request $request)
+    {
+        //Auth::guard('web')->logout();
+    
+       // $request->session()->invalidate();
+    
+       // $request->session()->regenerateToken();
+    
+        return redirect('/');
+    }
     }
 

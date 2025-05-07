@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
 class Reservation extends Model
 {
     use HasFactory;
@@ -14,13 +13,13 @@ class Reservation extends Model
         'annonce_id',
         'date_debut',
         'date_fin',
-        'statut',
-        'evaluation_date',
-        'is_evaluation',
         'is_email',
+        'statut'
     ];
 
     protected $casts = [
+        'date_debut' => 'datetime',
+        'date_fin' => 'datetime',
         'date_creation' => 'datetime',
         'statut' => 'string'
     ];
@@ -35,12 +34,7 @@ class Reservation extends Model
     {
         return $this->belongsTo(Annonce::class, 'annonce_id');
     }
- 
-    public function objet()
-    {
-        return $this->belongsTo(Objet::class);
-    }
-
+    
     public function evaluationOnPartner()
     {
         return $this->hasOne(EvaluationOnPartner::class, 'reservation_id');

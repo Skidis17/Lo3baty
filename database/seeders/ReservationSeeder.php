@@ -15,14 +15,14 @@ class ReservationSeeder extends Seeder
                 'client_id' => 2,
                 'date_debut' => now()->addDays(1),
                 'date_fin' => now()->addDays(5),
-                'statut' => 'en attente',
+                'statut' => 'en_attente',
             ],
             [
                 'annonce_id' => 2,
                 'client_id' => 2,
                 'date_debut' => now()->addDays(10),
                 'date_fin' => now()->addDays(15),
-                'statut' => 'acceptée',
+                'statut' => 'confirmée',
             ],
         ]);
     }

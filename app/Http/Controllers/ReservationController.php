@@ -16,21 +16,38 @@ class ReservationController extends Controller
             'date_debut' => 'required|date|after_or_equal:today',
             'date_fin' => 'required|date|after_or_equal:date_debut',
         ]);
-
-        $annonce = Annonce::findOrFail($request->annonce_id);
-
-        if (!$annonce->isAvailable($request->date_debut, $request->date_fin)) {
-            return back()->with('error', 'Cette période est déjà réservée. Veuillez choisir d\'autres dates.');
+        
+        $client_id = 1;
+    
+        // Vérification disponibilité
+        $existingReservation = Reservation::where('annonce_id', $request->annonce_id)
+            ->where(function($query) use ($request) {
+                $query->whereBetween('date_debut', [$request->date_debut, $request->date_fin])
+                      ->orWhereBetween('date_fin', [$request->date_debut, $request->date_fin])
+                      ->orWhere(function($query) use ($request) {
+                          $query->where('date_debut', '<=', $request->date_debut)
+                                ->where('date_fin', '>=', $request->date_fin);
+                      });
+            })
+            ->where('statut', '!=', 'confirmée')
+            ->exists();
+    
+        if ($existingReservation) {
+            return back()->with('error', 'Cette période est déjà réservée.');
         }
-
-        $reservation = Reservation::create([
-            'client_id' => Auth::id(),
+    
+        // Stocker les données de réservation en session au lieu de créer la réservation
+        $reservationData = [
+            'client_id' => $client_id,
             'annonce_id' => $request->annonce_id,
             'date_debut' => $request->date_debut,
             'date_fin' => $request->date_fin,
-            'statut' => 'en attente',
-        ]);
-
-        return back()->with('success', 'Votre demande de réservation a été envoyée avec succès.');
+            'statut' => 'en_attente',
+        ];
+    
+        session()->put('pending_reservation', $reservationData);
+    
+        // Rediriger vers la page de paiement
+        return redirect()->route('paiement.show');
     }
 }

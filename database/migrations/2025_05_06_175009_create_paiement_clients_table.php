@@ -12,9 +12,11 @@ return new class extends Migration {
             $table->foreignId('reservation_id')->constrained()->onDelete('cascade');
             $table->foreignId('client_id')->constrained('utilisateurs')->onDelete('cascade');
             $table->decimal('montant', 8, 2);
-            $table->string('methode'); // e.g. carte, paypal
+            $table->enum('methode', ['paypal', 'especes', 'cheque']);
             $table->timestamp('date_paiement');
-            $table->enum('etat', ['effectué', 'annulé', 'en_attente'])->default('effectué');
+            $table->enum('etat', ['effectué', 'annulé', 'en_attente'])->default('en_attente');
+            $table->boolean('livraison')->default(0);
+            $table->decimal('montant_livraison', 8, 2)->default(0);
             $table->timestamps();
         });
     }

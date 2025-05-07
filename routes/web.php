@@ -8,7 +8,7 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\AnnonceDetailsController;
 use App\Http\Controllers\EvaluationController;
 use App\Http\Controllers\UtilisateurController;
-use App\Models\Evaluation;
+use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\ReclamationController;
 use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\AuthController;
@@ -20,7 +20,7 @@ use App\Http\Controllers\Admin\Partenaire_clientController;
 
 
 // acceuil routing
-Route::get('/', [AccueilController::class, 'index'])->name('accueil');
+Route::get('/', [AccueilController::class, 'index'])->name('acceuil');
 
 //annonce
 Route::get('/annonces', [AnnonceController::class, 'index'])->name('annonces');
@@ -30,7 +30,7 @@ Route::get('/reservations', [ReservationHistoriqueController::class, 'reservatio
 
 //Details annonce
 Route::get('/annonces/{id}', [AnnonceDetailsController::class, 'show'])->name('annonceID');
-Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store')->middleware('auth');
+Route::post('/reservation', [ReservationController::class, 'store'])->name('reservation.store');
 Route::get('/utilisateur/surnom/{id}', [UtilisateurController::class,'getSurnom']);
 
 
@@ -110,3 +110,9 @@ Route::post('/partenaires/{partenaire}/toggle-status', [Partenaire_clientControl
 // })->name('evaluations.redirect');
 //profile
 // Route::get('/profile', [AccueilController::class], 'profile')->name("/profile");
+
+// Routes pour le paiement
+Route::get('/paiement', [PaiementController::class, 'show'])->name('paiement.show');
+Route::post('/paiement/process', [PaiementController::class, 'process'])->name('paiement.process');
+Route::post('/logout', [AccueilController::class, 'destroy'])
+    ->name('logout');
