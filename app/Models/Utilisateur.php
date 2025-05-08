@@ -2,15 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
 
-class Utilisateur extends Model
+class Utilisateur extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable;
+  use HasFactory, Notifiable;
 
+  protected $table = 'utilisateurs';
     protected $fillable = [
         'nom', 
         'prenom', 
@@ -23,9 +24,16 @@ class Utilisateur extends Model
         'cin_verso'
     ];
 
+
+    protected $hidden = [
+        'mot_de_passe',
+        'remember_token',
+      ];
     protected $casts = [
         'date_inscription' => 'datetime',
-        'role' => 'string'
+        'role' => 'string',
+        'is_active' => 'boolean',
+        'email_verified_at' => 'datetime',
     ];
 
     protected $dates = ['date_inscription'];
@@ -65,14 +73,17 @@ class Utilisateur extends Model
     {
     return $this->role === 'partenaire';
     }
-    
+
+    // Mutator pour le mot de passe
+   // public function setMotDePasseAttribute($value)
+   // {
+    //    $this->attributes['mot_de_passe'] = Hash::make($value);
+    //}
     public function getAuthPassword()
     {
       return $this->mot_de_passe;
     }
-  
-    
-  // Méthodes pratiques
+    // Méthodes pratiques
   public function activate()
   {
     $this->update(['is_active' => true]);
@@ -87,10 +98,4 @@ class Utilisateur extends Model
   {
     return $this->is_active;
   }
-
-    // Mutator pour le mot de passe
-    public function setMotDePasseAttribute($value)
-    {
-        $this->attributes['mot_de_passe'] = Hash::make($value);
-    }
 }

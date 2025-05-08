@@ -66,7 +66,7 @@ class AuthController extends Controller
       }
 
       $request->session()->regenerate();
-      return redirect()->intended('home');
+      return redirect()->intended('/client/acceuil');
     }
 
     return back()->withErrors([

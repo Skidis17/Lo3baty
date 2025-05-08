@@ -63,8 +63,8 @@ Route::middleware(['auth', \App\Http\Middleware\CheckUserStatus::class])->group(
      ->middleware('auth', 'role:propriétaire');
      
 
-Route::get('/client/home', [HomeController::class, 'clientHome'])
-     ->name('client.home')
+Route::get('/client/acceuil', [HomeController::class, 'clientHome'])
+     ->name('client.acceuil')
      ->middleware('auth');
     // Seulement accessible aux clients
     Route::middleware(\App\Http\Middleware\CheckRole::class.':client')->group(function () {
@@ -114,5 +114,4 @@ Route::post('/partenaires/{partenaire}/toggle-status', [Partenaire_clientControl
 // Routes pour le paiement
 Route::get('/paiement', [PaiementController::class, 'show'])->name('paiement.show');
 Route::post('/paiement/process', [PaiementController::class, 'process'])->name('paiement.process');
-Route::post('/logout', [AccueilController::class, 'destroy'])
-    ->name('logout');
+
