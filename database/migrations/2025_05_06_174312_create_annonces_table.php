@@ -12,7 +12,7 @@ return new class extends Migration {
             $table->date('date_publication');
             $table->date('date_debut');
             $table->date('date_fin');
-            $table->string('statut');
+            $table->enum('statut', ['active', 'archivee'])->default('active');
             $table->decimal('prix_journalier', 8, 2);
             $table->boolean('premium')->default(false);
             $table->enum('premium_periode', ['7', '15', '30'])->nullable()->default(null);

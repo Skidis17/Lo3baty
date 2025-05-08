@@ -17,7 +17,7 @@ class AnnonceSeeder extends Seeder
                 'date_publication' => now(),
                 'date_debut' => now(),
                 'date_fin' => now()->addMonths(3),
-                'statut' => 'disponible',
+                'statut' => 'active',
                 'adresse' => 'Rue des Jouets, Tétouan',
             ],
             [
@@ -27,7 +27,7 @@ class AnnonceSeeder extends Seeder
                 'date_publication' => now(),
                 'date_debut' => now(),
                 'date_fin' => now()->addMonths(3),
-                'statut' => 'disponible',
+                'statut' => 'active',
                 'adresse' => 'Rue des Jouets, Tétouan',
             ],
             [
@@ -37,7 +37,7 @@ class AnnonceSeeder extends Seeder
                 'date_publication' => now(),
                 'date_debut' => now(),
                 'date_fin' => now()->addMonths(3),
-                'statut' => 'disponible',
+                'statut' => 'active',
                 'adresse' => 'Rue des Jouets, Fes',
             ],
         ]);
