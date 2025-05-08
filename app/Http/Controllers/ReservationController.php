@@ -17,7 +17,7 @@ class ReservationController extends Controller
             'date_fin' => 'required|date|after_or_equal:date_debut',
         ]);
         
-        $client_id = 1;
+        $client_id = auth()->id();
     
         // Vérification disponibilité
         $existingReservation = Reservation::where('annonce_id', $request->annonce_id)

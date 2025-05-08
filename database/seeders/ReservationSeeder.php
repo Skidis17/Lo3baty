@@ -12,14 +12,14 @@ class ReservationSeeder extends Seeder
         Reservation::insert([
             [
                 'annonce_id' => 1,
-                'client_id' => 2,
+                'client_id' => 1,
                 'date_debut' => now()->addDays(1),
                 'date_fin' => now()->addDays(5),
                 'statut' => 'en_attente',
             ],
             [
                 'annonce_id' => 2,
-                'client_id' => 2,
+                'client_id' => 1,
                 'date_debut' => now()->addDays(10),
                 'date_fin' => now()->addDays(15),
                 'statut' => 'confirmée',

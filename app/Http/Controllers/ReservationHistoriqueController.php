@@ -10,7 +10,8 @@ class ReservationHistoriqueController extends Controller
 {
     public function reservations()
     {
-        $clientId = 1; // Replace with auth()->id() later
+        //$clientId = 1; // Replace with auth()->id() later
+        $clientId = auth()->id();
         $statuses = ['En attente', 'Acceptée', 'Refusée'];
     
         $reservations = Reservation::with([
