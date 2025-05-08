@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,6 +6,6 @@
 
 @layer base {
     body {
-        font-family: 'Indie Flower', cursive;
+        font-family: 'Poiret One', sans-serif;
     }
 }

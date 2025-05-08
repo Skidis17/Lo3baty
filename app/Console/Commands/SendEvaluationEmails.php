@@ -19,9 +19,9 @@ class SendEvaluationEmails extends Command
         $now = Carbon::now();
     
         $this->info("Starting process at {$now->toDateTimeString()}");
-    $reservations = Reservation::whereDate('date_fin', $today) 
+        $reservations = Reservation::whereDate('date_fin', $today) 
         ->where('is_email', 0) 
-        ->where('statut', 'acceptée') 
+        ->where('statut', 'confirmée') 
         ->with(['client:id,email', 'objet'])
         ->get();
 
@@ -52,9 +52,8 @@ class SendEvaluationEmails extends Command
 
             Mail::to($userEmail)->send(new EvaluationMail($reservation));
             
-            Reservation::withoutTimestamps(function () use ($reservation, $now) {
+            Reservation::withoutTimestamps(function () use ($reservation) {
                 $reservation->update([
-                    'evaluation_date' => $now,
                     'is_email' => 1
                 ]);
             });

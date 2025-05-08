@@ -13,6 +13,7 @@ class ImageSeeder extends Seeder
         Image::insert([
             ['url' => 'images/lego.jpg', 'objet_id' => 1],
             ['url' => 'images/voiture.jpg', 'objet_id' => 2],
+            ['url' => 'images/dob.jpg', 'objet_id'=>3]
         ]);
     }
 }

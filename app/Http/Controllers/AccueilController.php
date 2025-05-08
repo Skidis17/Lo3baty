@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Objet;
 use App\Models\Annonce;
+use App\Models\EvaluationOnAnnonce;
 use App\Models\Reservation;
 
 class AccueilController extends Controller
@@ -21,7 +22,14 @@ class AccueilController extends Controller
         }], 'date_publication')
         ->orderByDesc('latest_premium_date')
         ->get();
-        return view('client/acceuil', compact('objet'));
+
+        $testimonials = EvaluationOnAnnonce::with(['client', 'objet'])
+        ->where('note', '>=', 4) 
+        ->orderBy('created_at', 'desc')
+        ->limit(3)
+        ->get();
+
+        return view('client/acceuil', compact('objet', 'testimonials'));
 
     }
 

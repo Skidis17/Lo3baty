@@ -39,4 +39,9 @@ class Reservation extends Model
     {
         return $this->hasOne(EvaluationOnPartner::class, 'reservation_id');
     }
+
+    public function objet()
+{
+    return $this->hasOneThrough(Objet::class, Annonce::class, 'id', 'id', 'annonce_id', 'objet_id');
+}
 }

@@ -12,7 +12,7 @@ class AnnonceController extends Controller
     {
         $query = Objet::query()
             ->with('annonces')
-            ->join('annonces', 'objets.id', '=', 'annonces.objet_id') // join annonces table
+            ->leftJoin('annonces', 'objets.id', '=', 'annonces.objet_id')
             ->select('objets.*'); // ensure only objet columns are selected to avoid conflicts
     
         if ($request->filled('search')) {

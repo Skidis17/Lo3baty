@@ -30,6 +30,16 @@ class AnnonceSeeder extends Seeder
                 'statut' => 'disponible',
                 'adresse' => 'Rue des Jouets, Tétouan',
             ],
+            [
+                'objet_id' => 3,
+                'proprietaire_id' => 1,
+                'prix_journalier' => 60.00,
+                'date_publication' => now(),
+                'date_debut' => now(),
+                'date_fin' => now()->addMonths(3),
+                'statut' => 'disponible',
+                'adresse' => 'Rue des Jouets, Fes',
+            ],
         ]);
     }
 }

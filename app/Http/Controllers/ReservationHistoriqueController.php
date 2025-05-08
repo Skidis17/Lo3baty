@@ -10,11 +10,11 @@ class ReservationHistoriqueController extends Controller
 {
     public function reservations()
     {
-        $clientId = 2; // Replace with auth()->id() later
-        $statuses = ['En attente', 'Acceptée', 'Passé'];
+        $clientId = 1; // Replace with auth()->id() later
+        $statuses = ['En attente', 'Acceptée', 'Refusée'];
     
         $reservations = Reservation::with([
-            'annonce.proprietaire.evaluationsPartenaire', // Eager load relationships
+            'annonce.proprietaire.evaluationsPartenaire',
             'annonce.objet.images',
             'evaluationOnPartner'
         ])

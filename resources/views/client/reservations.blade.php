@@ -17,8 +17,8 @@
             font-size: 0.875rem;
         }
         .statut-en_attente { background-color: #fef3c7; color: #d97706; }
-        .statut-acceptée { background-color: #d1fae5; color:rgb(13, 122, 88); }
-        .statut-passé { background-color: #f3f4f6; color: #6b7280; }
+        .statut-confirmée { background-color: #d1fae5; color:rgb(13, 122, 88); }
+        .statut-refusée { background-color: #f3f4f6; color:rgb(215, 64, 51); }
         [x-cloak] { display: none !important; }
     </style>
 </head>
@@ -28,8 +28,8 @@
     getStatusColor(status) {
         return {
             'en_attente': 'statut-en_attente',
-            'acceptée': 'statut-acceptée',
-            'passé': 'statut-passé'
+            'confirmée': 'statut-confirmée',
+            'refusée': 'statut-refusée'
         }[status] || 'bg-gray-100';
     }}" x-cloak>
     
@@ -39,21 +39,21 @@
     <div class="fixed left-0 top-15 h-full w-64 bg-white p-4 z-10">
         <h2 class="text-lg font-bold mb-3"> Filtrer par statut</h2>
         <nav class="space-y-2">
-            <template x-for="status in ['all', 'en_attente', 'acceptée', 'passé']" :key="status">
+            <template x-for="status in ['all', 'en_attente', 'confirmée', 'refusée']" :key="status">
                 <button 
                     @click="activeStatus = status"
                     :class="activeStatus === status ? 
                         {'bg-purple-100 text-purple-700': status === 'all',
                          'bg-yellow-100 text-yellow-700': status === 'en_attente',
-                         'bg-green-100 text-green-700': status === 'acceptée',
-                         'bg-gray-100 text-gray-700': status === 'passé'} : 
+                         'bg-green-100 text-green-700': status === 'confirmée',
+                         'bg-red-100 text-red-700': status === 'refusée'} : 
                         'text-gray-600 hover:bg-gray-200'"
                     class="w-full text-left px-4 py-2 rounded-lg transition-colors">
                     <span x-text="{
                         all: 'Toutes les réservations',
                         en_attente: 'En attente',
-                        acceptée: 'Acceptée',
-                        passé: 'Passé'
+                        confirmée: 'Confirmée',
+                        refusée: 'Refusée'
                     }[status]"></span>
                 </button>
             </template>
@@ -147,8 +147,8 @@
                             </span>
                             <span class="statut-badge {{ [
                                 'en_attente' => 'statut-en_attente',
-                                'acceptée' => 'statut-acceptée',
-                                'archivee' => 'statut-archivee'
+                                'confirmée' => 'statut-confirmée',
+                                'refusée' => 'statut-refusée'
                             ][$reservation->statut] ?? 'bg-gray-100' }}">
                                 {{ isset($reservation->statut) ? ucfirst(str_replace('_', ' ', $reservation->statut)) : 'Statut inconnu' }}
                             </span>

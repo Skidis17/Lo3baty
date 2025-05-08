@@ -26,6 +26,15 @@ class ObjetSeeder extends Seeder
                 'etat' => 'bon_etat',
                 'categorie_id' => 5,
                 'proprietaire_id' => 1,
+                
+            ],
+            [
+                'nom' => 'Voiture rouge',
+                'description' => 'Voiture rapide.',
+                'ville' => 'Tétouan',
+                'etat' => 'use',
+                'categorie_id' => 3,
+                'proprietaire_id' => 1,
             ],
         ]);
     }

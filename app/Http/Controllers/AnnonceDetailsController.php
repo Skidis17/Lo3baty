@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Annonce;
 use App\Models\EvaluationOnAnnonce;
 use App\Models\EvaluationOnPartner;
+use App\Models\Objet;
+
 use Carbon\Carbon;
 
 class AnnonceDetailsController extends Controller
@@ -23,12 +25,19 @@ class AnnonceDetailsController extends Controller
             ->get();
 
         $reservedPeriods = $annonce->getReservedPeriods();
+ 
+        $relatedProduits = Objet::with(['annonces', 'images'])
+        ->where('categorie_id', $annonce->objet->categorie_id)
+        ->where('id', '!=', $annonce->objet->id)
+        ->take(4)
+        ->get();
 
         return view('client.details_annonce', compact(
             'annonce',
             'evaluationsObjet',
             'evaluationsPartner',
-            'reservedPeriods'
+            'reservedPeriods',
+            'relatedProduits'
         ));
     }
 }

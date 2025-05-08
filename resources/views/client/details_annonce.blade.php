@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title')</title>
+    <title>Detail d'annonce</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome -->
@@ -216,6 +216,62 @@
         </div>
     </div>
 
+<!-- Related Products Section -->
+<section class="py-12">
+    <div class="max-w-7xl mx-auto px-4">
+        <h2 class="text-2xl font-bold mb-8">Produits Similaires</h2>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            @foreach($relatedProduits as $produit)
+                @php
+                    $annonce = $produit->annonces->first();
+                @endphp
+                
+                <a href="{{ route('annonceID', ['id' => $annonce->id]) }}" 
+                   class="group rounded-md shadow-md hover:shadow-lg transition-shadow duration-100">
+                    <div class="relative h-48 overflow-hidden rounded-t-lg">
+                        @if($produit->images->first())
+                            <img src="{{ asset($produit->images->first()->url) }}" 
+                                 class="w-full h-full object-cover duration-100"
+                                 alt="{{ $produit->nom }}">
+                        @else
+                            <div class="w-full h-full bg-gray-100 flex items-center justify-center">
+                                <i class="fas fa-image text-gray-400 text-3xl"></i>
+                            </div>
+                        @endif
+                    </div>
+                    
+                    <div class="p-4">
+                        <h3 class="font-medium text-black-900 truncate">{{ $produit->nom }}</h3>
+                        <div class="mt-2 flex items-center justify-between">
+                            <span class="text-lg font-bold text-emerald-600">
+                                {{ $annonce->prix_journalier }} DH/jour
+                            </span>
+                            <span class="px-2 py-1 text-sm rounded-full {{ $produit->etat === 'neuf' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800' }}">
+                                {{ ucfirst($produit->etat) }}
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            @endforeach
+        </div>
+
+        <!-- View All Products Button -->
+        <div class="mt-8 flex justify-center">
+            <a href="{{ route('annonces') }}" 
+               class="bg-red-600 text-white px-6 py-3 rounded-lg hover:bg-red-700 transition-colors duration-200 font-medium">
+                Voir tous nos produits
+            </a>
+        </div>
+
+        @if($relatedProduits->isEmpty())
+            <div class="text-center py-8 text-gray-500">
+                Aucun produit similaire trouvé dans cette catégorie
+            </div>
+        @endif
+    </div>
+</section>
+
     <!-- Reviews Section -->
     <div class="mt-12">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -344,7 +400,7 @@
                                 </div>
                                 <p class="text-gray-600">{{ $evaluation->commentaire }}</p>
                                 <p class="text-xs text-gray-400 mt-1">
-                                    {{ \Carbon\Carbon::parse($evaluation->created_at)->diffForHumans() }}
+                                    {{$evaluation->created_at ? \Carbon\Carbon::parse($evaluation->created_at)->diffForHumans() : 'N/A'}}
                                 </p>
                             </div>
                         @endforeach
@@ -369,7 +425,7 @@
 </div>
 
 <!-- Passer les données PHP à JavaScript -->
-<!-- <script>
+<script>
     window.reservationData = {
         reservedPeriods: @json($reservedPeriods),
         annonceStartDate: '{{ \Carbon\Carbon::parse($annonce->date_debut)->format("Y-m-d") }}',
@@ -378,7 +434,7 @@
         locale: 'fr',
         currency: 'MAD'
     };
-</script>  -->
+</script> 
 
  <!-- Initialiser Swiper pour la galerie d'images -->
  @if($annonce->objet->images->isNotEmpty())
