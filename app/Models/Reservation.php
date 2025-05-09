@@ -22,8 +22,8 @@ class Reservation extends Model
         'date_debut' => 'datetime',
         'date_fin' => 'datetime',
         'date_creation' => 'datetime',
-        'evaluation_date'=> 'datetime',
-        'statut' => 'string'
+        'statut' => 'string',
+        'evaluation_date'=> 'datetime'
     ];
 
     // Relations

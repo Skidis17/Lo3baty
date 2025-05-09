@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->date('date_fin');
             $table->boolean('is_email')->default(0);
             $table->enum('statut', ['en_attente', 'confirmée', 'refusée'])->default('en_attente');
+            $table->date('evaluation_date')->nullable();
             $table->timestamps();
         });
     }
