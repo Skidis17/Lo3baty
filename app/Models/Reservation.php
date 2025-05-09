@@ -14,13 +14,15 @@ class Reservation extends Model
         'date_debut',
         'date_fin',
         'is_email',
-        'statut'
+        'statut',
+        'evaluation_date',
     ];
 
     protected $casts = [
         'date_debut' => 'datetime',
         'date_fin' => 'datetime',
         'date_creation' => 'datetime',
+        'evaluation_date'=> 'datetime',
         'statut' => 'string'
     ];
 

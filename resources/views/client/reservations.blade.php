@@ -70,7 +70,7 @@
                     // Dates
                     $dateDebut = $reservation->date_debut ? Carbon\Carbon::parse($reservation->date_debut) : null;
                     $dateFin = $reservation->date_fin ? Carbon\Carbon::parse($reservation->date_fin) : null;
-                    $duree = $dateDebut && $dateFin ? abs($dateDebut->diffInDays($dateFin)) : 0;
+                    $duree = $dateDebut && $dateFin ? abs(($dateDebut->diffInDays($dateFin))+1) : 0;
                     
                     // Relations
                     $annonce = $reservation->annonce ?? null;

@@ -46,6 +46,11 @@ class EvaluationController extends Controller
             'commentaire' => $validated['partner_comment']
         ]);
 
+        $reservation = Reservation::findOrFail($validated['reservation_id']);
+        $reservation->update([
+            'evaluation_date' => now()
+        ]);
+        
         return back()->with('success', 'Merci pour vos évaluations !');
     }
 }
