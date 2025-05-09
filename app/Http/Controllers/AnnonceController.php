@@ -4,66 +4,80 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Objet;
-use Illuminate\Support\Facades\DB;
+use App\Models\Annonce;
 
 class AnnonceController extends Controller
 {
+
     public function index(Request $request)
     {
-        $query = Objet::query()
-            ->with('annonces')
-            ->leftJoin('annonces', 'objets.id', '=', 'annonces.objet_id')
-            ->select('objets.*'); // ensure only objet columns are selected to avoid conflicts
+        $query = Annonce::with(['objet.images', 'objet.categorie', 'proprietaire']);
     
-        if ($request->filled('search')) {
-            $query->where('objets.nom', 'like', '%' . $request->search . '%');
+        if ($age = $request->input('age')) {
+            $query->whereHas('objet', function ($q) use ($age) {
+                $q->where('tranche_age', $age);
+            });
         }
     
-        if ($request->has('ages')) {
-            $query->whereIn('objets.tranche_age', $request->ages); 
-        }
-    
-        if ($request->has('prices')) {
-            $query->where(function ($q) use ($request) {
-                foreach ($request->prices as $price) {
-                    if ($price == '150+') {
-                        $q->orWhere('annonces.prix_journalier', '>', 150);
-                    } else {
-                        [$min, $max] = explode('-', $price);
-                        $q->orWhereBetween('annonces.prix_journalier', [(int) $min, (int) $max]);
-                    }
+        if ($price = $request->input('price')) {
+            $query->whereHas('objet', function ($q) use ($price) {
+                switch ($price) {
+                    case '0-50':
+                        $q->where('prix_journalier', '<', 50);
+                        break;
+                    case '50-100':
+                        $q->whereBetween('prix_journalier', [50, 100]);
+                        break;
+                    case '100-150':
+                        $q->whereBetween('prix_journalier', [100, 150]);
+                        break;
+                    case '150+':
+                        $q->where('prix_journalier', '>', 150);
+                        break;
                 }
             });
         }
     
-        if ($request->has('types')) {
-            $query->whereIn('objets.type', $request->types); 
+        if ($type = $request->input('type')) {
+            $query->whereHas('objet.categorie', function ($q) use ($type) {
+                $q->where('nom', $type);
+            });
         }
     
-        if ($request->filled('sort')) {
-            switch ($request->sort) {
+        if ($search = $request->input('search')) {
+            $query->whereHas('objet', function ($q) use ($search) {
+                $q->where('nom', 'like', '%' . $search . '%');
+            });
+        }
+    
+        if ($sort = $request->input('sort')) {
+            switch ($sort) {
                 case 'price_asc':
-                    $query->orderBy('annonces.prix_journalier', 'asc');
+                    $query->join('objets', 'annonces.objet_id', '=', 'objets.id')
+                          ->orderBy('objets.prix_journalier', 'asc');
                     break;
                 case 'price_desc':
-                    $query->orderBy('annonces.prix_journalier', 'desc');
+                    $query->join('objets', 'annonces.objet_id', '=', 'objets.id')
+                          ->orderBy('objets.prix_journalier', 'desc');
                     break;
                 case 'newest':
-                    $query->orderBy('objets.created_at', 'desc');
+                    $query->orderBy('created_at', 'desc');
                     break;
             }
         }
     
-        $objets = $query->paginate(9);
+        $annonces = $query->paginate(6);
     
-        return view('client.annonces', compact('objets'));
+        $annonces->transform(function ($annonce) {
+            $objet = $annonce->objet;
+            $annonce->image_url = $objet->images->first()->url ?? 'https://via.placeholder.com/288x320';
+            $annonce->prix = number_format($objet->prix_journalier, 2);
+            return $annonce;
+        });
+    
+        return view('client.annonces', compact('annonces'));
+
     }
     
-
-  
+    
 }
-
-
-
-
-?>
