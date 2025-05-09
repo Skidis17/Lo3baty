@@ -19,13 +19,15 @@ class EvaluationMail extends Mailable
     public $client;
     public $reservation;
     public $objet;
+    public $annonce;
 
     public function __construct($reservation)
     { 
        
         $this->reservation = $reservation;
         $this->client = $reservation->client;
-        $this->objet = $reservation->objet; 
+        $this->objet = $reservation->objet;
+        $this->annonce= $reservation->annonce; 
     }
     
     public function build()
@@ -36,6 +38,7 @@ class EvaluationMail extends Mailable
                         'client' => $this->client,
                         'reservation' => $this->reservation,
                         'objet' => $this->objet,
+                        'annonce'=> $this->annonce,
                     ]);
     }
 
