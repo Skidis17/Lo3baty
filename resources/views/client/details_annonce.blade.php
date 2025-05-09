@@ -20,7 +20,7 @@
     @stack('styles')
 </head>
 <body class="bg-gray-50">
-    @include('components.navbar')
+    @include('components.sideBar')
     <div class="min-h-screen">
 @section('content')
 <div class="container mx-auto px-4 py-8">

@@ -41,7 +41,7 @@ class AuthController extends Controller
 
     Auth::login($user);
 
-    return redirect()->route('home')->with('success', 'Inscription réussie!');
+    return redirect()->route('annonces')->with('success', 'Inscription réussie!');
   }
 
   public function showLoginForm()
@@ -66,7 +66,7 @@ class AuthController extends Controller
       }
 
       $request->session()->regenerate();
-      return redirect()->intended('/client/acceuil');
+      return redirect()->route('annonces')->with('success', 'connexion réussie!');
     }
 
     return back()->withErrors([

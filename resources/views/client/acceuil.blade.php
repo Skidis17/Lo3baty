@@ -24,7 +24,7 @@
     <div class="spinner rounded-full h-12 w-12 border-t-4 border-red-600"></div>
 </div>
 
-@include('components.navbar')
+@include('components.navbar_guest')
 
 <!-- Back to Top Button -->
 <button class="back-to-top fixed bottom-8 right-8 p-3 rounded-xl transition-all opacity-200" style="color: #e63a28;">
@@ -32,7 +32,7 @@
 </button>
 
 <!-- Hero Carousel -->
-<section class="relative overflow-hidden" style="background-color: rgb(112, 226, 210);">
+<section class="relative overflow-hidden" style="background-color: rgb(112, 226, 210);" id="hero">
     <div class="header-carousel owl-carousel owl-theme">
         <!-- Slide 1 -->
         <div class="owl-carousel-item position-relative h-[600px]">
@@ -92,7 +92,7 @@
 </section>
 
 <!-- How It Works -->
-<section class="py-20 bg-white">
+<section class="py-20 bg-white" id="how-it-works">
     <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mx-auto mb-16 wow fadeIn" data-wow-delay="0.1s">
             <h2 class="text-3xl font-bold text-black-900 mb-4">Comment ça marche?</h2>
@@ -314,7 +314,7 @@
 </section>
 
 <!-- Team Section -->
-<section class="py-20">
+<section class="py-20" id="team">
   <div class="max-w-7xl mx-auto px-4">
     <div class="text-center mb-12">
       <h2 class="text-3xl font-bold text-gray-900 mb-4">Notre Équipe</h2>
@@ -411,7 +411,7 @@
 
 
 <!-- Testimonials -->
-<section class="py-20 bg-white">
+<section class="py-20 bg-white" id="testimonials">
     <div class="max-w-7xl mx-auto px-4">
         <h2 class="text-3xl font-bold text-center mb-12 wow fadeIn">Avis de nos clients</h2>
         <div class="testimonial-carousel owl-carousel owl-theme">

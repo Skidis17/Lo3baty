@@ -33,7 +33,7 @@
         }[status] || 'bg-gray-100';
     }}" x-cloak>
     
-    @include('components.navbar')
+    @include('components.sideBar')
 
     <!-- Sidebar -->
     <div class="fixed left-0 top-15 h-full w-64 bg-white p-4 z-10">
