@@ -33,7 +33,7 @@ class PaiementController extends Controller
 public function process(Request $request)
 {
     $request->validate([
-        'methode' => 'required|in:paypal,especes,cheque',
+        'methode' => 'required|in:paypal,especes,carte',
         'livraison' => 'required|boolean',
     ]);
 

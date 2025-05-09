@@ -64,10 +64,10 @@
                             </label>
                         </div>
                         <div>
-                            <input type="radio" id="cheque" name="methode" value="cheque" class="hidden peer">
-                            <label for="cheque" class="flex flex-col items-center justify-center p-4 border rounded-lg cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-50">
+                            <input type="radio" id="carte" name="methode" value="carte" class="hidden peer">
+                            <label for="carte" class="flex flex-col items-center justify-center p-4 border rounded-lg cursor-pointer peer-checked:border-blue-500 peer-checked:bg-blue-50">
                                 <i class="fas fa-money-check-alt text-3xl text-purple-500 mb-2"></i>
-                                <span>Chèque</span>
+                                <span>Carte bancaire</span>
                             </label>
                         </div>
                     </div>
