@@ -181,9 +181,9 @@
                 @php
                     $annonce = $objet->annonces->first();
                     $etatColors = [
-                        'neuf' => 'bg-green-100 text-green-800',
-                        'bon_etat' => 'bg-blue-100 text-blue-800',
-                        'use' => 'bg-amber-100 text-amber-800'
+                        'Neuf' => 'bg-green-100 text-green-800',
+                        'Bon état' => 'bg-blue-100 text-blue-800',
+                        'Usage' => 'bg-amber-100 text-amber-800'
                     ];
                 @endphp
 
@@ -217,7 +217,7 @@
                         </div>
 
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 rounded-full text-sm {{ $etatColors[strtolower($objet->etat)] }}">
+                            <span class="px-3 py-1 rounded-full text-sm {{ $etatColors[$objet->etat] }}">
                                 {{ ucfirst($objet->etat) }}
                             </span>
                             <span class="px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-sm">
