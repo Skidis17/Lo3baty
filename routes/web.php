@@ -62,8 +62,13 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/evaluation_annonce', [EvaluationController::class, 'store'])->name('evaluations.store');
 
     // Réclamations
-    Route::get('/reclamations', [ReclamationController::class, 'index'])->name('reclamations.index');
-    Route::post('/reclamations', [ReclamationController::class, 'store'])->name('reclamations.store');
+
+    Route::get('/client/reclamations', [ReclamationController::class, 'index'])->name('client.reclamations');
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/reclamations', [ReclamationController::class, 'index'])->name('reclamations');
+        Route::post('/reclamations', [ReclamationController::class, 'store'])->name('reclamations.store');
+    });
+
 
     // Espace client
     Route::get('/client/acceuil', [HomeController::class, 'clientHome'])->name('client.acceuil');
