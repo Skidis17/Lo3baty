@@ -11,12 +11,12 @@ class ReclamationSeeder extends Seeder
     {
         Reclamation::insert([
             [
-                'client_id' => 2,
-                'objet_id' => 1,
-                'partenaire_id' => 1,
+                'utilisateur_id' => 1,
                 'sujet' => 'Objet endommagé',
-                'message' => 'L\'objet ne correspond pas à la description.',
+                'contenu' => 'L\'objet ne correspond pas à la description.',
                 'statut' => 'en_cours',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
     }

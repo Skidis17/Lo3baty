@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-use App\Models\Utilisateur;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Reclamation extends Model
@@ -15,7 +15,7 @@ class Reclamation extends Model
     protected $table = 'reclamations';
     
     protected $fillable = [
-        'client_id',
+        'utilisateur_id',  // Changé de client_id à utilisateur_id
         'sujet',
         'contenu',
         'statut',
@@ -31,10 +31,10 @@ class Reclamation extends Model
     /**
      * Relation avec l'utilisateur
      */
-    public function Utilisateur()
+    public function utilisateur()  // Nom changé pour correspondre à la convention
     {
-        return $this->belongsTo(Utilisateur::class, 'client_id')->withDefault([
-            'name' => 'Utilisateur (ID: '.$this->client_id.') non trouvé'
+        return $this->belongsTo(Utilisateur::class)->withDefault([
+            'name' => 'Utilisateur (ID: '.$this->utilisateur_id.') non trouvé'
         ]);
     }
 
