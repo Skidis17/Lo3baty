@@ -2,25 +2,66 @@
 
 namespace Database\Seeders;
 
-use App\Models\Notification;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class NotificationSeeder extends Seeder
 {
     public function run(): void
     {
-        Notification::insert([
+        $notifiableType = 'App\\Models\\Utilisateur'; 
+        $notifiableId = 1; 
+        DB::table('notifications')->insert([
             [
-                'user_id' => 2,
-                'titre' => 'Notif 1',
-                'contenu' => 'Votre réservation a été acceptée !',
-                'lu' => false,
+                'id' => Str::uuid(),
+                'type' => 'App\\Notifications\\NouvelleAnnonceNotification',
+                'notifiable_type' => $notifiableType,
+                'notifiable_id' => $notifiableId,
+                'data' => json_encode([
+                    'type' => 'nouvelle_annonce',
+                    'annonce_id' => 5,
+                    'message' => 'Nouvelle annonce disponible',
+                    'titre' => 'Vélo pour enfant',
+                    'url' => url('/annonces/5'),
+                    'created_at' => now()->toDateTimeString()
+                ]),
+                'read_at' => null,
+                'created_at' => Carbon::now()->subDays(2),
+                'updated_at' => Carbon::now()->subDays(2),
             ],
             [
-                'user_id' => 1,
-                'titre' => 'Notif 2',
-                'contenu' => 'Nouvelle réclamation sur un de vos objets.',
-                'lu' => false,
+                'id' => Str::uuid(),
+                'type' => 'App\\Notifications\\ReclamationRepondueNotification',
+                'notifiable_type' => $notifiableType,
+                'notifiable_id' => $notifiableId,
+                'data' => json_encode([
+                    'type' => 'reclamation_reponse',
+                    'reclamation_id' => 3,
+                    'message' => 'Réponse à votre réclamation #3',
+                    'sujet' => 'Objet non conforme',
+                    'reponse' => 'Nous avons vérifié et allons vous rembourser.',
+                    'url' => url('/reclamations/3')
+                ]),
+                'read_at' => null,
+                'created_at' => Carbon::now()->subDay(),
+                'updated_at' => Carbon::now()->subDay(),
+            ],
+            [
+                'id' => Str::uuid(),
+                'type' => 'App\\Notifications\\ReservationExpirationNotification',
+                'notifiable_type' => $notifiableType,
+                'notifiable_id' => $notifiableId,
+                'data' => json_encode([
+                    'type' => 'reservation_expiration',
+                    'reservation_id' => 7,
+                    'message' => 'Réservation se termine dans 5h',
+                    'url' => url('/reservations/7')
+                ]),
+                'read_at' => null,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ],
         ]);
     }

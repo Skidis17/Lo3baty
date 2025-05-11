@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/fr.js"></script>
 </head>
 <body class="bg-gray-50 font-sans" x-data="{ activeTab: 'reviews' }">
-    @include('components.navbar')
+    @include('components.sideBar')
     <!-- Scroll to Top Button -->
     <div x-show="showScrollTop" 
          x-transition:enter="transition ease-out duration-300"

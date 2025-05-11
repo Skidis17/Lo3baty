@@ -8,12 +8,15 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('notifications', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->constrained('utilisateurs')->cascadeOnDelete(); // À qui appartient la notification
-            $table->string('titre');
-            $table->text('contenu');
-            $table->boolean('lu')->default(false); // Marquer si l'utilisateur a lu ou pas
+            $table->uuid('id')->primary();
+            $table->string('type')->nullable();
+            $table->string('notifiable_type');
+            $table->unsignedBigInteger('notifiable_id');
+            $table->text('data');
+            $table->timestamp('read_at')->nullable();
             $table->timestamps();
+
+            $table->index(['notifiable_type', 'notifiable_id'], 'notifications_notifiable_type_notifiable_id_index');
         });
     }
 

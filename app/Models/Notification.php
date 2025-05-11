@@ -14,7 +14,7 @@ class Notification extends Model
         'contenu_email',
         'envoyee',
         'lue',
-        'utilisateur_id',
+        'client_id',
         'annonce_id',
         'reservation_id'
     ];

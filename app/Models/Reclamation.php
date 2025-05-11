@@ -15,7 +15,7 @@ class Reclamation extends Model
     protected $table = 'reclamations';
     
     protected $fillable = [
-        'utilisateur_id',
+        'client_id',
         'sujet',
         'contenu',
         'statut',

@@ -13,7 +13,7 @@ class ReclamationController extends Controller
             Auth::user()->unreadNotifications->markAsRead();
         }
     
-        $reclamations = Reclamation::where('utilisateur_id', Auth::id())->get();
+        $reclamations = Reclamation::where('client_id', Auth::id())->get();
     
         return view('client.reclamations', compact('reclamations'));
     }
@@ -36,7 +36,7 @@ class ReclamationController extends Controller
             'sujet' => $validated['sujet'],
             'contenu' => $validated['contenu'],
             'piece_jointe' => $pieceJointePath,
-            'utilisateur_id' => Auth::id(),
+            'client_id' => Auth::id(),
         ]);
 
         return redirect()->back()->with('success', 'Réclamation envoyée avec succès.');
@@ -46,7 +46,7 @@ class ReclamationController extends Controller
     public function show($id)
     {
         $reclamation = Reclamation::where('id', $id)
-            ->where('utilisateur_id', Auth::id()) 
+            ->where('client_id', Auth::id()) 
             ->firstOrFail();
     
             return response()->json([
