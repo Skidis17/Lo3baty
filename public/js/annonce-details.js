@@ -41,29 +41,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 html += `<div class="p-2"></div>`;
             }
 
-            // Add days of the month
-            for (let day = 1; day <= daysInMonth; day++) {
-                const currentDate = new Date(year, month, day);
-                const isReserved = reservedDates.some(d => 
-                    d.getDate() === currentDate.getDate() && 
-                    d.getMonth() === currentDate.getMonth() && 
-                    d.getFullYear() === currentDate.getFullYear()
-                );
-                const isPast = currentDate < new Date(today.getFullYear(), today.getMonth(), today.getDate());
-                const isAvailable = !isReserved && !isPast;
+           for (let day = 1; day <= daysInMonth; day++) {
+    const currentDate = new Date(year, month, day);
+    const isReserved = reservedDates.some(d => 
+        d.getDate() === currentDate.getDate() && 
+        d.getMonth() === currentDate.getMonth() && 
+        d.getFullYear() === currentDate.getFullYear()
+    );
+    const isPast = currentDate < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const isAfterAnnonceEnd = annonceEndDate && currentDate > new Date(annonceEndDate);
+    const isAvailable = !isReserved && !isPast && !isAfterAnnonceEnd;
 
-                html += `
-                    <div class="p-2 text-center border rounded-lg 
-                        ${isReserved ? 'bg-red-100 text-red-800' : ''}
-                        ${isAvailable ? 'bg-green-100 text-green-800' : ''}
-                        ${isPast ? 'text-gray-400' : ''}">
-                        ${day}
-                        ${isReserved ? '<span class="block text-xs font-bold">R</span>' : ''}
-                        ${isAvailable ? '<span class="block text-xs font-bold">D</span>' : ''}
-                    </div>
-                `;
-            }
-
+    html += `
+        <div class="p-2 text-center border rounded-lg 
+            ${isReserved ? 'bg-red-100 text-red-800' : ''}
+            ${isAvailable ? 'bg-green-100 text-green-800' : ''}
+            ${isPast || isAfterAnnonceEnd ? 'text-gray-400' : ''}">
+            ${day}
+            ${isReserved ? '<span class="block text-xs font-bold">R</span>' : ''}
+            ${isAvailable ? '<span class="block text-xs font-bold">D</span>' : ''}
+        </div>
+    `;
+}
             html += `</div>`;
             calendarContainer.innerHTML = html;
 
