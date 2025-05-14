@@ -6,16 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reclamation extends Model
 {
-    protected $casts = [
-        'date_reponse' => 'datetime',
-        'created_at' => 'datetime',
-        'updated_at' => 'datetime'
-    ];
-    
-    protected $table = 'reclamations';
-    
-    protected $fillable = [
-        'utilisateur_id',  // Changé de client_id à utilisateur_id
+   protected $table = 'reclamations';
+        protected $fillable = [
+        'utilisateur_id', 
         'sujet',
         'contenu',
         'statut',
@@ -23,7 +16,13 @@ class Reclamation extends Model
         'piece_jointe',
         'date_reponse'
     ];
-
+    protected $casts = [
+        'date_reponse' => 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime'
+    ];
+    
+ 
     protected $attributes = [
         'statut' => 'en_attente',
     ];
@@ -53,4 +52,6 @@ class Reclamation extends Model
     {
         $this->attributes['statut'] = strtolower(str_replace(' ', '_', $value));
     }
+    // Gestion des timestamps
+    public $timestamps = true;
 }

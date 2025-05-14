@@ -16,7 +16,10 @@ class EvaluationOnClient extends Model
         'note',
         'commentaire',
     ];
-
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];  
     public function reservation()
     {
         return $this->belongsTo(Reservation::class);

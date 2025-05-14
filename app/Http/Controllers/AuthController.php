@@ -20,7 +20,8 @@ class AuthController extends Controller
     $request->validate([
       'nom' => 'required|string|max:255',
       'prenom' => 'required|string|max:255',
-      'email' => 'required|string|email|max:255|unique:utilisateur',
+      'surnom' => 'required|string|max:255',
+      'email' => 'required|string|email|max:255|unique:utilisateurs',
       'mot_de_passe' => 'required|string|min:8|confirmed',
       'image_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
@@ -31,12 +32,12 @@ class AuthController extends Controller
     }
 
     $user = Utilisateur::create([
-      'nom' => $request->nom,
-      'prenom' => $request->prenom,
-      'email' => $request->email,
-      'mot_de_passe' => Hash::make($request->mot_de_passe),
-      'role' => 'client',
-      'image_profil' => $imagePath,
+        'nom'          => $request->nom,
+        'prenom'       => $request->prenom,
+        'surnom'       => $request->surnom,
+        'email'        => $request->email,
+        'mot_de_passe' => $request->mot_de_passe,
+        'image_profil' => $imagePath,
     ]);
 
     Auth::login($user);
@@ -51,28 +52,35 @@ class AuthController extends Controller
 
   public function login(Request $request)
   {
-    $credentials = $request->validate([
-      'email' => 'required|email',
-      'mot_de_passe' => 'required',
-    ]);
+      $credentials = $request->validate([
+          'email'        => 'required|email',
+          'mot_de_passe' => 'required',
+      ]);
 
-    if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['mot_de_passe']])) {
-      $user = Auth::user();
-      if (!$user->is_active) {
-        Auth::logout();
-        return back()->withErrors([
-          'email' => 'Votre compte est désactivé. Veuillez contacter l\'administrateur.',
-        ]);
+      /* IMPORTANT : la clé doit s’appeler 'password', pas 'mot_de_passe' */
+      if (Auth::attempt([
+              'email'    => $credentials['email'],
+              'password' => $credentials['mot_de_passe'],
+          ])) {
+
+          // Vérification du statut explicite
+          $user = Auth::user();
+          if (!$user->is_active) {
+              Auth::logout();
+              return back()->withErrors([
+                  'email' => 'Votre compte est désactivé. Veuillez contacter l’administrateur.',
+              ]);
+          }
+
+          $request->session()->regenerate();
+          return redirect()->route('annonces')->with('success', 'Connexion réussie !');
       }
 
-      $request->session()->regenerate();
-      return redirect()->route('annonces')->with('success', 'connexion réussie!');
-    }
-
-    return back()->withErrors([
-      'email' => 'Les identifiants fournis ne correspondent pas à nos enregistrements.',
-    ]);
+      return back()->withErrors([
+          'email' => 'Les identifiants fournis ne correspondent pas à nos enregistrements.',
+      ]);
   }
+
 
   public function logout(Request $request)
   {

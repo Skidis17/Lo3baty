@@ -23,6 +23,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->string('cin_recto')->nullable();
             $table->string('cin_verso')->nullable();
+             $table->enum('notification_annonce', ['active', 'desactive'])->default('active');
             $table->timestamp('email_verified_at')->nullable();
             //$table->rememberToken();
             $table->timestamps();

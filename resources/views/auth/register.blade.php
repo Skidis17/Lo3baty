@@ -37,6 +37,19 @@
                     </div>
                 </div>
 
+
+                <div>
+                    <label for="surnom" class="block text-sm font-medium text-gray-700">{{ __('Surnom') }}</label>
+                    <div class="mt-1">
+                        <input id="surnom" name="surnom" type="text" autocomplete="surnom" required
+                               class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 @error('prenom') border-red-500 @enderror"
+                               value="{{ old('surnom') }}">
+                        @error('surnom')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700">{{ __('Email') }}</label>
                     <div class="mt-1">

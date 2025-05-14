@@ -81,7 +81,7 @@
                         <input type="radio" id="sans_livraison" name="livraison" value="0" class="mr-2" checked>
                         <label for="sans_livraison" class="flex-grow">
                             <span class="font-medium">Sans livraison</span>
-                            <p class="text-sm text-gray-600">Vous récupérerez l'objet chez le propriétaire</p>
+                            <p class="text-sm text-gray-600">Vous récupérerez l'objet chez le partenaire</p>
                         </label>
                     </div>
                     

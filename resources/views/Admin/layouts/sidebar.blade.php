@@ -1,8 +1,14 @@
 
 <script src="https://unpkg.com/lucide@latest"></script>
-<div class="w-64 min-h-screen bg-gradient-to-r from-blue-500 to-blue-700 text-white border-r shadow-lg px-6 py-8">
-    <div class="text-3xl font-semibold mb-8 text-center text-white">
-        Lo3baty
+<div class="w-64 min-h-screen bg-gradient-to-r from-blue-300 to-blue-500 text-white border-r shadow-lg px-6 py-8">
+    <!-- Logo extra large dans un cercle blanc sophistiqué -->
+    <div class="flex justify-center mb-12">
+        <div class="bg-white p-3 rounded-full shadow-xl border-4 border-blue-100 
+                   hover:scale-105 transition-all duration-300 flex items-center justify-center"
+             style="width: 150px; height: 150px;">
+            <img src="{{ Vite::asset('resources/images/logo1.png') }}" 
+                 class="h-28 w-28 object-contain">
+        </div>
     </div>
     <ul class="space-y-6 text-lg">
         <li>
@@ -31,42 +37,59 @@
             </a>
         </li>
         <li>
-            <a href="#" class="hover:text-purple-300 flex items-center space-x-3 transition-colors duration-300">
-                <i data-lucide="calendar-days" class="w-5 h-5"></i><span>Annonces</span>
-            </a>
-        </li>
+    <a href="{{ route('admin.annonces.index') }}" class="hover:text-purple-300 flex items-center space-x-3 transition-colors duration-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+        <span>Annonces</span>
+    </a>
+<li>
+    <a href="{{ route('admin.categories.index') }}" class="hover:text-blue-300 flex items-center space-x-3 transition-colors duration-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        <span>Catégories</span>
+    </a>
+    
+</li>
         <li>
-            <a href="#" class="hover:text-purple-300 flex items-center space-x-3 transition-colors duration-300">
-                <i data-lucide="ticket" class="w-5 h-5"></i><span>Catégories</span>
-            </a>
-        </li>
+    <a href="{{ route('admin.reservations.index') }}" class="hover:text-blue-300 flex items-center space-x-3 transition-colors duration-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        <span>Réservations</span>
+    </a>
+</li>
+       
         <li>
-            <a href="#" class="hover:text-blue-300 flex items-center space-x-3 transition-colors duration-300">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                <span>Réservations</span>
+    <a href="{{ route('admin.paiements') }}" 
+    class="hover:text-blue-300 flex items-center space-x-3 transition-colors duration-300">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        <span>Paiements</span>
+    </a>
+</li>
+</li>
+            <a href="{{ route('admin.reclamations.index') }}" class="hover:text-blue-300 flex items-center space-x-3 transition-colors duration-300">
+                  <i data-lucide="file-warning" class="w-5 h-5"></i>
+                  <span>Reclamations</span>
             </a>
-        </li>
         <li>
-            <a href="#" class="hover:text-purple-300 flex items-center space-x-3 transition-colors duration-300">
-                <i data-lucide="activity" class="w-5 h-5"></i><span>Hist des locations</span>
-            </a>
-        </li>
         <li>
-            <a href="#" class="hover:text-purple-300 flex items-center space-x-3 transition-colors duration-300">
-                <i data-lucide="message-circle" class="w-5 h-5"></i><span>Messages</span>
-            </a>
-        </li>
+    <a href="{{ route('admin.commentaires') }}" class="hover:text-purple-300 flex items-center space-x-3 transition-colors duration-300">
+        <i data-lucide="message-square-dashed" class="w-5 h-5"></i>
+        <span>Commentaires</span>
+    </a>
+</li>
         <li>
-            <a href="#" class="hover:text-purple-300 flex items-center space-x-3 transition-colors duration-300">
-                <i data-lucide="message-square-dashed" class="w-5 h-5"></i><span>Commentaires</span>
-            </a>
-        </li>
-        <li>
-            <a href="#" class="text-red-400 hover:text-red-500 hover:underline flex items-center space-x-3 transition-colors duration-300">
-                <i data-lucide="log-out" class="w-5 h-5"></i><span>Déconnexion</span>
-            </a>
+            <form method="POST" action="{{ route('admin.logout') }}" class="inline">
+                @csrf
+                <button type="submit" class="w-full text-red-400 hover:text-red-500 hover:underline flex items-center space-x-3 transition-colors duration-300">
+                    <i data-lucide="log-out" class="w-5 h-5"></i>
+                    <span>Déconnexion</span>
+                </button>
+            </form>
         </li>
     </ul>
     <div class="mt-12 text-xs text-gray-300 text-center">

@@ -9,7 +9,10 @@ class Categorie extends Model
     use HasFactory;
 
     protected $fillable = ['nom'];
-
+    protected $casts = [
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ]; 
     public function objets()
     {
         return $this->hasMany(Objet::class);

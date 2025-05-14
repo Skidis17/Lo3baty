@@ -23,7 +23,10 @@ class Reservation extends Model
         'date_fin' => 'datetime',
         'date_creation' => 'datetime',
         'statut' => 'string',
-        'evaluation_date'=> 'datetime'
+        'evaluation_date'=> 'datetime',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime'
+        
     ];
 
     // Relations
@@ -41,9 +44,24 @@ class Reservation extends Model
     {
         return $this->hasOne(EvaluationOnPartner::class, 'reservation_id');
     }
+      public function evaluationOnClient()
+    {
+        return $this->hasOne(EvaluationOnClient::class, 'reservation_id');
+    }
 
     public function objet()
 {
     return $this->hasOneThrough(Objet::class, Annonce::class, 'id', 'id', 'annonce_id', 'objet_id');
 }
+
+
+    public function getStatutCouleurAttribute()
+    {
+        return match(strtolower($this->statut)) {
+            'confirmée' => 'bg-green-100 text-green-800',
+            'en_attente' => 'bg-yellow-100 text-yellow-800',
+            default => 'bg-red-100 text-red-800'
+        };
+    }
+
 }

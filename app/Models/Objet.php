@@ -36,6 +36,15 @@ class Objet extends Model
         return $this->belongsTo(Utilisateur::class, 'proprietaire_id');
     }
 
+      public function evaluations()
+    {
+        return $this->hasMany(EvaluationOnAnnonce::class);
+    }
+
+    public function getNoteMoyenneAttribute()
+    {
+        return round($this->evaluations()->avg('note'), 1) ?? null;
+    }
     public function images()
     {
         return $this->hasMany(Image::class);

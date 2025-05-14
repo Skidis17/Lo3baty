@@ -11,6 +11,7 @@
     <title>@yield('title', 'Sokna Admin')</title>
 
     @vite('resources/css/app.css')
+    <script src="https://unpkg.com/lucide@latest"></script>
 
 </head>
 

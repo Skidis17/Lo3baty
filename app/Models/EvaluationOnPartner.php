@@ -16,9 +16,15 @@ class EvaluationOnPartner extends Model
         'partner_id',
         'client_id',
         'note',
-        'commentaire'
+        'commentaire',
+        'signaler',
     ];
 
+        protected $casts = [
+        'signaler' => 'boolean',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime'
+    ];
     public function reservation()
     {
         return $this->belongsTo(Reservation::class);

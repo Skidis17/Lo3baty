@@ -16,8 +16,8 @@ public function index()
 {
     $user = Auth::user();
     
-    if ($user->role === 'propriétaire') {
-        return view('partenaire.home');
+    if ($user->role === 'partenaire') {
+        return view('partenaire.dashboard');
     }
     
     return view('client.acceuil');
@@ -26,11 +26,11 @@ public function index()
 
 public function partenaireHome()
 {
-    if (Auth::user()->role !== 'propriétaire') {
-        return redirect()->route('client.acceuil');
+    if (Auth::user()->role !== 'partenaire') {
+        return redirect()->route('partenaire.dashboard');
     }
     
-    return view('partenaire.acceuil');
+    return view('partenaire.dashboard');
 }
 
   public function clientHome()

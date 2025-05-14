@@ -21,7 +21,8 @@ class Utilisateur extends Authenticatable implements MustVerifyEmail
         'is_active',
         'image_profil', 
         'cin_recto', 
-        'cin_verso'
+        'cin_verso',
+        'notification_annonce'
     ];
 
 
@@ -37,6 +38,11 @@ class Utilisateur extends Authenticatable implements MustVerifyEmail
     ];
 
     protected $dates = ['date_inscription'];
+    // Récupérer l'URL de l'image de profil, si elle existe
+    public function getImageProfilAttribute($value)
+    {
+        return $value ? url('storage/' . $value) : url('storage/default-profile.jpg');
+    }
 
     // Relations
     public function objets()
@@ -48,7 +54,10 @@ class Utilisateur extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Annonce::class, 'proprietaire_id');
     }
-
+  public function paiements()
+    {
+        return $this->hasMany(PaiementClient::class, 'client_id');
+    }
     public function reservations()
     {
         return $this->hasMany(Reservation::class, 'client_id');
@@ -98,4 +107,14 @@ class Utilisateur extends Authenticatable implements MustVerifyEmail
   {
     return $this->is_active;
   }
+     public function isAnnonceNotificationActive(): bool
+    {
+        return $this->notification_annonce === 'active';
+    }
+
+    public function toggleAnnonceNotification(bool $active): void
+    {
+        $this->notification_annonce = $active ? 'active' : 'desactive';
+        $this->save();
+    }
 }

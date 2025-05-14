@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use App\Models\User; // Import explicite du modèle User
+use App\Models\User; 
 
 class PartenaireController extends Controller
 {
@@ -29,44 +29,41 @@ class PartenaireController extends Controller
         /** @var \App\Models\User $user */
         $user = Auth::user();
     
-        if ($user->role === 'propriétaire') {
-            return redirect()->route('home')
+        if ($user->role === 'partenaire') {
+            return redirect()->route('partenaire.dashboard')
                            ->with('error', 'Vous êtes déjà partenaire.');
         }
     
-        // Stockage des fichiers
         $rectoPath = $request->file('cin_recto')->store('cins', 'public');
         $versoPath = $request->file('cin_verso')->store('cins', 'public');
     
-        // Mise à jour de l'utilisateur
         $user->cin_recto = $rectoPath;
         $user->cin_verso = $versoPath;
-        $user->role = 'propriétaire';
+        $user->role = 'partenaire';
         
         if (!$user->save()) {
             return back()->with('error', 'Une erreur est survenue lors de la mise à jour.');
         }
     
-        return redirect()->route('home')
+        return redirect()->route('partenaire.dashboard')
                        ->with('success', 'Félicitations ! Vous êtes maintenant partenaire.');
     }
     
     
     
 
-    // Assure-toi que tu as bien ce use en haut du contrôleur
 
     public function switchRole(Request $request)
     {
         /** @var \App\Models\User $user */
         $user = Auth::user();
     
-        if ($request->input('role') === 'propriétaire') {
+        if ($request->input('role') === 'partenaire') {
             // Si l'utilisateur est déjà partenaire
-            if ($user->role === 'propriétaire') {
+            if ($user->role === 'partenaire') {
                 return response()->json([
                     'success' => true,
-                    'redirect' => route('partenaire.home')
+                    'redirect' => route('partenaire.dashboard')
                 ]);
             }
             
@@ -79,12 +76,12 @@ class PartenaireController extends Controller
             }
             
             // Si client valide veut devenir partenaire
-            $user->role = 'propriétaire';
+            $user->role = 'partenaire';
             $user->save();
             
             return response()->json([
                 'success' => true,
-                'redirect' => route('partenaire.home')
+                'redirect' => route('partenaire.dashboard')
             ]);
         }
         elseif ($request->input('role') === 'client') {

@@ -8,7 +8,6 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
     
-    @include('components.navbar')
     
     <style>
           body {
@@ -48,7 +47,7 @@
         }).then(response => {
             if (response.ok) {
                 submitted = true;
-                setTimeout(() => window.location.href = '{{ route('home') }}', 1500);
+                setTimeout(() => window.location.href = '{{ route('annonces') }}', 1500);
             }
         })">
             @csrf

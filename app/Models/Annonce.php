@@ -9,21 +9,30 @@ class Annonce extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+      protected $fillable = [
+        'date_publication',
         'date_debut',
         'date_fin',
         'statut',
+        'prix_journalier',
         'premium',
         'adresse',
         'objet_id',
-        'proprietaire_id'
+        'proprietaire_id',
+        'premium_periode',
+        'premium_start_date',
     ];
 
     protected $casts = [
         'date_publication' => 'datetime',
-        'statut' => 'string'
+        'date_debut' => 'date',
+        'date_fin' => 'date',
+        'premium' => 'boolean',
+        'premium_start_date' => 'datetime',
+        'statut' => 'string',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
-
     // Relations
     public function objet()
     {
@@ -39,7 +48,19 @@ class Annonce extends Model
     {
     return $this->belongsTo(Utilisateur::class, 'proprietaire_id');
     }
+ public function partenaire()
+    {
+        return $this->belongsTo(Utilisateur::class, 'partenaire_id')->withDefault([
+            'nom' => 'Anonyme',
+            'prenom' => ''
+        ]);
+    }
 
+    public function notifications(){ return $this->hasMany(Notification::class); }
+ public function scopeActive($query)
+    {
+        return $query->where('statut', 'active');
+    }
     // Accessors pour garantir le format DateTime
     public function getDateDebutAttribute($value)
     {
