@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Accueil - Jouets Tétouan</title>
     
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <!-- CSS Dependencies -->
     <link href="{{ asset('css/acceuil.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
@@ -14,7 +16,6 @@
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    @vite('resources/css/app.css')
     
 </head>
 <body style="background-color: #fff6f7;">
@@ -32,31 +33,31 @@
 </button>
 
 <!-- Hero Carousel -->
-<section class="relative overflow-hidden" style="background-color: rgb(112, 226, 210);" id="hero">
+<section class="relative overflow-hidden bg-white " id="hero">
     <div class="header-carousel owl-carousel owl-theme">
         <!-- Slide 1 -->
-        <div class="owl-carousel-item position-relative h-[600px]">
-            <img src="https://images.unsplash.com/photo-1587654780291-39c9404d746b" 
+        <div class="owl-carousel-item relative h-[400px] md:h-[600px]">
+            <img src="{{ asset('storage/images/bb1.webp') }}" 
                  class="w-full h-full object-cover" alt="Kids playing with toys">
-            <div class="absolute top-0 start-0 w-full h-full flex items-center bg-black/30">
+            <div class="absolute inset-0 flex items-center bg-black/30">
                 <div class="container mx-auto px-4">
-                    <div class="row justify-content-start">
-                        <div class="col-10 col-lg-8 text-white">
-                            <h1 class="text-4xl md:text-5xl font-bold mb-4 wow fadeInDown">
-                                Location de Jouets à Tétouan<br>
-                                <span class="text-blue-400">Pour des Souvenirs Inoubliables</span>
-                            </h1>
-                            <p class="text-xl mb-6 wow fadeInDown" data-wow-delay="0.2s">
-                                Découvrez notre collection de jouets premium pour tous les âges
-                            </p>
-                            <div class="flex gap-4 wow fadeInUp" data-wow-delay="0.4s">
-                                <a href="#annonces" class="btn-primary px-8 py-3 rounded-full">
-                                    Explorer Maintenant
-                                </a>
-                                <a href="#how-it-works" class="btn-outline-white px-8 py-3 rounded-full">
-                                    Comment ça marche?
-                                </a>
-                            </div>
+                    <div class="max-w-2xl text-white">
+                        <h1 class="text-3xl md:text-5xl font-bold mb-4 leading-tight">
+                            Location de Jouets à Tétouan<br>
+                            <span class="text-blue-400">Pour des Souvenirs Inoubliables</span>
+                        </h1>
+                        <p class="text-lg md:text-xl mb-6">
+                            Découvrez notre collection de jouets premium pour tous les âges
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="#annonces" class="inline-block bg-white text-[#70e2d2] hover:bg-gray-100 px-6 py-3 rounded-full 
+                            font-semibold transition-all duration-300 shadow-lg hover:shadow-xl">
+                                Explorer Maintenant
+                            </a>
+                            <a href="#how-it-works" class="inline-block border-2 border-white text-white hover:bg-white/10 
+                            px-6 py-3 rounded-full font-semibold transition-all duration-300">
+                                Comment ça marche?
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -64,32 +65,48 @@
         </div>
 
         <!-- Slide 2 -->
-        <div class="owl-carousel-item position-relative h-[600px]">
-            <img src="https://images.unsplash.com/photo-1572635196184-84e35138cf62" 
+        <div class="owl-carousel-item relative h-[400px] md:h-[600px]">
+            <img src="{{ asset('storage/images/bb2.png') }}" 
                  class="w-full h-full object-cover" alt="Kids playing with Lego">
-            <div class="absolute top-0 start-0 w-full h-full flex items-center bg-black/30">
+            <div class="absolute inset-0 flex items-center bg-black/30">
                 <div class="container mx-auto px-4">
-                    <div class="row justify-content-start">
-                        <div class="col-10 col-lg-8 text-white">
-                            <h1 class="text-4xl md:text-5xl font-bold mb-4">
-                                Des Jouets Éducatifs<br>
-                                <span class="text-blue-400">Pour Développer la Créativité</span>
-                            </h1>
-                            <p class="text-xl mb-6">
-                                Apprentissage par le jeu avec nos sélections expertes
-                            </p>
-                            <div class="flex gap-4">
-                                <a href="#categories" class="btn-primary px-8 py-3 rounded-full">
-                                    Parcourir les Catégories
-                                </a>
-                            </div>
+                    <div class="max-w-2xl text-white">
+                        <h1 class="text-3xl md:text-5xl font-bold mb-4 leading-tight">
+                            Des Jouets Éducatifs<br>
+                            <span class="text-blue-400">Pour Développer la Créativité</span>
+                        </h1>
+                        <p class="text-lg md:text-xl mb-6">
+                            Apprentissage par le jeu avec nos sélections expertes
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="#categories" class="inline-block bg-white text-[#70e2d2] hover:bg-gray-100 px-6 py-3 
+                            rounded-full font-semibold transition-all duration-300 shadow-lg hover:shadow-xl">
+                                Parcourir les Catégories
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Custom Arrows -->
+    <div class="owl-nav custom-nav">
+        <button class="owl-prev absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/40 p-3 
+        rounded-full transition-all duration-300">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+        </button>
+        <button class="owl-next absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/40 p-3 
+        rounded-full transition-all duration-300">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+        </button>
+    </div>
 </section>
+
 
 <!-- How It Works -->
 <section class="py-20 bg-white" id="how-it-works">
