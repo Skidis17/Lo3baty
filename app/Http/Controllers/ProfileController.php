@@ -40,32 +40,33 @@ class ProfileController extends Controller
     }
 
     public function updateInfo(Request $request)
-    {
-        /** @var Utilisateur $user */
-        $user = Auth::user();
+{
+    /** @var Utilisateur $user */
+    $user = Auth::user();
 
-        $request->validate([
-            'nom' => 'required|string|max:255',
-            'prenom' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
-        ]);
+    $request->validate([
+        'nom' => 'required|string|max:255',
+        'prenom' => 'required|string|max:255',
+        'surnom' => 'nullable|string|max:50',
+       
+    ]);
 
-        $user->nom = $request->nom;
-        $user->prenom = $request->prenom;
-        $user->email = $request->email;
-        $user->save();
+    $user->nom = $request->nom;
+    $user->prenom = $request->prenom;
+    $user->surnom = $request->surnom;
+    $user->save();
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Profil mis à jour avec succès',
-            'user' => [
-                'nom' => $user->nom,
-                'prenom' => $user->prenom,
-                'email' => $user->email
-            ]
-        ]);
-    }
-
+    return response()->json([
+        'success' => true,
+        'message' => 'Profil mis à jour avec succès',
+        'utilisateurs' => [
+            'nom' => $user->nom,
+            'prenom' => $user->prenom,
+            'surnom' => $user->surnom,
+            
+        ]
+    ]);
+}
     public function updatePassword(Request $request)
     {
         $request->validate([

@@ -383,49 +383,50 @@
         </div>
         
       
-        <div id="profile-tab" class="profile-tab-content active p-6">
-            <div class="flex flex-col items-center mb-6">
-                <div class="relative mb-4">
-               <img id="profile-image" 
-     src="{{ auth()->user()->image_profil ? asset('storage/' . auth()->user()->image_profil) : 'https://ui-avatars.com/api/?name='.auth()->user()->prenom.'+'.auth()->user()->nom.'&background=4f46e5&color=fff' }}" 
-     alt="Photo de profil" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow">
-                    <label for="image-upload" class="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-2 cursor-pointer hover:bg-blue-600">
-                        <i class="fas fa-camera"></i>
-                        <input type="file" id="image-upload" accept="image/*" class="hidden">
-                    </label>
-                </div>
-                <h3 id="user-name" class="text-xl font-bold">{{ auth()->user()->prenom }} {{ auth()->user()->nom }}</h3>
-                <p id="user-email" class="text-gray-600">{{ auth()->user()->email }}</p>
-            </div>
-            
-            <form id="profile-form" class="space-y-4">
-                @csrf
-                <div>
-                    <label for="user-nom" class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
-                    <input type="text" id="user-nom" name="nom" value="{{ auth()->user()->nom }}" 
-                           class="w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500">
-                </div>
-                <div>
-                    <label for="user-prenom" class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
-                    <input type="text" id="user-prenom" name="prenom" value="{{ auth()->user()->prenom }}" 
-                           class="w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500">
-                </div>
-                <div>
-                    <label for="user-email-input" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                    <input type="email" id="user-email-input" name="email" value="{{ auth()->user()->email }}" 
-                           class="w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500">
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Rôle</label>
-                    <p id="user-role" class="bg-gray-100 p-2 rounded">{{ auth()->user()->role === 'client' ? 'Client' : 'partenaire' }}</p>
-                </div>
-                <div id="profile-error" class="text-red-500 text-sm hidden"></div>
-                <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
-                    <i class="fas fa-save mr-2"></i>Enregistrer les modifications
-                </button>
-            </form>
+<div id="profile-tab" class="profile-tab-content active p-6">
+    <div class="flex flex-col items-center mb-6">
+        <div class="relative mb-4">
+            <img id="profile-image" 
+                 src="{{ auth()->user()->image_profil ? asset('storage/' . auth()->user()->image_profil) : 'https://ui-avatars.com/api/?name='.auth()->user()->prenom.'+'.auth()->user()->nom.'&background=4f46e5&color=fff' }}" 
+                 alt="Photo de profil" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow">
+            <label for="image-upload" class="absolute bottom-0 right-0 bg-blue-500 text-white rounded-full p-2 cursor-pointer hover:bg-blue-600">
+                <i class="fas fa-camera"></i>
+                <input type="file" id="image-upload" accept="image/*" class="hidden">
+            </label>
         </div>
-        
+        <h3 id="user-name" class="text-xl font-bold">{{ auth()->user()->prenom }} {{ auth()->user()->nom }}</h3>
+        <p id="user-email" class="text-gray-600">{{ auth()->user()->email }}</p>
+        @if(auth()->user()->surnom)
+            <p id="user-surnom" class="text-gray-500 italic">"{{ auth()->user()->surnom }}"</p>
+        @endif
+    </div>
+    
+    <form id="profile-form" class="space-y-4">
+        @csrf
+        <div>
+            <label for="user-nom" class="block text-sm font-medium text-gray-700 mb-1">Nom</label>
+            <input type="text" id="user-nom" name="nom" value="{{ auth()->user()->nom }}" 
+                   class="w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div>
+            <label for="user-prenom" class="block text-sm font-medium text-gray-700 mb-1">Prénom</label>
+            <input type="text" id="user-prenom" name="prenom" value="{{ auth()->user()->prenom }}" 
+                   class="w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500">
+        </div>
+        <div>
+            <label for="user-surnom" class="block text-sm font-medium text-gray-700 mb-1">Surnom (optionnel)</label>
+            <input type="text" id="user-surnom" name="surnom" value="{{ auth()->user()->surnom }}" 
+                   class="w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500"
+                   placeholder="Votre surnom">
+        </div>
+      
+       
+        <div id="profile-error" class="text-red-500 text-sm hidden"></div>
+        <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">
+            <i class="fas fa-save mr-2"></i>Enregistrer les modifications
+        </button>
+    </form>
+</div>
         <div id="password-tab" class="profile-tab-content p-6">
             <form id="password-form" class="space-y-4">
                 @csrf
@@ -527,38 +528,56 @@
     });
 
     document.getElementById('profile-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-    
-        const formData = new FormData(this);
-        const errorElement = document.getElementById('profile-error');
-    
-        fetch('/profile/update-info', {
-            method: 'POST',
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest',
-                'Accept': 'application/json'
-            },
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById('user-name').textContent = 
-                    `${formData.get('prenom')} ${formData.get('nom')}`;
-                document.getElementById('user-email').textContent = formData.get('email');
-                
-                showToast('success', 'Profil mis à jour avec succès');
-            } else {
-                errorElement.textContent = data.message || 'Erreur lors de la mise à jour';
-                errorElement.classList.remove('hidden');
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const errorElement = document.getElementById('profile-error');
+
+    fetch('/profile/update-info', {
+        method: 'POST',
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Accept': 'application/json'
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('user-name').textContent = 
+                `${formData.get('prenom')} ${formData.get('nom')}`;
+            document.getElementById('user-email').textContent = formData.get('email');
+            
+            // Mise à jour du surnom dans l'affichage
+            const surnom = formData.get('surnom');
+            const surnomElement = document.getElementById('user-surnom');
+            if (surnom) {
+                if (!surnomElement) {
+                    const emailElement = document.getElementById('user-email');
+                    const newSurnomElement = document.createElement('p');
+                    newSurnomElement.id = 'user-surnom';
+                    newSurnomElement.className = 'text-gray-500 italic';
+                    newSurnomElement.textContent = `"${surnom}"`;
+                    emailElement.after(newSurnomElement);
+                } else {
+                    surnomElement.textContent = `"${surnom}"`;
+                }
+            } else if (surnomElement) {
+                surnomElement.remove();
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            errorElement.textContent = 'Une erreur est survenue';
+            
+            showToast('success', 'Profil mis à jour avec succès');
+        } else {
+            errorElement.textContent = data.message || 'Erreur lors de la mise à jour';
             errorElement.classList.remove('hidden');
-        });
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        errorElement.textContent = 'Une erreur est survenue';
+        errorElement.classList.remove('hidden');
     });
+});
 
     document.getElementById('password-form').addEventListener('submit', function(e) {
         e.preventDefault();
