@@ -6,6 +6,7 @@
     <title>Lo3baty Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
         @keyframes ping {
@@ -16,6 +17,19 @@
 </head>
 <body class="font-sans bg-gray-50">
     <header class="bg-white shadow-sm sticky top-0 z-50">
+        @if(session('success'))
+<div 
+    x-data="{ show: true }" 
+    x-show="show" 
+    x-transition 
+    x-init="setTimeout(() => show = false, 4000)" 
+    class="fixed top-5 right-5 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50"
+>
+    <span class="font-semibold">{{ session('success') }}</span>
+    <button @click="show = false" class="ml-4 text-white hover:text-gray-100">&times;</button>
+</div>
+@endif
+
         <div class="container mx-auto px-6">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
@@ -206,11 +220,21 @@
                         </div>
                     </div>
 
-                    <div class="relative">
-                        <button class="w-9 h-9 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center text-white hover:opacity-90 transition">
-                            <i class="fas fa-user text-sm"></i>
-                        </button>
-                    </div>
+                    <div class="relative inline-block text-left" x-data="{ open: false }" @click.away="open = false">
+    <button @click="open = !open" class="w-9 h-9 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center text-white hover:opacity-90 transition focus:outline-none">
+        <i class="fas fa-user text-sm"></i>
+    </button>
+
+    <!-- Menu déroulant -->
+    <div x-show="open" x-transition class="absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+        <a href="{{ route('parametres') }}" class="block px-4 py-2 text-gray-700 hover:bg-gray-100">Paramètres</a>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">Déconnexion</button>
+        </form>
+    </div>
+</div>
+
                 </div>
             </div>
         </div>

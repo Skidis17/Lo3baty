@@ -32,6 +32,12 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+// Page paramètres 
+Route::get('/parametres', function () {
+    return view('auth.parametres'); 
+})->name('parametres')->middleware('auth');
+Route::post('/parametres/update', [AuthController::class, 'updateProfile'])->name('profile.update')->middleware('auth');
+
 
 // Admin Authentication - login only
 Route::prefix('admin')->group(function () {

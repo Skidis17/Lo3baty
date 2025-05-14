@@ -81,4 +81,33 @@ class AuthController extends Controller
     $request->session()->regenerateToken();
     return redirect('/');
   }
+
+  public function updateProfile(Request $request)
+{
+    $user = Auth::user();
+
+    $request->validate([
+        'nom' => 'required|string|max:255',
+        'prenom' => 'required|string|max:255',
+        'surnom' => 'required|string|max:255|unique:utilisateurs,surnom,' . $user->id,
+        'image_profil' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+
+    if ($request->hasFile('image_profil')) {
+        // Supprimer l'ancienne image si elle existe
+        if ($user->image_profil) {
+            Storage::disk('public')->delete($user->image_profil);
+        }
+        $user->image_profil = $request->file('image_profil')->store('profile_images', 'public');
+    }
+
+    $user->update([
+        'nom' => $request->nom,
+        'prenom' => $request->prenom,
+        'surnom' => $request->surnom,
+        'image_profil' => $user->image_profil,
+    ]);
+
+    return redirect()->back()->with('success', 'Profil mis à jour avec succès.');
+}
 }
