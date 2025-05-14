@@ -86,13 +86,17 @@
 @endif
         <div class="container mx-auto px-6">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center">
-                    <span class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-400 bg-clip-text text-transparent">
-                        Lo3baty
-                    </span>
-                </div>
+               <div class="flex items-center">
+    <a href="{{ url('/') }}">
+    <img src="{{ asset('storage/images/Lo3baty.jpg') }}" alt="Lo3baty Logo" class="h-10 w-auto ml-6 border-rounded">
+    </a>
+    </div>
 
                 <nav class="hidden md:flex items-center space-x-8">
+                   <a href="{{ route('stats') }}" class="relative group text-gray-600 hover:text-blue-600 transition-colors">
+                        Statistiques
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
                     <a href="{{ route('annonces') }}" class="relative group text-gray-600 hover:text-blue-600 transition-colors">
                         Mes annonces
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
@@ -103,6 +107,10 @@
                     </a>
                     <a href="{{ route('reclamations') }}" class="relative group text-gray-600 hover:text-blue-600 transition-colors">
                         Mes Réclamations
+                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
+                    </a>
+                <a href="{{ route('acceuil') }}" class="relative group text-gray-600 hover:text-blue-600 transition-colors">
+                        Acceuil
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
                 </nav>
