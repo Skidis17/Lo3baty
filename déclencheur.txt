@@ -1,0 +1,145 @@
+DROP TRIGGER IF EXISTS `nouvelle_annonce_notification`;
+DELIMITER $$
+CREATE TRIGGER `nouvelle_annonce_notification` AFTER INSERT ON `annonces` FOR EACH ROW BEGIN
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE user_id BIGINT;
+
+    DECLARE user_cursor CURSOR FOR SELECT id FROM utilisateurs;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    OPEN user_cursor;
+    user_loop: LOOP
+        FETCH user_cursor INTO user_id;
+        IF done THEN
+            LEAVE user_loop;
+        END IF;
+
+        INSERT INTO notifications (
+            id,
+            type,
+            notifiable_type,
+            notifiable_id,
+            data,
+            read_at,
+            created_at,
+            updated_at
+        ) VALUES (
+            UUID(),
+            'App\\Notifications\\NouvelleAnnonceNotification',
+            'App\\Models\\Utilisateur',
+            user_id,
+            JSON_OBJECT(
+                'type', 'nouvelle_annonce',
+                'annonce_id', NEW.id,
+                'message', 'Nouvelle annonce disponible',
+                'url', CONCAT('http://localhost:8000/annonces/', NEW.id),
+                'created_at', DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s')
+            ),
+            NULL,
+            NOW(),
+            NOW()
+        );
+    END LOOP;
+    CLOSE user_cursor;
+END
+$$
+DELIMITER ;
+
+DROP TRIGGER IF EXISTS `nouvelle_annonce_update`;
+DELIMITER $$
+CREATE TRIGGER `nouvelle_annonce_update` AFTER UPDATE ON `annonces` FOR EACH ROW BEGIN
+    IF (OLD.prix_journalier != NEW.prix_journalier OR
+        OLD.date_publication != NEW.date_publication OR
+        OLD.date_debut != NEW.date_debut OR
+        OLD.date_fin != NEW.date_fin OR
+        OLD.statut != NEW.statut OR
+        OLD.premium != NEW.premium OR
+        OLD.premium_periode != NEW.premium_periode OR
+        OLD.premium_start_date != NEW.premium_start_date OR
+        OLD.adresse != NEW.adresse OR
+        OLD.objet_id != NEW.objet_id OR
+        OLD.proprietaire_id != NEW.proprietaire_id) THEN
+
+        INSERT INTO notifications (
+            id,
+            type,
+            notifiable_type,
+            notifiable_id,
+            data,
+            read_at,
+            created_at,
+            updated_at
+        )
+        SELECT
+            UUID(),
+            'App\\Notifications\\AnnonceModifieeNotification',
+            'App\\Models\\Utilisateur',
+            u.id,
+            JSON_OBJECT(
+                'type', 'annonce_modifiee',
+                'annonce_id', NEW.id,
+                'message', CONCAT(' Une annonce a été mise à jour'),
+                'details', JSON_OBJECT(
+                    'prix', NEW.prix_journalier,
+                    'dates', JSON_OBJECT(
+                        'debut', NEW.date_debut,
+                        'fin', NEW.date_fin
+                    ),
+                    'statut', NEW.statut,
+                    'premium', NEW.premium
+                ),
+                'url', CONCAT('http://localhost:8000/annonces/', NEW.id)
+            ),
+            NULL,
+            NOW(),
+            NOW()
+        FROM utilisateurs u
+        WHERE u.role = 'client';
+    END IF;
+END
+$$
+DELIMITER ;
+
+
+
+
+
+
+
+DROP TRIGGER IF EXISTS `after_reclamation_update`;
+DELIMITER $$
+CREATE TRIGGER `after_reclamation_update` AFTER UPDATE ON `reclamations` FOR EACH ROW BEGIN
+    DECLARE notification_id CHAR(36);
+    DECLARE notification_url VARCHAR(255);
+
+    IF (NEW.reponse IS NOT NULL AND (OLD.reponse IS NULL OR NEW.reponse != OLD.reponse)) THEN
+        INSERT INTO notifications (
+            id,
+            type,
+            notifiable_type,
+            notifiable_id,
+            data,
+            read_at,
+            created_at,
+            updated_at
+        ) VALUES (
+            UUID(),
+            'App\\Notifications\\ReclamationRepondueNotification',
+            'App\\Models\\Utilisateur',
+            NEW.utilisateur_id,
+            JSON_OBJECT(
+                'url', CONCAT('http://localhost:8000/reclamations/', NEW.id),
+                'type', 'reclamation_reponse',
+                'sujet', NEW.sujet,
+                'message', CONCAT('Réponse à votre réclamation #', NEW.id),
+                'reponse', NEW.reponse,
+                'reclamation_id', NEW.id
+            ),
+            NULL,
+            NOW(),
+            NOW()
+        );
+    END IF;
+END
+$$
+DELIMITER ;
