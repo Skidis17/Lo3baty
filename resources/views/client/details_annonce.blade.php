@@ -408,45 +408,47 @@
                             <i class="fas fa-th-large mr-2 text-blue-500"></i> Jouets Similaires
                         </h2>
                         
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                            @foreach($relatedProduits as $produit)
-                                @php
-                                    $annonce = $produit->annonces->first();
-                                @endphp
-                                
-                                <a href="{{ route('annonceID', ['id' => $annonce->id]) }}" 
-                                   class="toy-card group">
-                                    <div class="relative h-48 overflow-hidden rounded-t-lg bg-gradient-to-br from-pink-50 to-blue-50">
-                                        @if($produit->images->first())
-                                            @if($annonce->premium)
-                                                <div class="premium-badge">
-                                                    <i class="fas fa-crown mr-1"></i> Premium
-                                                </div>
-                                            @endif
-                                            <img src="{{ asset($produit->images->first()->url) }}" 
-                                                 class="w-full h-full object-cover duration-300 group-hover:scale-110 transition-transform"
-                                                 alt="{{ $produit->nom }}">
-                                        @else
-                                            <div class="w-full h-full flex items-center justify-center">
-                                                <i class="fas fa-image text-gray-400 text-3xl"></i>
-                                            </div>
-                                        @endif
-                                    </div>
-                                    
-                                    <div class="p-4 bg-white">
-                                        <h3 class="font-medium text-black-900 truncate">{{ $produit->nom }}</h3>
-                                        <div class="mt-2 flex items-center justify-between">
-                                            <span class="text-lg font-bold text-emerald-600">
-                                                {{ $annonce->prix_journalier }} DH/jour
-                                            </span>
-                                            <span class="px-2 py-1 text-xs rounded-full {{ $produit->etat === 'Neuf' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800' }}">
-                                                {{ ucfirst($produit->etat) }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endforeach
+                       <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+    @foreach($relatedProduits as $produit)
+        @php
+            $annonce = $produit->annonces->first() ?? null; // Retourne null si pas d'annonce
+        @endphp
+        
+        @if($annonce) <!-- On n'affiche que si annonce existe -->
+            <a href="{{ route('annonceID', ['id' => $annonce->id]) }}" 
+               class="toy-card group">
+                <div class="relative h-48 overflow-hidden rounded-t-lg bg-gradient-to-br from-pink-50 to-blue-50">
+                    @if($produit->images->first())
+                        @if($annonce->premium)
+                            <div class="premium-badge">
+                                <i class="fas fa-crown mr-1"></i> Premium
+                            </div>
+                        @endif
+                        <img src="{{ asset($produit->images->first()->url) }}" 
+                             class="w-full h-full object-cover duration-300 group-hover:scale-110 transition-transform"
+                             alt="{{ $produit->nom }}">
+                    @else
+                        <div class="w-full h-full flex items-center justify-center">
+                            <i class="fas fa-image text-gray-400 text-3xl"></i>
                         </div>
+                    @endif
+                </div>
+                
+                <div class="p-4 bg-white">
+                    <h3 class="font-medium text-black-900 truncate">{{ $produit->nom }}</h3>
+                    <div class="mt-2 flex items-center justify-between">
+                        <span class="text-lg font-bold text-emerald-600">
+                            {{ $annonce->prix_journalier }} DH/jour
+                        </span>
+                        <span class="px-2 py-1 text-xs rounded-full {{ $produit->etat === 'Neuf' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800' }}">
+                            {{ ucfirst($produit->etat) }}
+                        </span>
+                    </div>
+                </div>
+            </a>
+        @endif
+    @endforeach
+</div>
 
                         <!-- View All Products Button -->
                         <div class="mt-8 flex justify-center">

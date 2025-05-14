@@ -9,7 +9,7 @@
             </div>
             
             <div class="p-6">
-                <p class="mb-6 text-gray-700">Bienvenue Partenaire, {{ Auth::user()->name }} !</p>
+                  <p class="mb-6 text-gray-700">Bienvenue Partenaire, {{ Auth::user()->nom }} {{ Auth::user()->prenom }} !</p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <!-- Vos éléments de dashboard partenaire ici -->

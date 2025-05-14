@@ -217,7 +217,7 @@
                         </div>
 
                         <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 rounded-full text-sm {{ $etatColors[$objet->etat] }}">
+                            <span class="px-3 py-1 rounded-full text-sm {{ $etatColors[$objet->etat] ?? 'bg-gray-100 text-gray-800' }}">
                                 {{ ucfirst($objet->etat) }}
                             </span>
                             <span class="px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-sm">

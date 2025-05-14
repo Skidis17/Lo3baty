@@ -9,6 +9,7 @@ use App\Models\Reclamation;
 
 use App\Models\Annonce;
 use App\Observers\AnnonceObserver;
+use App\Observers\AnnonceModifieeObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +30,8 @@ class AppServiceProvider extends ServiceProvider
      
     Reclamation::observe(ReclamationObserver::class);
     Annonce::observe(AnnonceObserver::class);
+        Annonce::observe(AnnonceModifieeObserver::class);
+
 }
 
 }

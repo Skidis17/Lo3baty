@@ -66,7 +66,7 @@ class PartenaireController extends Controller
             if ($user->role === 'propriétaire') {
                 return response()->json([
                     'success' => true,
-                    'redirect' => route('partenaire.home')
+                    'redirect' => route('home')
                 ]);
             }
             
@@ -84,7 +84,7 @@ class PartenaireController extends Controller
             
             return response()->json([
                 'success' => true,
-                'redirect' => route('partenaire.home')
+                'redirect' => route('home')
             ]);
         }
         elseif ($request->input('role') === 'client') {

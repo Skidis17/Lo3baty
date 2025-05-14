@@ -12,8 +12,10 @@ use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\ReclamationController;
 use App\Http\Controllers\AnnonceController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PartenaireController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Admin\Partenaire_clientController;
@@ -50,7 +52,7 @@ Route::post('/paiement/process', [PaiementController::class, 'process'])->name('
 // Protected Routes - User Must Be Logged In
 // ========================
 Route::middleware(['auth'])->group(function () {
-
+    
     // Accès aux annonces & réservations
     Route::get('/annonces', [AnnonceController::class, 'index'])->name('annonces');
     Route::get('/annonces/{id}', [AnnonceDetailsController::class, 'show'])->name('annonceID');
@@ -63,7 +65,6 @@ Route::middleware(['auth'])->group(function () {
 
     // Réclamations
 
-    Route::get('/client/reclamations', [ReclamationController::class, 'index'])->name('client.reclamations');
     Route::middleware(['auth'])->group(function () {
         Route::get('/reclamations', [ReclamationController::class, 'index'])->name('reclamations');
         Route::post('/reclamations', [ReclamationController::class, 'store'])->name('reclamations.store');
@@ -73,8 +74,6 @@ Route::middleware(['auth'])->group(function () {
     // Espace client
     Route::get('/client/acceuil', [HomeController::class, 'clientHome'])->name('client.acceuil');
 
-    // Client spécifique : réclamations visibles
-    Route::get('/client/reclamations', [ReclamationController::class, 'index'])->name('client.reclamations');
 
     // Espace home + switch rôle
     Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -87,11 +86,10 @@ Route::middleware(['auth'])->group(function () {
         ->middleware('role:propriétaire');
 
     // Routes spécifiques aux clients
-    Route::middleware(\App\Http\Middleware\CheckRole::class . ':client')->group(function () {
-        Route::get('/devenir-partenaire', [PartenaireController::class, 'showContrat'])->name('partenaire.contrat');
-        Route::post('/devenir-partenaire', [PartenaireController::class, 'devenirPartenaire'])->name('partenaire.valider');
-    });
+    
 });
+
+
 
 // ========================
 // Admin Routes - Protected by 'auth:admin'
@@ -112,3 +110,26 @@ Route::prefix('admin')->middleware(['auth:admin'])->name('admin.')->group(functi
     Route::get('/partenaires', [Partenaire_clientController::class, 'indexPartenaires'])->name('partenaires');
     Route::post('/partenaires/{partenaire}/toggle-status', [Partenaire_clientController::class, 'toggleStatusPartenaire'])->name('partenaires.toggle-status');
 });
+
+
+
+
+
+// Routes pour le profil utilisateur
+Route::middleware('auth')->group(function () {
+    Route::post('/profile/update-image', [ProfileController::class, 'updateImage']);
+    Route::post('/profile/update-password', [ProfileController::class, 'updatePassword']);
+    Route::post('/profile/update-info', [ProfileController::class, 'updateInfo']);
+    Route::post('/logout', [ProfileController::class, 'logout']);
+});
+
+Route::middleware(['auth'])->prefix('client')->group(function() {
+    Route::get('/notifications/unread-count', [NotificationController::class, 'unreadCount']);
+    Route::get('/notifications/latest', [NotificationController::class, 'latest']);
+    Route::post('/notifications/mark-as-read', [NotificationController::class, 'markAllAsRead']);
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('client.notifications');
+});
+
+    Route::get('/notification-preferences', [NotificationController::class, 'getPreferences']);
+    Route::post('/notification-preferences', [NotificationController::class, 'savePreferences']);
+    

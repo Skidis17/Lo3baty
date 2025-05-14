@@ -21,7 +21,8 @@ class Utilisateur extends Authenticatable implements MustVerifyEmail
         'is_active',
         'image_profil', 
         'cin_recto', 
-        'cin_verso'
+        'cin_verso',
+        'notification_annonce'
     ];
 
 
@@ -29,12 +30,13 @@ class Utilisateur extends Authenticatable implements MustVerifyEmail
         'mot_de_passe',
         'remember_token',
       ];
-    protected $casts = [
-        'date_inscription' => 'datetime',
-        'role' => 'string',
-        'is_active' => 'boolean',
-        'email_verified_at' => 'datetime',
-    ];
+   protected $casts = [
+    'date_inscription' => 'datetime',
+    'role' => 'string',
+    'is_active' => 'boolean',
+    'email_verified_at' => 'datetime',
+    'notification_annonce' => 'string',
+];
 
     protected $dates = ['date_inscription'];
 
@@ -98,4 +100,16 @@ class Utilisateur extends Authenticatable implements MustVerifyEmail
   {
     return $this->is_active;
   }
+
+
+  public function isAnnonceNotificationActive(): bool
+{
+    return $this->notification_annonce === 'active';
+}
+
+public function toggleAnnonceNotification(bool $active): void
+{
+    $this->notification_annonce = $active ? 'active' : 'desactive';
+    $this->save();
+}
 }

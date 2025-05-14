@@ -1,4 +1,3 @@
-// app/Http/Kernel.php
 <?php
 
 namespace App\Http;
@@ -12,8 +11,4 @@ class Kernel extends HttpKernel
         'role' => \App\Http\Middleware\CheckRole::class,
         'checkUserStatus' => \App\Http\Middleware\CheckUserStatus::class, 
     ];
-  
-    
-
-    
 }
