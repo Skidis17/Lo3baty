@@ -19,9 +19,10 @@ class SendEvaluationEmails extends Command
         $now = Carbon::now();
     
         $this->info("Starting process at {$now->toDateTimeString()}");
-    $reservations = Reservation::whereDate('date_fin', $today) 
+        $reservations = Reservation::whereDate('date_fin', $today) 
         ->where('is_email', 0) 
-        ->with(['utilisateur:id,email', 'objet'])
+        ->where('statut', 'confirmée') 
+        ->with(['client:id,email', 'objet'])
         ->get();
 
     $this->info("Found {$reservations->count()} eligible reservations");
@@ -31,12 +32,12 @@ class SendEvaluationEmails extends Command
     foreach ($reservations as $reservation) {
         try {
 
-            if (!$reservation->relationLoaded('utilisateur') || !$reservation->utilisateur) {
+            if (!$reservation->relationLoaded('client') || !$reservation->client) {
                 $this->error("No user found for reservation ID: {$reservation->id}");
                 continue;
             }
 
-            $userEmail = $reservation->utilisateur->email;
+            $userEmail = $reservation->client->email;
             
             if (empty($userEmail)) {
                 $this->error("Empty email for reservation ID: {$reservation->id}");
@@ -51,9 +52,8 @@ class SendEvaluationEmails extends Command
 
             Mail::to($userEmail)->send(new EvaluationMail($reservation));
             
-            Reservation::withoutTimestamps(function () use ($reservation, $now) {
+            Reservation::withoutTimestamps(function () use ($reservation) {
                 $reservation->update([
-                    'evaluation_date' => $now,
                     'is_email' => 1
                 ]);
             });

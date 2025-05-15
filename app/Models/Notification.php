@@ -10,6 +10,7 @@ class Notification extends Model
 
     protected $fillable = [
         'contenu',
+        'titre',
         'contenu_email',
         'envoyee',
         'lue',

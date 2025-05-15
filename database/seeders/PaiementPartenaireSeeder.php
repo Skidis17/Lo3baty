@@ -14,7 +14,7 @@ class PaiementPartenaireSeeder extends Seeder
             [
                 'annonce_id' => 1,
                 'partenaire_id' => 1,
-                'montant' => 70.00,
+                'montant' => 35.00,
                 'methode' => 'carte',
                 'date_paiement' => Carbon::now()->subDays(2),
                 'periode' => '7',
@@ -24,7 +24,7 @@ class PaiementPartenaireSeeder extends Seeder
             [
                 'annonce_id' => 2,
                 'partenaire_id' => 1,
-                'montant' => 150.00,
+                'montant' => 25.00,
                 'methode' => 'paypal',
                 'date_paiement' => Carbon::now()->subDay(),
                 'periode' => '15',

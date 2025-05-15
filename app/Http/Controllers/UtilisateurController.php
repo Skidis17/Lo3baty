@@ -3,19 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Utilisateur;
-use App\Models\Evaluation;
+use Illuminate\Http\Request;
 
 class UtilisateurController extends Controller
-{public function show($id)
+{
+    public function getSurnom($id)
     {
         $utilisateur = Utilisateur::findOrFail($id);
-        $commentaires = Evaluation::where('evalue_id', $id)
-            ->with(['evaluateur', 'objet'])
-            ->get();
-    
-        return view('client.show', [
-            'utilisateur' => $utilisateur,
-            'commentaires' => $commentaires
-        ]);
+        return response()->json(['surnom' => $utilisateur->surnom]);
     }
 }
