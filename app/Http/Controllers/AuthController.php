@@ -51,35 +51,35 @@ class AuthController extends Controller
   }
 
   public function login(Request $request)
-  {
-      $credentials = $request->validate([
-          'email'        => 'required|email',
-          'mot_de_passe' => 'required',
-      ]);
+{
+    $credentials = $request->validate([
+        'email' => 'required|email',
+        'mot_de_passe' => 'required',
+    ]);
 
-      /* IMPORTANT : la clé doit s’appeler 'password', pas 'mot_de_passe' */
-      if (Auth::attempt([
-              'email'    => $credentials['email'],
-              'password' => $credentials['mot_de_passe'],
-          ])) {
+    if (Auth::attempt([
+            'email' => $credentials['email'],
+            'password' => $credentials['mot_de_passe'],
+        ])) {
 
-          // Vérification du statut explicite
-          $user = Auth::user();
-          if (!$user->is_active) {
-              Auth::logout();
-              return back()->withErrors([
-                  'email' => 'Votre compte est désactivé. Veuillez contacter l’administrateur.',
-              ]);
-          }
+        $user = Auth::user();
+        if (!$user->is_active) {
+            Auth::logout();
+            return back()->withErrors([
+                'email' => 'Votre compte est désactivé. Veuillez contacter l’administrateur.',
+            ]);
+        }
 
-          $request->session()->regenerate();
-          return redirect()->route('annonces')->with('success', 'Connexion réussie !');
-      }
+        $request->session()->regenerate();
+        
+        // Modified redirect - use intended() instead of direct route
+        return redirect()->intended(route('annonces'));
+    }
 
-      return back()->withErrors([
-          'email' => 'Les identifiants fournis ne correspondent pas à nos enregistrements.',
-      ]);
-  }
+    return back()->withErrors([
+        'email' => 'Les identifiants fournis ne correspondent pas à nos enregistrements.',
+    ]);
+}
 
 
   public function logout(Request $request)

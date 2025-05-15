@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <style>
         @keyframes ping {
             75%, 100% { transform: scale(1.5); opacity: 0; }
@@ -109,10 +111,7 @@
                         Mes Réclamations
                         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
                     </a>
-                <a href="{{ route('acceuil') }}" class="relative group text-gray-600 hover:text-blue-600 transition-colors">
-                        Acceuil
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
-                    </a>
+            
                 </nav>
 
 

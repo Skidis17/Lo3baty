@@ -103,7 +103,7 @@ class ProfileController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Déconnexion réussie',
-            'redirect' => url('/login')
+            'redirect' => url('/')
         ]);
     }
 }

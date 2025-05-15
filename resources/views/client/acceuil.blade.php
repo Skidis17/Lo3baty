@@ -44,7 +44,7 @@
                     <div class="max-w-2xl text-white">
                         <h1 class="text-3xl md:text-5xl font-bold mb-4 leading-tight">
                             Location de Jouets à Tétouan<br>
-                            <span class="text-blue-400">Pour des Souvenirs Inoubliables</span>
+                            <span style="color: #e63a28;">Pour des Souvenirs Inoubliables</span>
                         </h1>
                         <p class="text-lg md:text-xl mb-6">
                             Découvrez notre collection de jouets premium pour tous les âges

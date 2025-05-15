@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Statistiques Client</title>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
-<body class="bg-gradient-to-br from-black-50 to-black-200 min-h-screen font-sans">
+<body class="bg-gradient-to-br from-black-50 to-black-200 min-h-screen ">
 
 @include('components.sideBar')
 
@@ -17,7 +18,6 @@
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        <!-- Stat Card -->
         @php
     $cards = [
         ['title' => 'Clients utilisant la plateforme', 'value' => $totalClients],

@@ -9,6 +9,13 @@ class EvaluationController extends Controller
 {
     public function create(Reservation $reservation)
     {
+         if (now()->lt($reservation->date_fin)) {
+        abort(403, 'L’évaluation n’est disponible qu’après la fin de la réservation.');
+    }
+    
+    if ($reservation->evaluation_date !== null) {
+        abort(403, 'Vous avez déjà soumis une évaluation pour cette réservation.');
+    }
         return view('client.eval_Annonce', [
             'reservation' => $reservation,
             'annonce' => $reservation->annonce,
@@ -50,7 +57,11 @@ class EvaluationController extends Controller
         $reservation->update([
             'evaluation_date' => now()
         ]);
-        
-        return back()->with('success', 'Merci pour vos évaluations !');
+          
+        return response()->json([
+        'message' => 'Merci pour vos évaluations !',
+        'redirect' => route('annonces')    
+    ]);
+      
     }
 }
