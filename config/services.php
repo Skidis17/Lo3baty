@@ -27,6 +27,10 @@ return [
     'resend' => [
         'key' => env('RESEND_KEY'),
     ],
+    'google_maps' => [
+        'key' => env('GOOGLE_MAPS_API_KEY'),
+     ],
+
 
     'slack' => [
         'notifications' => [
