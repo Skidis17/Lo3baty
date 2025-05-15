@@ -121,45 +121,46 @@
             </thead>
             <tbody class="divide-y divide-slate-100 bg-white">
               @foreach ($reclamations as $reclamation)
-              <tr class="table-row">
-                <td class="px-8 py-5 whitespace-nowrap">
-                  <span class="font-bold text-blue-600 text-lg">#REC-{{ $reclamation->id }}</span>
-                </td>
-                <td class="px-8 py-5">
-                  <p class="font-semibold text-slate-800 text-lg">{{ $reclamation->sujet }}</p>
-                  <p class="text-slate-500 text-sm mt-2 max-w-md">{{ Str::limit($reclamation->contenu, 70) }}</p>
-                </td>
-                <td class="px-8 py-5 whitespace-nowrap">
-                  <div class="flex flex-col">
-                    <span class="font-medium">{{ $reclamation->created_at->format('d/m/Y H:i') }}</span>
-                    <span class="text-slate-400 text-sm">{{ $reclamation->created_at->diffForHumans() }}</span>
-                  </div>
-                </td>
-                <td class="px-8 py-5 whitespace-nowrap">
-                  <span class="status-badge 
-                    {{ $reclamation->statut == 'en_attente' ? 'status-pending' : 
-                       ($reclamation->statut == 'en_cours' ? 'status-in-progress' : 'status-resolved') }}">
-                    <i class="fas fa-circle mr-2"></i>
-                    {{ ucfirst(str_replace('_', ' ', $reclamation->statut)) }}
-                  </span>
-                </td>
-                <td class="px-8 py-5 whitespace-nowrap">
-                  <button onclick="viewComplaint(this)" 
-                          data-id="{{ $reclamation->id }}"
-                          data-sujet="{{ $reclamation->sujet }}"
-                          data-contenu="{{ $reclamation->contenu }}"
-                          data-date="{{ $reclamation->created_at }}"
-                          data-statut="{{ $reclamation->statut }}"
-                          data-reponse="{{ $reclamation->reponse ?? '' }}"
-                          data-date-reponse="{{ $reclamation->updated_at }}"
-                          data-fichier="{{ $reclamation->piece_jointe }}"
-                          class="btn-secondary px-6 py-3 rounded-lg flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-all">
-                    <i class="far fa-eye"></i>
-                    Consulter
-                  </button>
-                </td>
-              </tr>
-              @endforeach
+<tr class="table-row">
+  <td class="px-8 py-5 whitespace-nowrap">
+    <span class="font-bold text-[#e63a28] text-lg">#REC-{{ $reclamation->id }}</span>
+  </td>
+  <td class="px-8 py-5">
+    <p class="font-semibold text-slate-800 text-lg">{{ $reclamation->sujet }}</p>
+    <p class="text-slate-500 text-sm mt-2 max-w-md">{{ Str::limit($reclamation->contenu, 70) }}</p>
+  </td>
+  <td class="px-8 py-5 whitespace-nowrap">
+    <div class="flex flex-col">
+      <span class="font-medium">{{ $reclamation->created_at->format('d/m/Y H:i') }}</span>
+      <span class="text-slate-400 text-sm">{{ $reclamation->created_at->diffForHumans() }}</span>
+    </div>
+  </td>
+  <td class="px-8 py-5 whitespace-nowrap">
+    <span class="status-badge 
+      {{ $reclamation->statut == 'en_attente' ? 'status-pending' : 
+         ($reclamation->statut == 'en_cours' ? 'status-in-progress' : 'status-resolved') }}">
+      <i class="fas fa-circle mr-2"></i>
+      {{ ucfirst(str_replace('_', ' ', $reclamation->statut)) }}
+    </span>
+  </td>
+  <td class="px-8 py-5 whitespace-nowrap">
+    <button onclick="viewComplaint(this)" 
+            data-id="{{ $reclamation->id }}"
+            data-sujet="{{ $reclamation->sujet }}"
+            data-contenu="{{ $reclamation->contenu }}"
+            data-date="{{ $reclamation->created_at }}"
+            data-statut="{{ $reclamation->statut }}"
+            data-reponse="{{ $reclamation->reponse ?? '' }}"
+            data-date-reponse="{{ $reclamation->updated_at }}"
+            data-fichier="{{ $reclamation->piece_jointe }}"
+            class="btn-secondary px-6 py-3 rounded-lg flex items-center gap-2 text-[#e63a28] hover:text-[#c52f1f] transition-all">
+      <i class="far fa-eye"></i>
+      Consulter
+    </button>
+  </td>
+</tr>
+@endforeach
+
             </tbody>
           </table>
         </div>

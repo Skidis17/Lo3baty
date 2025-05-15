@@ -94,42 +94,44 @@
     </a>
     </div>
 
-                <nav class="hidden md:flex items-center space-x-8">
-                   <a href="{{ route('stats') }}" class="relative group text-gray-600 hover:text-blue-600 transition-colors">
-                        Statistiques
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
-                    </a>
-                    <a href="{{ route('annonces') }}" class="relative group text-gray-600 hover:text-blue-600 transition-colors">
-                        Mes annonces
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
-                    </a>
-                    <a href="{{ route('reservations') }}" class="relative group text-gray-600 hover:text-blue-600 transition-colors">
-                        Mes réservations
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
-                    </a>
-                    <a href="{{ route('reclamations') }}" class="relative group text-gray-600 hover:text-blue-600 transition-colors">
-                        Mes Réclamations
-                        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300"></span>
-                    </a>
-            
-                </nav>
+               <nav class="hidden md:flex items-center space-x-8">
+    
+    <a href="{{ route('annonces') }}" class="relative group text-gray-600 hover:text-[#e63a28] transition-colors">
+        Mes annonces
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#e63a28] group-hover:w-full transition-all duration-300"></span>
+    </a>
+    <a href="{{ route('stats') }}" class="relative group text-gray-600 hover:text-[#e63a28] transition-colors">
+        Statistiques
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#e63a28] group-hover:w-full transition-all duration-300"></span>
+    </a>
+    <a href="{{ route('reservations') }}" class="relative group text-gray-600 hover:text-[#e63a28] transition-colors">
+        Mes réservations
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#e63a28] group-hover:w-full transition-all duration-300"></span>
+    </a>
+    <a href="{{ route('reclamations') }}" class="relative group text-gray-600 hover:text-[#e63a28] transition-colors">
+        Mes Réclamations
+        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#e63a28] group-hover:w-full transition-all duration-300"></span>
+    </a>
+</nav>
 
 
-                <div class="flex items-center space-x-4">
-                  <div class="bg-gradient-to-r from-blue-400 to-blue-600 p-0.5 rounded-full shadow-inner mr-2">
-    <div class="flex relative">
-        <button onclick="switchRole('client')" 
-                class="px-4 py-1 text-sm font-medium rounded-full bg-white text-blue-600 shadow-sm z-10 transition-all duration-300 mr-1"
-                :class="{ 'bg-white text-blue-600': currentRole === 'client', 'text-white': currentRole !== 'client' }">
-            Client
-        </button>
-        <button onclick="switchRole('partenaire')" 
-                class="px-4 py-1 text-sm font-medium rounded-full transition-all duration-300"
-                :class="{ 'bg-white text-blue-600': currentRole === 'partenaire', 'text-white': currentRole !== 'partenaire' }">
-            Partenaire
-        </button>
+
+               <div class="flex items-center space-x-4">
+    <div class="bg-gradient-to-r from-[#e63a28] to-[#e63a28] p-0.5 rounded-full shadow-inner mr-2">
+        <div class="flex relative">
+            <button onclick="switchRole('client')" 
+                    class="px-4 py-1 text-sm font-medium rounded-full bg-white text-[#e63a28] shadow-sm z-10 transition-all duration-300 mr-1"
+                    :class="{ 'bg-white text-[#e63a28]': currentRole === 'client', 'text-white': currentRole !== 'client' }">
+                Client
+            </button>
+            <button onclick="switchRole('partenaire')" 
+                    class="px-4 py-1 text-sm font-medium rounded-full transition-all duration-300"
+                    :class="{ 'bg-white text-[#e63a28]': currentRole === 'partenaire', 'text-white': currentRole !== 'partenaire' }">
+                Partenaire
+            </button>
+        </div>
     </div>
-</div>
+
                     
                     <div class="relative">
                         <button id="annonceNotificationButton" class="p-2 rounded-full hover:bg-gray-100 transition-colors relative">

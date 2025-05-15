@@ -19,6 +19,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\Partenaire_clientController;
 use App\Http\Controllers\ClientStatsController;
+use App\Http\Controllers\NotificationController;
+
 
 
 
@@ -102,6 +104,9 @@ Route::middleware('auth')->group(function () {
 
     #stats
 Route::get('/client/stats', [ClientStatsController::class, 'show'])->name('stats');
+
+Route::get('/notification-preferences', [NotificationController::class, 'getPreferences']);
+Route::post('/notification-preferences', [NotificationController::class, 'savePreferences']);
 
 });
 
