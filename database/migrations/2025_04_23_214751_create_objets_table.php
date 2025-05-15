@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('objets', function (Blueprint $table) {
             $table->id();
-            $table->string('nom', 100);
+            $table->timestamp('date_ajout')->useCurrent(); 
+            $table->string('nom');
             $table->text('description')->nullable();
-            $table->string('ville', 50);
-            $table->decimal('prix_journalier', 10, 2);
-            $table->enum('etat', ['neuf', 'bon etat', 'usage', 'a reparer']);
-            $table->foreignId('categorie_id')->constrained();
-            $table->foreignId('proprietaire_id')->constrained('utilisateurs');
+            $table->enum('tranche_age', ['<3','3-5','6-8','9-12','13+']);
+            $table->string('ville');
+            $table->enum('etat', ['Neuf', 'Bon état', 'Usage']);
+            $table->foreignId('categorie_id')->constrained()->onDelete('cascade');
+            $table->foreignId('proprietaire_id')->constrained('utilisateurs')->onDelete('cascade');
             $table->timestamps();
         });
     }

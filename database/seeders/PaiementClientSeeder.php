@@ -15,7 +15,7 @@ class PaiementClientSeeder extends Seeder
                 'reservation_id' => 1,
                 'client_id' => 2,
                 'montant' => 150.00,
-                'methode' => 'carte',
+                'methode' => 'especes',
                 'date_paiement' => Carbon::now()->subDays(3),
                 'etat' => 'effectué',
                 'created_at' => now(),
