@@ -195,15 +195,15 @@
                                     </div>
                                 </div>
                                 
-                                <div id="priceCalculation" class="mb-4 hidden bg-white p-4 rounded-lg shadow-sm border border-blue-100 animate__animated animate__fadeIn">
-                                    <div class="flex justify-between mb-2">
-                                        <span class="text-gray-600">Durée:</span>
-                                        <span id="durationDays" class="font-medium">0 jours</span>
-                                    </div>
-                                    <div class="flex justify-between mb-2">
-                                        <span class="text-gray-600">Prix journalier:</span>
-                                        <span class="font-medium">{{ number_format($annonce->prix_journalier, 2) }} MAD</span>
-                                    </div>
+                               <div id="priceCalculation" class="mb-4 hidden bg-white p-4 rounded-lg shadow-sm border border-blue-100 animate__animated animate__fadeIn">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-600">Durée:</span>
+                                    <span id="durationDays" class="font-medium">0 jours</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-600">Prix journalier:</span>
+                                    <span class="font-medium">{{ number_format($annonce->prix_journalier, 2) }} MAD</span>
+                                </div>
                                     <div class="border-t my-2 border-dashed"></div>
                                     <div class="flex justify-between">
                                         <span class="text-lg font-semibold">Total:</span>

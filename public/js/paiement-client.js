@@ -1,13 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Gestion de l'ouverture de la popup de paiement
+   
     const paymentForm = document.getElementById('paymentForm');
     const reserveNowBtn = document.querySelector('#reservationForm button[type="submit"]');
     
     if (reserveNowBtn) {
         reserveNowBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            
-            // Vérifier que les dates sont sélectionnées
+          
             const dateDebut = document.getElementById('date_debut').value;
             const dateFin = document.getElementById('date_fin').value;
             
@@ -15,13 +14,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 alert('Veuillez sélectionner les dates de réservation');
                 return;
             }
-            
-            // Afficher la popup de paiement
+       
             showPaymentPopup();
         });
     }
-    
-    // Fonction pour afficher la popup de paiement
+   
     function showPaymentPopup() {
         const formData = new FormData(document.getElementById('reservationForm'));
         
@@ -36,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // Rediriger vers la page de paiement
+             
                 window.location.href = `/paiement/${data.reservation_id}/show`;
             } else {
                 alert('Erreur lors de la réservation: ' + data.message);
@@ -48,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Gestion du choix de livraison
     const livraisonOui = document.getElementById('livraison_oui');
     const livraisonNon = document.getElementById('livraison_non');
     const totalAmountElement = document.getElementById('totalAmount');
@@ -71,8 +67,7 @@ document.addEventListener('DOMContentLoaded', function() {
             totalAmountElement.textContent = baseAmount.toFixed(2);
         }
     }
-    
-    // Soumission du formulaire de paiement
+
     if (paymentForm) {
         paymentForm.addEventListener('submit', function(e) {
             e.preventDefault();

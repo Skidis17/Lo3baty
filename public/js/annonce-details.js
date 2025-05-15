@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Initialize calendar display
     function initCalendar() {
         const calendarContainer = document.getElementById('calendarContainer');
         if (!calendarContainer) return;
@@ -36,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     ${['Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa', 'Di'].map(day => `<div class="text-center font-bold py-2">${day}</div>`).join('')}
             `;
 
-            // Add empty cells for days before the first day of the month
             for (let i = 0; i < firstDay.getDay(); i++) {
                 html += `<div class="p-2"></div>`;
             }
@@ -66,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
             html += `</div>`;
             calendarContainer.innerHTML = html;
 
-            // Add event listeners for month navigation
             document.querySelector('.prev-month').addEventListener('click', () => {
                 if (month === 0) {
                     month = 11;
@@ -91,10 +88,8 @@ document.addEventListener('DOMContentLoaded', function() {
         renderCalendar(currentMonth, currentYear);
     }
 
-    // Initialize the calendar
     initCalendar();
 
-    // Rest of your existing code (Flatpickr initialization and other functions)
     const disabledDates = reservedPeriods.map(period => ({
         from: period.start,
         to: period.end
@@ -200,8 +195,7 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => alert.remove(), 1000);
         }, 3000);
     }
-    
-    // Add hover effects to cards
+   
     const cards = document.querySelectorAll('.toy-card');
     cards.forEach(card => {
         card.addEventListener('mouseenter', () => {
