@@ -10,7 +10,9 @@ class Objet extends Model
     use HasFactory;
 
     protected $fillable = [
+        'date_ajout',
         'nom',
+        'tranche_age',
         'description',
         'ville',
         'prix_journalier',
@@ -20,9 +22,9 @@ class Objet extends Model
     ];
 
     protected $casts = [
-        'date_ajout' => 'datetime',
         'etat' => 'string'
     ];
+    protected $dates = ['date_ajout'];
 
     public function categorie()
     {
@@ -34,6 +36,15 @@ class Objet extends Model
         return $this->belongsTo(Utilisateur::class, 'proprietaire_id');
     }
 
+      public function evaluations()
+    {
+        return $this->hasMany(EvaluationOnAnnonce::class);
+    }
+
+    public function getNoteMoyenneAttribute()
+    {
+        return round($this->evaluations()->avg('note'), 1) ?? null;
+    }
     public function images()
     {
         return $this->hasMany(Image::class);
@@ -43,10 +54,4 @@ class Objet extends Model
     {
         return $this->hasMany(Annonce::class);
     }
-
-    public function evaluations()
-    {
-    return $this->hasMany(Evaluation::class, 'objet_id');
-    }
 }
-

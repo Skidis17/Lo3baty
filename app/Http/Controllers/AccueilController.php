@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Objet;
 use App\Models\Annonce;
+use App\Models\EvaluationOnAnnonce;
 use App\Models\Reservation;
 
 class AccueilController extends Controller
@@ -21,7 +22,14 @@ class AccueilController extends Controller
         }], 'date_publication')
         ->orderByDesc('latest_premium_date')
         ->get();
-        return view('client/acceuil', compact('objet'));
+
+        $testimonials = EvaluationOnAnnonce::with(['client', 'objet'])
+        ->where('note', '>=', 4) 
+        ->orderBy('created_at', 'desc')
+        ->limit(3)
+        ->get();
+
+        return view('client/acceuil', compact('objet', 'testimonials'));
 
     }
 
@@ -34,46 +42,17 @@ class AccueilController extends Controller
     public function annonceById($id)
     {
     $annonce = Annonce::with('objet', 'objet.images')->findOrFail($id);
-    return view('client.annonce', compact('annonce'));
+    return view('client.details_annonce', compact('annonce'));
     }
-
-
-    public function reservations()
+    public function destroy(Request $request)
     {
-        $clientId = 2;
-        $statuses = ['en attente', 'acceptée', 'archivee'];
+        //Auth::guard('web')->logout();
     
-        $counts = [];
-        foreach ($statuses as $status) {
-            $counts[$status] = Reservation::where('client_id', $clientId)
-                ->where('statut', $status)
-                ->count();
-        }
+       // $request->session()->invalidate();
     
-        $reservations = Reservation::with([
-                'annonce.utilisateur.partnerEvaluations',
-                'annonce.objet.images',
-                'evaluationOnPartner'
-            ])
-            ->where('client_id', $clientId)
-            ->get();
+       // $request->session()->regenerateToken();
     
-        return view('client.reservations', [
-            'reservations' => $reservations,
-            'counts' => $counts
-        ]);
+        return redirect('/');
     }
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
