@@ -73,7 +73,7 @@ class AuthController extends Controller
           }
 
           $request->session()->regenerate();
-          return redirect()->route('annonces')->with('success', 'Connexion réussie !');
+          return redirect()->intended(route('annonces'))->with('success', 'Connexion réussie !');
       }
 
       return back()->withErrors([

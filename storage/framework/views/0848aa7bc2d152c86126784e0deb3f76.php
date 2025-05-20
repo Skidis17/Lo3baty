@@ -33,10 +33,6 @@
             <dd class="text-gray-700"><?php echo e($product->ville); ?></dd>
         </div>
         <div>
-            <dt class="text-sm text-gray-500">Prix journalier</dt>
-            <dd class="text-gray-700"><?php echo e($product->prix_journalier); ?> MAD/j</dd>
-        </div>
-        <div>
             <dt class="text-sm text-gray-500">État</dt>
             <dd class="text-gray-700"><?php echo e($product->etat); ?></dd>
         </div>
@@ -48,4 +44,4 @@
 </div>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.partner', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\wamp64\www\laravelWeb\resources\views/partner/products/show.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\wamp64\www\laravelWeb\resources\views/partner/products/show.blade.php ENDPATH**/ ?>

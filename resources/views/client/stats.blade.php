@@ -6,7 +6,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
-<body class="bg-gradient-to-br from-black-50 to-black-200 min-h-screen font-sans">
+<body class="bg-gradient-to-br from-black-50 to-black-200 min-h-screen">
 
 @include('components.sideBar')
 

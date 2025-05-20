@@ -4,18 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détail d'annonce - Jouets d'enfants</title>
-    <!-- Tailwind CSS -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Flatpickr -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <!-- Animate.css pour WOW.js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     
-    <!-- Alpine JS -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/annonce-details.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
@@ -23,7 +19,7 @@
 </head>
 <body class="bg-gray-50 font-sans" x-data="{ activeTab: 'reviews' }">
     @include('components.sideBar')
-    <!-- Scroll to Top Button -->
+
     <div x-show="showScrollTop" 
          x-transition:enter="transition ease-out duration-300"
          x-transition:enter-start="opacity-0 transform translate-y-2"
@@ -40,7 +36,6 @@
     <div class="min-h-screen">
         @section('content')
         <div class="container mx-auto px-4 py-8">
-            <!-- Breadcrumb avec animation -->
             <nav class="flex mb-6 wow animate__fadeIn" data-wow-delay="0.1s">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
                     <li class="inline-flex items-center">
@@ -57,10 +52,8 @@
                 </ol>
             </nav>
 
-            <!-- Annonce Details -->
             <div class="bg-white rounded-lg shadow-md overflow-hidden wow animate__fadeIn">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-                    <!-- Image Gallery -->
                     <div class="md:col-span-1 wow animate__fadeInLeft">
                         @if($annonce->objet->images->isNotEmpty())
                             <div class="swiper-container relative rounded-xl overflow-hidden shadow-lg">
@@ -91,11 +84,9 @@
                         @endif
                     </div>
 
-                    <!-- Details Section -->
                     <div class="md:col-span-1 p-4 wow animate__fadeInRight" data-wow-delay="0.2s">
                         <h1 class="text-3xl font-bold text-gray-800 mb-2 font-kids">{{ $annonce->objet->nom }}</h1>
                         
-                        <!-- Partner Info -->
                         <div class="flex items-center mb-4 p-3 bg-blue-50 rounded-lg">
                             <div class="flex-shrink-0">
                                 <img class="w-12 h-12 rounded-full object-cover border-2 border-white shadow" 
@@ -127,7 +118,6 @@
                             </div>
                         </div>
 
-                        <!-- Price and Status -->
                         <div class="flex justify-between items-center mb-4">
                             <span class="price-tag text-xs font-medium px-3 py-1 rounded-full shadow-sm">
                                 {{ number_format($annonce->prix_journalier, 2) }} MAD/jour
@@ -135,7 +125,6 @@
                            
                         </div>
 
-                        <!-- Description -->
                         <div class="mb-6 bg-blue-50 p-4 rounded-lg">
                             <h3 class="text-lg font-semibold text-gray-800 mb-2 flex items-center">
                                 <i class="fas fa-align-left mr-2 text-blue-500"></i>Description
@@ -143,7 +132,6 @@
                             <p class="text-gray-600">{{ $annonce->objet->description }}</p>
                         </div>
 
-                        <!-- Details Grid -->
                         <div class="grid grid-cols-2 gap-4 mb-6">
                             <div class="bg-white p-3 rounded-lg shadow-sm border border-gray-100">
                                 <p class="text-sm text-gray-500 flex items-center">
@@ -175,18 +163,15 @@
                             </div>
                         </div>
 
-                        <!-- Reservation Section -->
                         <div class="reservation-section bg-gradient-to-br from-blue-50 to-purple-50 p-4 rounded-lg shadow-inner wow animate__fadeInUp" data-wow-delay="0.3s">
                             <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
                                 <i class="far fa-calendar-plus mr-2 text-purple-500"></i>Réserver ce jouet
                             </h3>
                             
-                            <!-- Calendar -->
                             <div class="mb-6">
                                <div id="calendarContainer" class="my-8 p-4 border rounded-lg shadow-md"></div>
                             </div>
 
-                            <!-- Form -->
                             <form id="reservationForm" action="{{ route('reservation.store') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="annonce_id" value="{{ $annonce->id }}">
@@ -210,15 +195,15 @@
                                     </div>
                                 </div>
                                 
-                                <div id="priceCalculation" class="mb-4 hidden bg-white p-4 rounded-lg shadow-sm border border-blue-100 animate__animated animate__fadeIn">
-                                    <div class="flex justify-between mb-2">
-                                        <span class="text-gray-600">Durée:</span>
-                                        <span id="durationDays" class="font-medium">0 jours</span>
-                                    </div>
-                                    <div class="flex justify-between mb-2">
-                                        <span class="text-gray-600">Prix journalier:</span>
-                                        <span class="font-medium">{{ number_format($annonce->prix_journalier, 2) }} MAD</span>
-                                    </div>
+                               <div id="priceCalculation" class="mb-4 hidden bg-white p-4 rounded-lg shadow-sm border border-blue-100 animate__animated animate__fadeIn">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-600">Durée:</span>
+                                    <span id="durationDays" class="font-medium">0 jours</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-600">Prix journalier:</span>
+                                    <span class="font-medium">{{ number_format($annonce->prix_journalier, 2) }} MAD</span>
+                                </div>
                                     <div class="border-t my-2 border-dashed"></div>
                                     <div class="flex justify-between">
                                         <span class="text-lg font-semibold">Total:</span>
@@ -235,9 +220,7 @@
                 </div>
             </div>
 
-            <!-- Reviews Section -->
             <div class="mt-12">
-                <!-- Tabs Navigation -->
                 <div class="flex border-b border-gray-200 mb-6 wow animate__fadeIn">
                     <button @click="activeTab = 'reviews'" 
                             :class="{'border-b-2 border-blue-500 text-blue-600': activeTab === 'reviews'}" 
@@ -253,7 +236,6 @@
 
                 <div x-show="activeTab === 'reviews'" class="wow animate__fadeIn" data-wow-delay="0.1s">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <!-- Object Reviews -->
                         <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
                             <h2 class="text-xl font-bold text-gray-800 mb-4">
                                 <i class="fas fa-comment-alt mr-2 text-purple-500"></i>Avis sur le jouet
@@ -326,7 +308,6 @@
                             @endif
                         </div>
                         
-                        <!-- Partner Reviews -->
                         <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
                             <h2 class="text-xl font-bold text-gray-800 mb-4">
                                 <i class="fas fa-user-tie mr-2 text-blue-500"></i>Avis sur le partenaire
@@ -402,7 +383,6 @@
                 </div>
 
                 <div x-show="activeTab === 'related'" class="wow animate__fadeIn" data-wow-delay="0.2s">
-                    <!-- Related Products Section -->
                     <div class="bg-white rounded-lg shadow-md p-6">
                         <h2 class="text-2xl font-bold mb-6 flex items-center">
                             <i class="fas fa-th-large mr-2 text-blue-500"></i> Jouets Similaires
@@ -448,7 +428,6 @@
                             @endforeach
                         </div>
 
-                        <!-- View All Products Button -->
                         <div class="mt-8 flex justify-center">
                             <a href="{{ route('annonces') }}" 
                                class="btn-primary text-white px-6 py-3 rounded-lg font-medium inline-flex items-center">
@@ -469,15 +448,11 @@
         @show
     </div>
 
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
-    <!-- WOW.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
-    <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     
-    <!-- Passer les données PHP à JavaScript -->
     <script>
         window.reservationData = {
             reservedPeriods: @json($reservedPeriods),
@@ -489,12 +464,10 @@
         };
     </script> 
 
-    <!-- Initialiser WOW.js -->
     <script>
         new WOW().init();
     </script>
 
-    <!-- Initialiser Swiper pour la galerie d'images -->
     @if($annonce->objet->images->isNotEmpty())
     <script>
         document.addEventListener('DOMContentLoaded', function() {

@@ -90,7 +90,7 @@ class Annonce extends Model
 
         // Vérifie les conflits avec les réservations existantes
         return !$this->reservations()
-            ->where('statut', '!=', 'annulé')
+            ->where('statut', '!=', 'refusée')
             ->where(function($query) use ($start, $end) {
                 $query->whereBetween('date_debut', [$start, $end])
                       ->orWhereBetween('date_fin', [$start, $end])
@@ -106,7 +106,7 @@ class Annonce extends Model
     public function getReservedPeriods()
     {
         return $this->reservations()
-            ->where('statut', '!=', 'annulé')
+            ->where('statut', '!=', 'refusée')
             ->get()
             ->map(function($reservation) {
                 return [
