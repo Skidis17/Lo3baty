@@ -27,7 +27,7 @@ public function index()
 public function partenaireHome()
 {
     if (Auth::user()->role !== 'partenaire') {
-        return redirect()->route('partenaire.dashboard');
+        return redirect()->route('stats');
     }
     
     return view('partenaire.dashboard');

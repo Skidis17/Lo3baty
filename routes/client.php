@@ -21,6 +21,9 @@ use App\Http\Controllers\Admin\Partenaire_clientController;
 use App\Http\Controllers\ClientStatsController;
 
 
+use App\Http\Controllers\NotificationController;
+Route::get('/notification-preferences', [NotificationController::class, 'getPreferences']);
+Route::post('/notification-preferences', [NotificationController::class, 'savePreferences']);
 
 // ========================
 // Public Routes

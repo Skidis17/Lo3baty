@@ -73,27 +73,27 @@
                     </div>
                 </div>
                 
-                <!-- Option de livraison -->
-                <div class="mb-6">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-4">Options de livraison</h3>
-                    
-                    <div class="flex items-center mb-4">
-                        <input type="radio" id="sans_livraison" name="livraison" value="0" class="mr-2" checked>
-                        <label for="sans_livraison" class="flex-grow">
-                            <span class="font-medium">Sans livraison</span>
-                            <p class="text-sm text-gray-600">Vous récupérerez l'objet chez le partenaire</p>
-                        </label>
-                    </div>
-                    
-                    <div class="flex items-center">
-                        <input type="radio" id="avec_livraison" name="livraison" value="1" class="mr-2">
-                        <label for="avec_livraison" class="flex-grow">
-                            <span class="font-medium">Avec livraison</span>
-                            <p class="text-sm text-gray-600">Livraison à votre domicile (+5% du prix total)</p>
-                        </label>
-                        <span id="deliveryCost" class="text-gray-600">+{{ number_format($reservation->annonce->prix_journalier * ($reservation->date_debut->diffInDays($reservation->date_fin) + 1) * 0.05, 2) }} MAD</span>
-                    </div>
-                </div>
+<!-- Option de livraison -->
+<div class="mb-6">
+    <h3 class="text-lg font-semibold text-gray-800 mb-4">Options de livraison</h3>
+    
+    <div class="flex items-center mb-4">
+        <input type="radio" id="sans_livraison" name="livraison" value="0" class="mr-2" checked>
+        <label for="sans_livraison" class="flex-grow">
+            <span class="font-medium">Sans livraison</span>
+            <p class="text-sm text-gray-600">Vous récupérerez l'objet chez le partenaire</p>
+        </label>
+    </div>
+    
+    <div class="flex items-center">
+        <input type="radio" id="avec_livraison" name="livraison" value="1" class="mr-2">
+        <label for="avec_livraison" class="flex-grow">
+            <span class="font-medium">Avec livraison</span>
+            <p class="text-sm text-gray-600">Livraison à votre domicile (+20 DH)</p>
+        </label>
+        <span id="deliveryCost" class="text-gray-600">+20.00 MAD</span>
+    </div>
+</div>
                 
                 <!-- Total final -->
                 <div class="bg-blue-50 p-4 rounded-lg mb-6">
@@ -129,9 +129,9 @@
         
         function updateTotal() {
             if (deliveryRadio.checked) {
-                const delivery = basePrice * 0.05;
+                const delivery = 20; // Montant fixe de 20 DH
                 finalTotal.textContent = (basePrice + delivery).toFixed(2) + ' MAD';
-                deliveryCost.textContent = '+' + delivery.toFixed(2) + ' MAD';
+                deliveryCost.textContent = '+20.00 MAD'; // Texte fixe
             } else {
                 finalTotal.textContent = basePrice.toFixed(2) + ' MAD';
             }

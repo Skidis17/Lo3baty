@@ -13,14 +13,15 @@
     <input type="text" name="ville" value="<?php echo e(old('ville', $product->ville ?? '')); ?>" class="w-full border rounded px-3 py-2" required>
 </div>
 
-<div>
-    <label class="block text-sm font-medium mb-1">Prix journalier (MAD)</label>
-    <input type="number" name="prix_journalier" value="<?php echo e(old('prix_journalier', $product->prix_journalier ?? '')); ?>" step="0.01" class="w-full border rounded px-3 py-2" required>
-</div>
 
 <div>
     <label class="block text-sm font-medium mb-1">État</label>
-    <input type="text" name="etat" value="<?php echo e(old('etat', $product->etat ?? '')); ?>" class="w-full border rounded px-3 py-2" required>
+    <select name="etat" class="w-full border rounded px-3 py-2" required>
+        <option value="">-- Sélectionner l'état --</option>
+        <option value="neuf" <?php echo e(old('etat', $product->etat ?? '') == 'neuf' ? 'selected' : ''); ?>>Neuf</option>
+        <option value="bon_etat" <?php echo e(old('etat', $product->etat ?? '') == 'bon_etat' ? 'selected' : ''); ?>>Bon état</option>
+        <option value="use" <?php echo e(old('etat', $product->etat ?? '') == 'use' ? 'selected' : ''); ?>>Usé</option>
+    </select>
 </div>
 
 <div>

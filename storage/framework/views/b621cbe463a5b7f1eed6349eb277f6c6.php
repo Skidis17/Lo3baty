@@ -33,8 +33,8 @@
             <select name="etat" id="etat" class="block w-full border rounded px-3 py-1.5">
                 <option value="">Tous</option>
                 <option value="neuf" <?php echo e(request('etat') == 'neuf' ? 'selected' : ''); ?>>Neuf</option>
-                <option value="bon état" <?php echo e(request('etat') == 'bon état' ? 'selected' : ''); ?>>Bon état</option>
-                <option value="usé" <?php echo e(request('etat') == 'usé' ? 'selected' : ''); ?>>Usé</option>
+                <option value="bon état" <?php echo e(request('etat') == 'bon_etat' ? 'selected' : ''); ?>>Bon état</option>
+                <option value="usé" <?php echo e(request('etat') == 'use' ? 'selected' : ''); ?>>Usé</option>
             </select>
         </div>
 
@@ -79,31 +79,6 @@
                         </a>
                     </th>
                     <th class="p-3">Catégorie</th>
-                    <?php
-                        $isAsc = request('sort_price') === 'asc';
-                        $isDesc = request('sort_price') === 'desc';
-                        $nextSort = $isAsc ? 'desc' : 'asc';
-                    ?>
-
-                    <th class="p-3">
-                        <a href="<?php echo e(route('partner.products.index', array_merge(request()->query(), ['sort_price' => $nextSort]))); ?>"
-                        class="flex items-center gap-1 text-gray-700 hover:text-blue-600">
-                            Prix
-                            <?php if($isAsc): ?>
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
-                                </svg>
-                            <?php elseif($isDesc): ?>
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            <?php else: ?>
-                                <svg class="w-4 h-4 opacity-30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            <?php endif; ?>
-                        </a>
-                    </th>
                     <th class="p-3">Ville</th>
                     <th class="p-3">État</th>
                     <th class="p-3 text-right">Actions</th>
@@ -114,7 +89,6 @@
                 <tr class="border-b hover:bg-gray-50">
                     <td class="p-3"><?php echo e($product->nom); ?></td>
                     <td class="p-3"><?php echo e($product->categorie->nom ?? '-'); ?></td>
-                    <td class="p-3"><?php echo e($product->prix_journalier); ?> MAD/j</td>
                     <td class="p-3"><?php echo e($product->ville); ?></td>
                     <td class="p-3"><?php echo e($product->etat); ?></td>
                     <td class="p-3 text-right space-x-2">
@@ -139,4 +113,4 @@
 </div>
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.partner', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\wamp64\www\laravelWeb\resources\views/partner/products/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\wamp64\www\laravelWeb\resources\views/partner/products/index.blade.php ENDPATH**/ ?>
