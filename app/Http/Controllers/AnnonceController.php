@@ -11,7 +11,7 @@ class AnnonceController extends Controller
 
    public function index(Request $request)
 {
-    $query = Annonce::with(['objet.images', 'objet.categorie', 'proprietaire']);
+    $query = Annonce::with(['objet.images', 'objet.categorie', 'proprietaire']) ->where('statut', 'active');
     
     if ($age = $request->input('age')) {
         $query->whereHas('objet', function ($q) use ($age) {

@@ -12,7 +12,7 @@
     <style>
         .filter-card { transition: all 0.3s ease; }
         .filter-card:hover { transform: translateY(-2px); }
-        .filter-radio:checked + .filter-label { border-color: #3B82F6; background-color: #EFF6FF; }
+        .filter-radio:checked + .filter-label { border-color: #e63a28; background-color: #FEE2E2; }
         .filter-radio:checked + .filter-label .filter-check { opacity: 1; }
         .filter-scroll { scrollbar-width: thin; scrollbar-color: #CBD5E0 #F3F4F6; }
         .filter-scroll::-webkit-scrollbar { width: 6px; }
@@ -31,14 +31,14 @@
         <form id="mainFilterForm" method="GET" action="{{ route('annonces') }}" class="w-full md:w-72 bg-white p-5 shadow-lg rounded-lg sticky-sidebar md:mt-4 md:ml-4 h-[calc(100vh-2rem)] flex flex-col">
             <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-200">
                 <h2 class="text-xl font-bold text-gray-800">Filtres</h2>
-                <a href="{{ route('annonces') }}" class="text-sm text-blue-600 hover:text-blue-800">Réinitialiser</a>
+                <a href="{{ route('annonces') }}" class="text-sm text-[#e63a28] hover:text-[#c5301e]">Réinitialiser</a>
             </div>
 
             <div class="filter-scroll overflow-y-auto flex-1 pr-2 -mr-2">
                 <!-- Age Filter -->
                 <div class="mb-8">
                     <h3 class="font-semibold mb-4 text-gray-700 text-lg flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#e63a28]" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
                         </svg>
                         Tranche d'âge
@@ -48,9 +48,9 @@
                             <div class="filter-card">
                                 <input type="radio" id="age-{{ $age }}" name="age" value="{{ $age }}" 
                                        {{ request('age') == $age ? 'checked' : '' }} class="hidden filter-radio">
-                                <label for="age-{{ $age }}" class="filter-label flex items-center cursor-pointer p-3 border border-gray-200 rounded-lg hover:border-blue-300">
+                                <label for="age-{{ $age }}" class="filter-label flex items-center cursor-pointer p-3 border border-gray-200 rounded-lg hover:border-[#e63a28]">
                                     <span class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center">
-                                        <span class="w-2 h-2 rounded-full bg-blue-500 opacity-0 transition-opacity filter-check"></span>
+                                        <span class="w-2 h-2 rounded-full bg-[#e63a28] opacity-0 transition-opacity filter-check"></span>
                                     </span>
                                     <span class="text-gray-700">{{ $label }}</span>
                                 </label>
@@ -62,7 +62,7 @@
                 <!-- Price Filter -->
                 <div class="mb-8">
                     <h3 class="font-semibold mb-4 text-gray-700 text-lg flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#e63a28]" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z" />
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd" />
                         </svg>
@@ -73,9 +73,9 @@
                             <div class="filter-card">
                                 <input type="radio" id="price-{{ $val }}" name="price" value="{{ $val }}" 
                                        {{ request('price') == $val ? 'checked' : '' }} class="hidden filter-radio">
-                                <label for="price-{{ $val }}" class="filter-label flex items-center cursor-pointer p-3 border border-gray-200 rounded-lg hover:border-blue-300">
+                                <label for="price-{{ $val }}" class="filter-label flex items-center cursor-pointer p-3 border border-gray-200 rounded-lg hover:border-[#e63a28]">
                                     <span class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center">
-                                        <span class="w-2 h-2 rounded-full bg-blue-500 opacity-0 transition-opacity filter-check"></span>
+                                        <span class="w-2 h-2 rounded-full bg-[#e63a28] opacity-0 transition-opacity filter-check"></span>
                                     </span>
                                     <span class="text-gray-700">{{ $label }}</span>
                                 </label>
@@ -87,7 +87,7 @@
                 <!-- Type Filter -->
                 <div class="mb-8">
                     <h3 class="font-semibold mb-4 text-gray-700 text-lg flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#e63a28]" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                         </svg>
                         Type de jeu
@@ -97,9 +97,9 @@
                             <div class="filter-card">
                                 <input type="radio" id="type-{{ $loop->index }}" name="type" value="{{ $type }}" 
                                        {{ request('type') == $type ? 'checked' : '' }} class="hidden filter-radio">
-                                <label for="type-{{ $loop->index }}" class="filter-label flex items-center cursor-pointer p-3 border border-gray-200 rounded-lg hover:border-blue-300">
+                                <label for="type-{{ $loop->index }}" class="filter-label flex items-center cursor-pointer p-3 border border-gray-200 rounded-lg hover:border-[#e63a28]">
                                     <span class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center">
-                                        <span class="w-2 h-2 rounded-full bg-blue-500 opacity-0 transition-opacity filter-check"></span>
+                                        <span class="w-2 h-2 rounded-full bg-[#e63a28] opacity-0 transition-opacity filter-check"></span>
                                     </span>
                                     <span class="text-gray-700">{{ $type }}</span>
                                 </label>
@@ -119,7 +119,7 @@
                 <div class="w-full flex flex-col sm:flex-row gap-4 items-center">
                     <div class="flex items-center w-full sm:w-auto">
                         <span class="text-gray-600 mr-2">Trier par :</span>
-                        <select id="sortSelect" class="bg-white border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                        <select id="sortSelect" class="bg-white border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-1 focus:ring-[#e63a28]">
                             <option value="">--</option>
                             <option value="price_asc" {{ request('sort') == 'price_asc' ? 'selected' : '' }}>Prix croissant</option>
                             <option value="price_desc" {{ request('sort') == 'price_desc' ? 'selected' : '' }}>Prix décroissant</option>
@@ -127,7 +127,7 @@
                     </div>
                     <div class="relative w-full sm:w-64">
                         <input type="text" id="searchField" value="{{ request('search') }}" 
-                               class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500" 
+                               class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg bg-white shadow-sm focus:outline-none focus:ring-1 focus:ring-[#e63a28]" 
                                placeholder="Rechercher...">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -136,7 +136,7 @@
                         </div>
                     </div>
                 </div>
-                <button id="toggleView" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
+                <button id="toggleView" class="bg-[#e63a28] hover:bg-[#c5301e] text-white px-4 py-2 rounded-lg transition-colors">
                     Afficher la carte
                 </button>
             </div>
@@ -158,7 +158,7 @@
                                 <p class="text-lg font-bold text-black truncate">{{ $annonce->objet->nom }}</p>
                                 <div class="flex items-center justify-between mt-2">
                                     <p class="text-lg font-semibold text-black">{{ $annonce->prix_journalier }} Dhs</p>
-                                    <span class="bg-blue-500 text-white px-4 py-2 rounded-lg text-sm">
+                                    <span class="bg-[#e63a28] text-white px-4 py-2 rounded-lg text-sm">
                                         Détails
                                     </span>
                                 </div>
@@ -176,6 +176,7 @@
             </div>
         </div>
     </div>
+
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
