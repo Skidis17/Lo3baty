@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mes Annonces</title>
+    <title>Annonces</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
@@ -107,8 +107,34 @@
                         @endforeach
                     </div>
                 </div>
-            </div>
+            
 
+            <!-- Ville Filter -->
+    <div class="mb-8">
+    <h3 class="font-semibold mb-4 text-gray-700 text-lg flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-[#e63a28]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zm0 9c-4.418 0-8-5.373-8-9a8 8 0 1116 0c0 3.627-3.582 9-8 9z" />
+    </svg>
+        Ville
+    </h3>
+    <div class="grid gap-2">
+        @foreach ($villes as $ville)
+            <div class="filter-card">
+                <input type="radio" id="ville-{{ $loop->index }}" name="ville" value="{{ $ville }}"
+                       {{ request('ville') == $ville ? 'checked' : '' }} class="hidden filter-radio">
+                <label for="ville-{{ $loop->index }}" class="filter-label flex items-center cursor-pointer p-3 border border-gray-200 rounded-lg hover:border-[#e63a28]">
+                    <span class="w-5 h-5 rounded-full border-2 border-gray-300 mr-3 flex items-center justify-center">
+                        <span class="w-2 h-2 rounded-full bg-[#e63a28] opacity-0 transition-opacity filter-check"></span>
+                    </span>
+                    <span class="text-gray-700">{{ $ville }}</span>
+                </label>
+            </div>
+        @endforeach
+    </div>
+    </div>
+    </div>
+
+            <!-- <input type="hidden" name="ville" id="villeInput" value="{{ request('ville') }}"> -->
             <input type="hidden" name="search" id="searchInput" value="{{ request('search') }}">
             <input type="hidden" name="sort" id="sortInput" value="{{ request('sort') }}">
         </form>

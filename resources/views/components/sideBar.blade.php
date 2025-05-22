@@ -97,7 +97,7 @@
                <nav class="hidden md:flex items-center space-x-8">
     
     <a href="{{ route('annonces') }}" class="relative group text-gray-600 hover:text-[#e63a28] transition-colors">
-        Mes annonces
+        Annonces
         <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-[#e63a28] group-hover:w-full transition-all duration-300"></span>
     </a>
     <a href="{{ route('stats') }}" class="relative group text-gray-600 hover:text-[#e63a28] transition-colors">

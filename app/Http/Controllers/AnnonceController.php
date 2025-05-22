@@ -12,7 +12,8 @@ class AnnonceController extends Controller
    public function index(Request $request)
 {
     $query = Annonce::with(['objet.images', 'objet.categorie', 'proprietaire']) ->where('statut', 'active');
-    
+    $villes = Objet::select('ville')->distinct()->pluck('ville');
+
     if ($age = $request->input('age')) {
         $query->whereHas('objet', function ($q) use ($age) {
             $q->where('tranche_age', $age);
@@ -43,6 +44,12 @@ class AnnonceController extends Controller
             $q->where('nom', $type);
         });
     }
+
+    if ($ville = $request->input('ville')) {
+    $query->whereHas('objet', function ($q) use ($ville) {
+        $q->where('ville', $ville);
+    });
+}
 
     if ($search = $request->input('search')) {
         $query->whereHas('objet', function ($q) use ($search) {
@@ -77,7 +84,7 @@ class AnnonceController extends Controller
         return $annonce;
     });
 
-    return view('client.annonces', compact('annonces'));
+    return view('client.annonces', compact('annonces', 'villes'));
 }
 
     
