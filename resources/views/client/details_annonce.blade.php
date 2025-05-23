@@ -69,8 +69,8 @@
                             <div class="swiper-wrapper">
                                 @foreach($annonce->objet->images as $image)
                                     <div class="swiper-slide">
-                                        <img src="{{ asset($image->url) }}" alt="{{ $annonce->objet->nom }}" 
-                                             class="w-full h-96 object-cover">
+                                       <img src="{{ asset('storage/' . $image->url) }}" alt="{{ $annonce->objet->nom }}" 
+     class="w-full h-96 object-cover transition duration-300 hover:scale-105">
                                     </div>
                                 @endforeach
                             </div>

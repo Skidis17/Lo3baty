@@ -4,11 +4,37 @@ namespace App\Http\Controllers;
 
 use App\Models\{Reservation, EvaluationOnAnnonce, EvaluationOnPartner};
 use Illuminate\Http\Request;
+namespace App\Http\Controllers;
 
+use App\Models\Reservation;
+use App\Models\EvaluationOnAnnonce;
+use App\Models\EvaluationOnPartner;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 class EvaluationController extends Controller
 {
     public function create(Reservation $reservation)
     {
+    //      if (now()->lt($reservation->date_fin)) {
+    //     abort(403, 'L’évaluation n’est disponible qu’après la fin de la réservation.');
+    // }
+
+    if (Auth::id() !== $reservation->client_id) {
+            abort(403, "Cette réservation ne vous appartient pas.");
+        }
+
+    // if ($reservation->evaluation_date !== null) {
+    //     abort(403, 'Vous avez déjà soumis une évaluation pour cette réservation.');
+    // }
+    
+    if (Carbon::now()->lt($reservation->date_fin)) {
+        return redirect()->back()->withErrors('Les évaluations ne sont disponibles qu\'après la fin de la location');
+    }
+    
+    if ($reservation->evaluation_date) {
+        return redirect()->back()->withErrors('Vous avez déjà évalué cette réservation');
+    }
         return view('client.eval_Annonce', [
             'reservation' => $reservation,
             'annonce' => $reservation->annonce,
@@ -50,7 +76,11 @@ class EvaluationController extends Controller
         $reservation->update([
             'evaluation_date' => now()
         ]);
-        
-        return back()->with('success', 'Merci pour vos évaluations !');
+          
+        return response()->json([
+        'message' => 'Merci pour vos évaluations !',
+        'redirect' => route('annonces')    
+    ]);
+      
     }
 }

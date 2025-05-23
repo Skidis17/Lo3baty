@@ -17,6 +17,10 @@
             border-radius: 9999px;
             font-size: 0.875rem;
         }
+        
+        button:disabled:hover {
+    background-color:rgb(235, 80, 37) !important; /* bg-blue-600 */
+}
         .statut-en_attente { background-color: #fef3c7; color: #d97706; }
         .statut-confirmée { background-color: #d1fae5; color:rgb(13, 122, 88); }
         .statut-refusée { background-color: #f3f4f6; color:rgb(215, 64, 51); }
@@ -94,10 +98,11 @@
                     class="bg-blue rounded-xl border border-gray-300 shadow-sm hover:shadow-md p-4 cursor-pointer group relative"
                     x-show="activeStatus === 'all' || activeStatus === '{{ $reservation->statut }}'"
                     @click="selectedReservation = {
+                        id: @js($reservation->id),
                         objet: @js($objet?->nom ?? 'N/A'),
                         image: @js($image?->url ? asset($image->url) : null),
                         dateDebut: @js($dateDebut?->translatedFormat('d M Y') ?? 'N/A'),
-                        dateFin: @js($dateFin?->translatedFormat('d M Y') ?? 'N/A'),
+                        dateFin: @js($dateFin?->format('Y-m-d')),
                         duree: @js($duree),
                         prixJournalier: @js(number_format(abs($prixJournalier), 0, ',', ' ') . ' DH'),
                         prixTotal: @js(number_format($prixTotal, 0, ',', ' ') . ' DH'),
@@ -118,7 +123,7 @@
                         <div class="">
                             <div class="flex items-start gap-9">
                                 @if($image)
-                                <img src="{{ asset($image->url) }}" 
+                                <img src="{{ asset('storage/' . $image->url) }}"
                                      class="w-24 h-24 object-cover rounded-lg" 
                                      alt="Image du jouet">
                                 @endif
@@ -235,7 +240,7 @@
 
                 <div class="space-y-4">
                     <div x-show="selectedReservation.image">
-                        <img :src="selectedReservation.image" 
+                       <img src="{{ asset('storage/' . $image->url) }}"
                              class="w-full h-48 object-cover rounded-lg" 
                              alt="Image du jouet">
                     </div>
@@ -254,12 +259,36 @@
                 </div>
             </div>
 
-            <div class="mt-8 pt-1 border-t border-black-100">
-                <div class="flex justify-between text-sm text-gray-600 mt-3 mb-0">
-                    <span x-text="selectedReservation.emailStatus"></span>
-                    <span x-text="`Évaluation: ${selectedReservation.evaluationDate}`"></span>
+          <div class="mt-8 pt-1 border-t border-black-100">
+    <div class="flex justify-between items-center text-sm text-gray-600 mt-3 mb-0">
+        <div class="flex space-x-4 " >
+            <span x-text="selectedReservation.emailStatus"></span>
+            <span x-text="`Évaluation: ${selectedReservation.evaluationDate}`" ></span>
+        </div>
+        
+        <!-- Updated Evaluation Button -->
+        <div x-data="{
+            isEvaluable() {
+                if (!selectedReservation?.dateFin) return false;
+                const today = new Date().toISOString().split('T')[0];
+                return selectedReservation.dateFin <= today;
+            }
+        }">
+            <template x-if="isEvaluable() && selectedReservation.id">
+                <a :href="`/evaluation_annonce/${selectedReservation.id}`"
+                   class="px-4 py-2 text-sm font-medium text-white bg-[#e63a28] rounded-lg hover:bg-[#e63a20] transition-colors flex items-center">
+                    Évaluer
+                </a>
+            </template>
+            
+            <template x-if="!isEvaluable()">
+                <div class="text-sm text-gray-500 italic">
+                    Evaluation après <span x-text="new Date(selectedReservation.dateFin).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', year: 'numeric' })"></span>
                 </div>
-            </div>
+            </template>
+        </div>
+    </div>
+</div>
         </div>
     </div>
 </body>
