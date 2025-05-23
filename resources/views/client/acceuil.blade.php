@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil - Jouets Tétouan</title>
+    <title>Accueil - Lo3baty</title>
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -495,7 +495,7 @@
             <div>
                 <h4 class="text-lg font-semibold mb-4">Contact</h4>
                 <ul class="space-y-2">
-                    <li class="text-gray-400">contact@jouets-tetouan.ma</li>
+                    <li class="text-gray-400">lo3baty1@gmail.com</li>
                     <li class="text-gray-400">+212 6 12 34 56 78</li>
                 </ul>
             </div>

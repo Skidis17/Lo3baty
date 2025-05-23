@@ -342,9 +342,11 @@
                     
                   
               <div class="relative inline-block text-left">
-    <button id="menuButton" class="w-9 h-9 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 flex items-center justify-center text-white hover:opacity-90 transition focus:outline-none">
-        <i class="fas fa-user text-sm"></i>
-    </button>
+    <button id="menuButton" class="w-9 h-9 rounded-full overflow-hidden bg-gray-200 border-2 border-white">
+<img src="{{ asset('storage/' . Auth::user()->profile_image) }}" 
+         alt="User" class="w-full h-full object-cover" />
+</button>
+
 
     <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
         <button id="profileButton" class="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100">

@@ -20,6 +20,8 @@ class AnnonceController extends Controller
         });
     }
 
+    $query->orderBy('premium', 'desc');
+
     if ($price = $request->input('price')) {
         $query->whereHas('objet', function ($q) use ($price) {
             switch ($price) {

@@ -14,7 +14,9 @@
     <link href="{{ asset('css/annonce-details.css') }}" rel="stylesheet">
     @stack('styles')
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50">    
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
     <div class="min-h-screen">
         @yield('content')
     </div>

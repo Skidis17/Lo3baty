@@ -23,6 +23,7 @@
         .leaflet-popup-content-wrapper { border-radius: 8px; }
     </style>
 </head>
+
 <body class="bg-gray-100">
     @include('components.sideBar')
 
@@ -175,7 +176,7 @@
             <!-- Annonces List -->
             <section id="annoncesList" class="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center gap-y-20 gap-x-14 mt-10 mb-5">
                 @forelse ($annonces as $annonce)
-                    <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
+                    <div class="w-72 bg-white shadow-md rounded-xl duration-100 hover:scale-105 hover:shadow-l">
                         <a href="{{ route('annonceID', ['id' => $annonce->id]) }}">
                             <img src="{{ $annonce->objet->images->first() ? asset('storage/' . $annonce->objet->images->first()->url) : 'https://via.placeholder.com/288x320' }}" 
                                 alt="{{ $annonce->objet->nom }}" 
@@ -183,7 +184,7 @@
                             <div class="px-4 py-3 w-72">
                                 <p class="text-lg font-bold text-black truncate">{{ $annonce->objet->nom }}</p>
                                 <div class="flex items-center justify-between mt-2">
-                                    <p class="text-lg font-semibold text-black">{{ $annonce->prix_journalier }} Dhs</p>
+                                    <p class="text-md font-medium text-black">{{ $annonce->prix_journalier }} Dhs</p>
                                     <span class="bg-[#e63a28] text-white px-4 py-2 rounded-lg text-sm">
                                         Détails
                                     </span>
@@ -293,6 +294,7 @@
             document.getElementById('sortInput').value = this.value;
             document.getElementById('mainFilterForm').submit();
         });
+        
     </script>
 </body>
 </html>
