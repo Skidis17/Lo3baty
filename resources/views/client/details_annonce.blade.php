@@ -338,7 +338,8 @@
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                 @foreach($relatedProduits as $produit)
                     @php $annonce = $produit->annonces->first(); @endphp
-                    <a href="{{ route('annonceID', ['id' => $annonce->id]) }}" 
+                    @if($annonce)
+                     <a href="{{ route('annonceID', ['id' => $annonce->id]) }}" 
                        class="group bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow">
                         <div class="relative h-48 overflow-hidden rounded-t-xl">
                             @if($produit->images->first())
@@ -370,6 +371,7 @@
                             </div>
                         </div>
                     </a>
+                    @endif
                 @endforeach
             </div>
         </div>

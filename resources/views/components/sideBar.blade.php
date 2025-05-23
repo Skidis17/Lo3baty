@@ -343,9 +343,9 @@
                   
               <div class="relative inline-block text-left">
     <button id="menuButton" class="w-9 h-9 rounded-full overflow-hidden bg-gray-200 border-2 border-white">
-<img src="{{ asset('storage/' . Auth::user()->profile_image) }}" 
-         alt="User" class="w-full h-full object-cover" />
-</button>
+    <img src="{{ asset('storage/' . Auth::user()->profile_image) }}" 
+            alt="User" class="w-full h-full object-cover" />
+    </button>
 
 
     <div id="dropdownMenu" class="hidden absolute right-0 mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
