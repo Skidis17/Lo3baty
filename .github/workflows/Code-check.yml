@@ -59,6 +59,7 @@ jobs:
             sleep 2
           done
 
+
       - name: Run database migrations
         run: php artisan migrate --force
 
