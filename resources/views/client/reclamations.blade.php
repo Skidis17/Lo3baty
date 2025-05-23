@@ -321,100 +321,100 @@
   </div>
 
   <script>
-    function adjustModalHeight() {
-      const modals = ['complaintModal', 'newComplaintModal'];
-      modals.forEach(modalId => {
-        const modal = document.getElementById(modalId);
-        if (modal && !modal.classList.contains('hidden')) {
-          const viewportHeight = window.innerHeight;
-          const maxModalHeight = viewportHeight * 0.9;
-          modal.querySelector('.card').style.maxHeight = `${maxModalHeight}px`;
-        }
-      });
+   function adjustModalHeight() {
+  const modals = ['complaintModal', 'newComplaintModal'];
+  modals.forEach(modalId => {
+    const modal = document.getElementById(modalId);
+    if (modal && !modal.classList.contains('hidden')) {
+      const viewportHeight = window.innerHeight;
+      const maxModalHeight = viewportHeight * 0.9;
+      modal.querySelector('.card').style.maxHeight = `${maxModalHeight}px`;
     }
+  });
+}
 
-    window.addEventListener('resize', adjustModalHeight);
+window.addEventListener('resize', adjustModalHeight);
 
-    function openNewModal() {
-      document.getElementById("newComplaintModal").classList.remove("hidden");
-      document.body.style.overflow = 'hidden';
-      adjustModalHeight();
-    }
+function openNewModal() {
+  document.getElementById("newComplaintModal").classList.remove("hidden");
+  document.body.style.overflow = 'hidden';
+  adjustModalHeight();
+}
 
-    function closeNewModal() {
-      document.getElementById("newComplaintModal").classList.add("hidden");
-      document.body.style.overflow = 'auto';
-    }
+function closeNewModal() {
+  document.getElementById("newComplaintModal").classList.add("hidden");
+  document.body.style.overflow = 'auto';
+}
 
-    function closeModal() {
-      document.getElementById("complaintModal").classList.add("hidden");
-      document.body.style.overflow = 'auto';
-    }
+function closeModal() {
+  document.getElementById("complaintModal").classList.add("hidden");
+  document.body.style.overflow = 'auto';
+}
 
+function viewComplaint(button) {
+  const dataset = button.dataset;
+  const dateCreation = new Date(dataset.date);
+  
+  const dateOptions = { 
+    day: '2-digit', 
+    month: '2-digit', 
+    year: 'numeric',
+    hour: '2-digit', 
+    minute: '2-digit'
+  };
+  
+  document.getElementById('complaintDate').textContent = dateCreation.toLocaleString('fr-FR', dateOptions);
+  document.getElementById('complaintSubject').textContent = dataset.sujet || "Non spécifié";
+  document.getElementById('complaintMessage').textContent = dataset.contenu || "Aucune description";
 
+  // Gestion de la pièce jointe (partie corrigée)
+  const fileContainer = document.getElementById('fileContainer');
+  const complaintFileLink = document.getElementById('complaintFile');
+  const fileNameElement = document.getElementById('fileName');
 
-    function viewComplaint(button) {
-      const dataset = button.dataset;
-      const dateCreation = new Date(dataset.date);
-      
-      const dateOptions = { 
-        day: '2-digit', 
-        month: '2-digit', 
-        year: 'numeric',
-        hour: '2-digit', 
-        minute: '2-digit'
-      };
-      
-      document.getElementById('complaintDate').textContent = dateCreation.toLocaleString('fr-FR', dateOptions);
-      document.getElementById('complaintSubject').textContent = dataset.sujet || "Non spécifié";
-      document.getElementById('complaintMessage').textContent = dataset.contenu || "Aucune description";
+  if (dataset.fichier && dataset.fichier !== 'null' && dataset.fichier.trim() !== '') {
+    const fileUrl = `/storage/${dataset.fichier}`;
+    complaintFileLink.href = fileUrl;
+    fileNameElement.textContent = dataset.fichier.split('/').pop();
+    fileContainer.classList.remove('hidden');
+  } else {
+    fileContainer.classList.add('hidden');
+  }
 
-      
-      
+  const responseContainer = document.getElementById('responseContainer');
+  const responseElement = document.getElementById('complaintResponse');
+  const responseDateElement = document.getElementById('responseDate');
+  
+  if (dataset.reponse && dataset.reponse.trim() !== '' && dataset.reponse !== 'null') {
+    responseElement.textContent = dataset.reponse;
+    
+    const responseDate = dataset.dateReponse ? new Date(dataset.dateReponse) : new Date(dataset.date);
+    responseDateElement.textContent = `Répondu le ${responseDate.toLocaleDateString('fr-FR', dateOptions)}`;
+    
+    responseContainer.classList.remove('hidden');
+  } else {
+    responseContainer.classList.add('hidden');
+  }
 
-      const fileContainer = document.getElementById('fileContainer');
-      if (dataset.fichier && dataset.fichier !== 'null') {
-        const fileUrl = `/storage/reclamations/${dataset.fichier}`;
-        document.getElementById('complaintFile').href = fileUrl;
-        document.getElementById('fileName').textContent = dataset.fichier.split('/').pop();
-        fileContainer.classList.remove('hidden');
-      } else {
-        fileContainer.classList.add('hidden');
-      }
+  document.getElementById("complaintModal").classList.remove("hidden");
+  document.body.style.overflow = 'hidden';
+  adjustModalHeight();
+}
 
-      const responseContainer = document.getElementById('responseContainer');
-      const responseElement = document.getElementById('complaintResponse');
-      const responseDateElement = document.getElementById('responseDate');
-      
-      if (dataset.reponse && dataset.reponse.trim() !== '' && dataset.reponse !== 'null') {
-        responseElement.textContent = dataset.reponse;
-        
-        const responseDate = dataset.dateReponse ? new Date(dataset.dateReponse) : new Date(dataset.date);
-        responseDateElement.textContent = `Répondu le ${responseDate.toLocaleDateString('fr-FR', dateOptions)}`;
-        
-        responseContainer.classList.remove('hidden');
-      } else {
-        responseContainer.classList.add('hidden');
-      }
+document.getElementById('file-upload')?.addEventListener('change', function() {
+  const file = this.files[0];
+  const fileName = document.getElementById('file-name');
+  const fileSize = document.getElementById('file-size');
+  
+  if (file) {
+    fileName.innerText = file.name;
+    fileSize.innerText = `(${(file.size / 1024).toFixed(1)} Ko)`;
+  } else {
+    fileName.innerText = "Aucun fichier sélectionné";
+    fileSize.innerText = "";
+  }
+});
 
-      document.getElementById("complaintModal").classList.remove("hidden");
-      document.body.style.overflow = 'hidden';
-      adjustModalHeight();
-    }
-
-    document.getElementById('file-upload')?.addEventListener('change', function() {
-      const file = this.files[0];
-      const fileName = document.getElementById('file-name');
-      const fileSize = document.getElementById('file-size');
-      
-      if (file) {
-        fileName.innerText = file.name;
-        fileSize.innerText = `(${(file.size / 1024).toFixed(1)} Ko)`;
-      } else {
-        fileName.innerText = "Aucun fichier sélectionné";
-        fileSize.innerText = "";
-      }
-    });
   </script>
 </body>
 </html>

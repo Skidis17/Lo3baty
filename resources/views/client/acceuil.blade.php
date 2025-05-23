@@ -37,14 +37,14 @@
     <div class="header-carousel owl-carousel owl-theme">
         <!-- Slide 1 -->
         <div class="owl-carousel-item relative h-[400px] md:h-[600px]">
-            <img src="{{ asset('storage/images/bb1.webp') }}" 
+            <img src="{{ asset('storage/images/bb1.jpg') }}" 
                  class="w-full h-full object-cover" alt="Kids playing with toys">
             <div class="absolute inset-0 flex items-center bg-black/30">
                 <div class="container mx-auto px-4">
                     <div class="max-w-2xl text-white">
                         <h1 class="text-3xl md:text-5xl font-bold mb-4 leading-tight">
                             Location de Jouets à Tétouan<br>
-                            <span class="text-blue-400">Pour des Souvenirs Inoubliables</span>
+                            <span style="color: #e63a28;">Pour des Souvenirs Inoubliables</span>
                         </h1>
                         <p class="text-lg md:text-xl mb-6">
                             Découvrez notre collection de jouets premium pour tous les âges
@@ -66,7 +66,7 @@
 
         <!-- Slide 2 -->
         <div class="owl-carousel-item relative h-[400px] md:h-[600px]">
-            <img src="{{ asset('storage/images/bb2.png') }}" 
+            <img src="{{ asset('storage/images/bb2.jpg') }}" 
                  class="w-full h-full object-cover" alt="Kids playing with Lego">
             <div class="absolute inset-0 flex items-center bg-black/30">
                 <div class="container mx-auto px-4">
@@ -208,7 +208,7 @@
                    class="group relative block bg-white rounded-xl shadow-md hover:shadow-md transition-all duration-300 overflow-hidden wow fadeInUp">
                     <div class="relative h-72 overflow-hidden">
                         @if ($objet->images->first())
-                            <img src="{{ asset($objet->images->first()->url) }}" 
+                            <img src="{{ asset('storage/' . $objet->images->first()->url) }}"  
                                  class="w-full h-full object-cover transition-transform duration-100 group-hover:scale-105"
                                  alt="{{ $objet->nom }}">
                         @else
@@ -346,7 +346,7 @@
 
         <!-- Team Members -->
         <div class="swiper-slide text-center p-4">
-          <img src="https://source.unsplash.com/random/400x400/?portrait-man-white-background&seed=1"
+          <img src="{{ asset('storage/team/Kharchafi Mohammed.jpg') }}"
                class="rounded-full w-40 h-40 mx-auto object-cover mb-4" alt="Kharchafi Mohamed">
           <h3 class="font-semibold text-lg">Kharchafi Mohamed</h3>
           <p class="text-gray-600">Chef de Projet</p>
@@ -356,7 +356,7 @@
         </div>
 
         <div class="swiper-slide text-center p-4">
-        <img src="{{ asset('images/my.png') }}" class="w-[242px] h-[441px] mx-auto object-cover rounded-xl mb-4" ...>
+        <img src="{{ asset('storage/team/Mohamed Sadki.jpg') }}"  class="rounded-full w-40 h-40 mx-auto object-cover mb-4" alt="Sadki Mohamed">
         <h3 class="font-semibold text-lg">Sadki Mohamed</h3>
           <p class="text-gray-600">Client Team Lead</p>
           <a href="https://github.com/Skidis17" class="text-gray-900 text-xl mt-2 inline-block">
@@ -365,7 +365,7 @@
         </div>
 
         <div class="swiper-slide text-center p-4">
-          <img src="https://source.unsplash.com/random/400x400/?portrait-man-white-background&seed=3"
+           <img src="{{ asset('storage/team/BENSADDIK-Mohamed.jpg') }}" 
                class="rounded-full w-40 h-40 mx-auto object-cover mb-4" alt="Benseddik Mohamed">
           <h3 class="font-semibold text-lg">Benseddik Mohamed</h3>
           <p class="text-gray-600">Partenaire Lead</p>
@@ -375,19 +375,19 @@
         </div>
 
         <div class="swiper-slide text-center p-4">
-          <img src="https://source.unsplash.com/random/400x400/?portrait-woman-white-background&seed=4"
+          <img src="{{ asset('storage/team/Nada El mourabet.jpg') }}" 
                class="rounded-full w-40 h-40 mx-auto object-cover mb-4" alt="Nada El Mourabet">
           <h3 class="font-semibold text-lg">Nada El Mourabet</h3>
-          <p class="text-gray-600">Frontend Developer</p>
+          <p class="text-gray-600"> Développeuse Frontend</p>
           <a href="https://github.com/ELMOURABETNADA" class="text-gray-900 text-xl mt-2 inline-block">
             <i class="fab fa-github"></i>
           </a>
         </div>
 
         <div class="swiper-slide text-center p-4">
-          <img src="https://source.unsplash.com/random/400x400/?portrait-woman-white-background&seed=5"
+          <img src="{{ asset('storage/team/Assiya El Ouazgany.jpg') }}" 
                class="rounded-full w-40 h-40 mx-auto object-cover mb-4" alt="El Ouazgani Assia">
-          <h3 class="font-semibold text-lg">El Ouazgani Assia</h3>
+          <h3 class="font-semibold text-lg">Assiya El Ouazgany</h3>
           <p class="text-gray-600">UI/UX Designer</p>
           <a href="https://github.com/assiyaelouazgany" class="text-gray-900 text-xl mt-2 inline-block">
             <i class="fab fa-github"></i>
@@ -395,7 +395,7 @@
         </div>
 
         <div class="swiper-slide text-center p-4">
-          <img src="https://source.unsplash.com/random/400x400/?portrait-woman-white-background&seed=6"
+           <img src="{{ asset('storage/team/Houda El Bekkari.jpg') }}" 
                class="rounded-full w-40 h-40 mx-auto object-cover mb-4" alt="Houda el Bekkari">
           <h3 class="font-semibold text-lg">Houda el Bekkari</h3>
           <p class="text-gray-600">Admin Lead</p>
@@ -403,9 +403,8 @@
             <i class="fab fa-github"></i>
           </a>
         </div>
-
         <div class="swiper-slide text-center p-4">
-          <img src="https://source.unsplash.com/random/400x400/?portrait-woman-white-background&seed=7"
+          <img src="{{ asset('storage/team/Chaymae El fahssi.jpg') }}" 
                class="rounded-full w-40 h-40 mx-auto object-cover mb-4" alt="Chaimae El Fahssi">
           <h3 class="font-semibold text-lg">Chaimae El Fahssi</h3>
           <p class="text-gray-600">Backend Developer</p>
