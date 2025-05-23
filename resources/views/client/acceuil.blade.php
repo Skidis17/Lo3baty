@@ -318,7 +318,7 @@
                             </li>
                         </ul>
 
-                        <a href="" 
+                        <a href="{{ route('login') }}" 
                         class="inline-flex items-center justify-center w-full lg:w-auto px-8 py-3 block rounded-lg font-medium " style="color: #e63a28;"
 >
                             Commencer maintenant
