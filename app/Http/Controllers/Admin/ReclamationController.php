@@ -1,58 +1,66 @@
 <?php
+namespace App\Http\Controllers;
 
-namespace App\Http\Controllers\Admin;
-
-use App\Http\Controllers\Controller;
 use App\Models\Reclamation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ReclamationController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $query = Reclamation::with('utilisateur')
-                    ->orderBy('created_at', 'desc');
-
-        if ($request->filled('statut')) {
-            $query->where('statut', $request->statut);
+        if (Auth::check()) {
+            Auth::user()->unreadNotifications->markAsRead();
         }
 
-        $reclamations = $query->paginate(10);
-        $statuts = ['en_attente', 'resolue'];
+        $reclamations = Reclamation::where('utilisateur_id', Auth::id())->get();
 
-        return view('admin.reclamations.index', compact('reclamations', 'statuts'));
+        return view('client.reclamations', compact('reclamations'));
     }
 
-    public function show(Reclamation $reclamation)
+    public function store(Request $request)
     {
-        return view('admin.reclamations.show', compact('reclamation'));
-    }
-
-    public function repondre(Request $request, Reclamation $reclamation)
-    {
-        $request->validate([
-            'reponse' => 'required|string|max:2000',
+        $validated = $request->validate([
+            'sujet' => 'required|string|max:255',
+            'contenu' => 'required|string',
+            'piece_jointe' => 'nullable|file|mimes:jpg,jpeg,png,pdf|max:2048',
         ]);
 
-        $reclamation->update([
-            'reponse' => $request->reponse,
-            'statut' => 'resolue',
-            'date_reponse' => now(),
-        ]);
-
-        // Envoyer une notification à l'utilisateur
-
-        return redirect()->route('admin.reclamations.index')
-            ->with('success', 'Réponse envoyée avec succès!');
-    }
-
-    public function downloadPieceJointe(Reclamation $reclamation)
-    {
-        if ($reclamation->piece_jointe && Storage::exists($reclamation->piece_jointe)) {
-            return Storage::download($reclamation->piece_jointe);
+        $pieceJointePath = null;
+        if ($request->hasFile('piece_jointe')) {
+            $originalName = $request->file('piece_jointe')->getClientOriginalName();
+            $pieceJointePath = $request->file('piece_jointe')->storeAs(
+                'reclamations',
+                $originalName,
+                'public'
+            );
         }
 
-        return back()->with('error', 'Fichier introuvable');
+        Reclamation::create([
+            'sujet' => $validated['sujet'],
+            'contenu' => $validated['contenu'],
+            'piece_jointe' => $pieceJointePath,
+            'utilisateur_id' => Auth::id(),
+        ]);
+
+        return redirect()->back()->with('success', 'Réclamation envoyée avec succès.');
+    }
+
+    public function show($id)
+    {
+        $reclamation = Reclamation::where('id', $id)
+            ->where('utilisateur_id', Auth::id())
+            ->firstOrFail();
+
+        return response()->json([
+            'id' => $reclamation->id,
+            'sujet' => $reclamation->sujet,
+            'contenu' => $reclamation->contenu,
+            'statut' => $reclamation->statut,
+            'created_at' => $reclamation->created_at,
+            'piece_jointe' => $reclamation->piece_jointe
+                ? asset('storage/' . $reclamation->piece_jointe)
+                : null,
+        ]);
     }
 }

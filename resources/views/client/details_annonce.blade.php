@@ -65,8 +65,8 @@
                                 <div class="swiper-wrapper">
                                     @foreach($annonce->objet->images as $image)
                                         <div class="swiper-slide">
-                                            <img src="{{ asset($image->url) }}" alt="{{ $annonce->objet->nom }}" 
-                                                 class="w-full h-96 object-cover transition duration-300 hover:scale-105">
+                                            <img src="{{ asset('storage/' . $image->url) }}" alt="{{ $annonce->objet->nom }}" 
+                                              class="w-full h-96 object-cover transition duration-300 hover:scale-105">
                                         </div>
                                     @endforeach
                                 </div>
@@ -195,7 +195,7 @@
                                     </div>
                                 </div>
                                 
-                               <div id="priceCalculation" class="mb-4 hidden bg-white p-4 rounded-lg shadow-sm border border-blue-100 animate__animated animate__fadeIn">
+                               <div id="priceCalculation" class="mb-4 hidden bg-white p-4 rounded-lg shadow-sm border border-blue-100 animate_animated animate_fadeIn">
                                 <div class="flex justify-between mb-2">
                                     <span class="text-gray-600">Durée:</span>
                                     <span id="durationDays" class="font-medium">0 jours</span>

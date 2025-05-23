@@ -29,7 +29,7 @@ class NouvelleAnnonceNotification extends Notification
             'annonce_id' => $this->annonce->id,
             'message' => 'Nouvelle annonce disponible',
             'titre' => $this->annonce->titre,
-            'url' => route('admin.annonces.show', $this->annonce->id),
+            'url' => route('annonceID', $this->annonce->id),
             'created_at' => now()->toDateTimeString()
         ];
     }

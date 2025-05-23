@@ -177,9 +177,9 @@
                 @forelse ($annonces as $annonce)
                     <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
                         <a href="{{ route('annonceID', ['id' => $annonce->id]) }}">
-                            <img src="{{ $annonce->image_url ?? 'https://via.placeholder.com/288x320' }}" 
-                                 alt="{{ $annonce->objet->nom }}" 
-                                 class="h-80 w-72 object-cover rounded-t-xl">
+                            <img src="{{ $annonce->objet->images->first() ? asset('storage/' . $annonce->objet->images->first()->url) : 'https://via.placeholder.com/288x320' }}" 
+                                alt="{{ $annonce->objet->nom }}" 
+                                class="h-80 w-72 object-cover rounded-t-xl">
                             <div class="px-4 py-3 w-72">
                                 <p class="text-lg font-bold text-black truncate">{{ $annonce->objet->nom }}</p>
                                 <div class="flex items-center justify-between mt-2">
