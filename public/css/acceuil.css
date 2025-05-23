@@ -34,11 +34,6 @@ body{
     transform: translate(0, 0);
 }
 
-
-
-
-
-
 .group:hover .group-hover\:scale-105 { transform: scale(1.05); }
 .sticky-top { transition: all 0.3s ease-in-out; }
 .spinner { animation: spin 1s linear infinite; }

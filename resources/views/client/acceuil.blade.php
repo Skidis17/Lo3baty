@@ -73,7 +73,7 @@
                     <div class="max-w-2xl text-white">
                         <h1 class="text-3xl md:text-5xl font-bold mb-4 leading-tight">
                             Des Jouets Éducatifs<br>
-                            <span class="text-blue-400">Pour Développer la Créativité</span>
+                            <span class="text-[#e63a28]">Pour Développer la Créativité</span>
                         </h1>
                         <p class="text-lg md:text-xl mb-6">
                             Apprentissage par le jeu avec nos sélections expertes
@@ -416,9 +416,9 @@
       </div>
 
       <!-- Pagination & Navigation -->
-      <div class="swiper-pagination mt-6"></div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
+      <div class="swiper-pagination mt-6" style="color: #e63a28;"></div>
+      <div class="swiper-button-prev" style="color: #e63a28;"></div>
+      <div class="swiper-button-next" style="color: #e63a28;"></div>
     </div>
   </div>
 </section>
