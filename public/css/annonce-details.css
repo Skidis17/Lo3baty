@@ -138,4 +138,16 @@
     .swiper-button-next::after,
     .swiper-button-prev::after {
         font-size: 15px;
-        color: #e63a28;
+        color: #e63a28;}
+        #priceCalculation {
+    transition: all 0.3s ease;
+    opacity: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+#priceCalculation:not(.hidden) {
+    opacity: 1;
+    height: auto;
+    overflow: visible;
+}

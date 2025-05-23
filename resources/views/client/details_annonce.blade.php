@@ -187,8 +187,8 @@
                             <div class="border-t pt-4 mt-4">
                                 <div class="flex items-center mb-2">
                                     <img class="w-10 h-10 rounded-full mr-3 border-2 border-[#e63a28]" 
-                                    src="{{ asset('storage/' . $review->client->image_profile) }}" 
-                                         alt="{{ $review->client->surnom }}">
+                                        src="{{ asset('storage/' . $review->client->image_profile) }}" 
+                                        alt="{{ $review->client->surnom }}">
                                     <div>
                                         <p class="font-medium">{{ $review->client->surnom }}</p>
                                         <div class="flex items-center">
@@ -293,18 +293,21 @@
                             </div>
 
                             <!-- Price Calculation -->
-                            <div id="priceCalculation" class="bg-[#e63a28]/10 rounded-lg p-4 mb-6 transition-all duration-300">
-                                <div class="space-y-2">
-                                    <div class="flex justify-between text-[#e63a28]">
-                                        <span>{{ $annonce->prix_journalier }} MAD x</span>
-                                        <span id="durationDays" class="font-medium">0 jours</span>
-                                    </div>
-                                    <div class="flex justify-between items-center pt-2">
-                                        <span class="font-semibold">Total</span>
-                                        <span id="totalPrice" class="text-2xl font-bold text-[#e63a28]">0.00 MAD</span>
+  <div id="priceCalculation" class="mb-4 hidden bg-white p-4 rounded-lg shadow-sm border border-blue-100 animate__animated animate__fadeIn">
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-600">Durée:</span>
+                                    <span id="durationDays" class="font-medium">0 jours</span>
+                                </div>
+                                <div class="flex justify-between mb-2">
+                                    <span class="text-gray-600">Prix journalier:</span>
+                                    <span class="font-medium">{{ number_format($annonce->prix_journalier, 2) }} MAD</span>
+                                </div>
+                                    <div class="border-t my-2 border-dashed"></div>
+                                    <div class="flex justify-between">
+                                        <span class="text-lg font-semibold">Total:</span>
+                                        <span id="totalPrice" class="text-lg font-bold text-blue-600">0.00 MAD</span>
                                     </div>
                                 </div>
-                            </div>
 
                             <!-- Submit Button -->
                             <button type="submit" 
@@ -344,9 +347,10 @@
                                         <i class="fas fa-crown mr-1"></i> Premium
                                     </div>
                                 @endif
-                                <img src="{{ asset($produit->images->first()->url) }}" 
-                                     class="w-full h-full object-cover duration-300 group-hover:scale-110"
-                                     alt="{{ $produit->nom }}">
+                                <img src="{{ asset('storage/' . $produit->images->first()->url) }}" 
+                                    class="w-full h-full object-cover duration-300 group-hover:scale-110"
+                                    alt="{{ $produit->nom }}">
+
                             @else
                                 <div class="w-full h-full flex items-center justify-center bg-gray-100">
                                     <i class="fas fa-image text-gray-400 text-3xl"></i>

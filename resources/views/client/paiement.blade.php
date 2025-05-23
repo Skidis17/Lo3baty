@@ -11,8 +11,8 @@
                 <h3 class="text-lg font-semibold text-gray-800 mb-4">Récapitulatif</h3>
                 
                 <div class="flex items-center mb-4">
-                    <img src="{{ asset($reservation->annonce->objet->images->first()->url) }}" 
-                         alt="{{ $reservation->annonce->objet->nom }}"
+                    <img src="{{ asset('storage/' . $reservation->annonce->objet->images->first()->url) }}" 
+                            alt="{{ $reservation->annonce->objet->nom }}"
                          class="w-20 h-20 object-cover rounded-lg mr-4">
                     <div>
                         <h4 class="font-medium">{{ $reservation->annonce->objet->nom }}</h4>
