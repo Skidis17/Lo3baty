@@ -33,421 +33,382 @@
             <i class="fas fa-arrow-up"></i>
         </button>
     </div>
-    <div class="min-h-screen">
-        @section('content')
-        <div class="container mx-auto px-4 py-8">
-            <nav class="flex mb-6 wow animate__fadeIn" data-wow-delay="0.1s">
-                <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                    <li class="inline-flex items-center">
-                        <a href="{{ url('/') }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600">
-                            <i class="fas fa-home mr-2"></i> Accueil
-                        </a>
-                    </li>
-                    <li aria-current="page">
-                        <div class="flex items-center">
-                            <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
-                            <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Détails du jouet</span>
-                        </div>
-                    </li>
-                </ol>
-            </nav>
-
-            <div class="bg-white rounded-lg shadow-md overflow-hidden wow animate__fadeIn">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 p-4">
-                    <div class="md:col-span-1 wow animate__fadeInLeft">
-                        @if($annonce->objet->images->isNotEmpty())
-                            <div class="swiper-container relative rounded-xl overflow-hidden shadow-lg">
-                                @if($annonce->premium)
-                                    <div class="premium-badge">
-                                        <i class="fas fa-crown mr-1"></i> Premium
-                                    </div>
-                                @endif
-                                <div class="swiper-wrapper">
-                                    @foreach($annonce->objet->images as $image)
-                                        <div class="swiper-slide">
-                                            <img src="{{ asset($image->url) }}" alt="{{ $annonce->objet->nom }}" 
-                                                 class="w-full h-96 object-cover transition duration-300 hover:scale-105">
-                                        </div>
-                                    @endforeach
-                                </div>
-                                <div class="swiper-pagination"></div>
-                                <div class="swiper-button-next bg-white/80 rounded-full w-10 h-10 flex items-center justify-center hover:bg-white transition"></div>
-                                <div class="swiper-button-prev bg-white/80 rounded-full w-10 h-10 flex items-center justify-center hover:bg-white transition"></div>
-                            </div>
-                        @else
-                            <div class="bg-gradient-to-r from-pink-100 to-purple-100 h-96 flex items-center justify-center rounded-lg shadow-inner">
-                                <span class="text-gray-500 text-center">
-                                    <i class="fas fa-image fa-2x mb-2"></i><br>
-                                    Aucune image disponible
-                                </span>
-                            </div>
-                        @endif
+<div class="min-h-screen bg-gray-50">
+    @section('content')
+    <div class="container mx-auto px-4 py-8">
+        <!-- Breadcrumb -->
+        <nav class="flex mb-6 wow animate__fadeIn" data-wow-delay="0.1s">
+            <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                <li class="inline-flex items-center">
+                    <a href="{{ url('/') }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-[#e63a28]">
+                        <i class="fas fa-home mr-2"></i> Accueil
+                    </a>
+                </li>
+                <li aria-current="page">
+                    <div class="flex items-center">
+                        <i class="fas fa-chevron-right text-gray-400 mx-2"></i>
+                        <span class="ml-1 text-sm font-medium text-gray-500 md:ml-2">Détails du jouet</span>
                     </div>
+                </li>
+            </ol>
+        </nav>
 
-                    <div class="md:col-span-1 p-4 wow animate__fadeInRight" data-wow-delay="0.2s">
-                        <h1 class="text-3xl font-bold text-gray-800 mb-2 font-kids">{{ $annonce->objet->nom }}</h1>
-                        
-                        <div class="flex items-center mb-4 p-3 bg-blue-50 rounded-lg">
-                            <div class="flex-shrink-0">
-                                <img class="w-12 h-12 rounded-full object-cover border-2 border-white shadow" 
-                                     src="{{ $annonce->proprietaire->image_profil }}" 
-                                     alt="{{ $annonce->proprietaire->surnom }}">
+        <!-- Main Content -->
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Left Column -->
+            <div class="w-full lg:w-2/3">
+                <!-- Image Gallery -->
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden wow animate__fadeIn">
+                    @if($annonce->objet->images->isNotEmpty())
+                        <div class="swiper-container relative">
+                            @if($annonce->premium)
+                                <div class="absolute top-4 left-4 z-10 bg-[#e63a28] text-white px-3 py-1 rounded-full text-xs font-semibold shadow-md flex items-center">
+                                    <i class="fas fa-crown mr-1"></i> Premium
+                                </div>
+                            @endif
+                            <div class="swiper-wrapper">
+                                @foreach($annonce->objet->images as $image)
+                                    <div class="swiper-slide">
+                                        <img src="{{ asset($image->url) }}" alt="{{ $annonce->objet->nom }}" 
+                                             class="w-full h-96 object-cover">
+                                    </div>
+                                @endforeach
                             </div>
-                            <div class="ml-3">
-                                <p class="text-sm font-medium text-gray-900">
-                                    Proposé par <span class="font-semibold">{{ $annonce->proprietaire->surnom }}</span>
-                                </p>
+                            <div class="swiper-pagination"></div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                    @else
+                        <div class="h-96 bg-gray-100 flex items-center justify-center">
+                            <div class="text-center text-gray-400">
+                                <i class="fas fa-image fa-3x mb-3"></i>
+                                <p>Aucune image disponible</p>
+                            </div>
+                        </div>
+                    @endif
+                </div>
+
+                <!-- Product Details -->
+                <div class="mt-8 bg-white rounded-xl shadow-lg p-6 wow animate__fadeIn">
+                    <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ $annonce->objet->nom }}</h1>
+                    
+                    <!-- Owner Info -->
+                    <div class="flex items-center mb-6 p-4 bg-gray-50 rounded-lg">
+                        <img class="w-12 h-12 rounded-full object-cover border-2 border-white shadow" 
+                             src="{{ $annonce->proprietaire->image_profil }}" 
+                             alt="{{ $annonce->proprietaire->surnom }}">
+                        <div class="ml-4">
+                            <p class="font-medium text-gray-900">Proposé par {{ $annonce->proprietaire->surnom }}</p>
+                            <div class="flex items-center">
+                                @php $avgRating = $evaluationsPartner->avg('note'); @endphp
                                 <div class="flex items-center">
-                                    @php
-                                        $averageRating = $evaluationsPartner->avg('note');
-                                        $fullStars = floor($averageRating);
-                                        $hasHalfStar = $averageRating - $fullStars >= 0.5;
-                                    @endphp
-                                    
                                     @for($i = 1; $i <= 5; $i++)
-                                        @if($i <= $fullStars)
-                                            <i class="fas fa-star text-yellow-400"></i>
-                                        @elseif($i == $fullStars + 1 && $hasHalfStar)
-                                            <i class="fas fa-star-half-alt text-yellow-400"></i>
+                                        @if($i <= $avgRating)
+                                            <i class="fas fa-star text-[#e63a28] text-sm"></i>
+                                        @elseif($i == ceil($avgRating) && ($avgRating - floor($avgRating) >= 0.5))
+                                            <i class="fas fa-star-half-alt text-[#e63a28] text-sm"></i>
                                         @else
-                                            <i class="far fa-star text-gray-300"></i>
+                                            <i class="far fa-star text-gray-300 text-sm"></i>
                                         @endif
                                     @endfor
-                                    <span class="text-xs text-gray-600 ml-1">({{ $evaluationsPartner->count() }} avis)</span>
+                                </div>
+                                <span class="text-sm text-gray-600 ml-2">({{ $evaluationsPartner->count() }} avis)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="mb-8">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-align-left text-[#e63a28] mr-2"></i>Description
+                        </h3>
+                        <p class="text-gray-600 leading-relaxed">{{ $annonce->objet->description }}</p>
+                    </div>
+
+                    <!-- Details Grid -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                        <div class="p-3 bg-gray-50 rounded-lg text-center hover:bg-gray-100 transition">
+                            <div class="text-gray-500 mb-1">
+                                <i class="fas fa-city text-[#e63a28]"></i>
+                            </div>
+                            <div class="font-medium">{{ $annonce->objet->ville }}</div>
+                            <span class="text-xs text-gray-500">Ville</span>
+                        </div>
+                        <div class="p-3 bg-gray-50 rounded-lg text-center hover:bg-gray-100 transition">
+                            <div class="text-gray-500 mb-1">
+                                <i class="fas fa-battery-three-quarters text-[#e63a28]"></i>
+                            </div>
+                            <div class="font-medium">{{ $annonce->objet->etat }}</div>
+                            <span class="text-xs text-gray-500">État</span>
+                        </div>
+                        <div class="p-3 bg-gray-50 rounded-lg text-center hover:bg-gray-100 transition">
+                            <div class="text-gray-500 mb-1">
+                                <i class="far fa-calendar-alt text-[#e63a28]"></i>
+                            </div>
+                            <div class="font-medium">
+                                {{ \Carbon\Carbon::parse($annonce->date_publication)->format('d/m/Y') }}
+                            </div>
+                            <span class="text-xs text-gray-500">Publié le</span>
+                        </div>
+                        <div class="p-3 bg-gray-50 rounded-lg text-center hover:bg-gray-100 transition">
+                            <div class="text-gray-500 mb-1">
+                                <i class="fas fa-child text-[#e63a28]"></i>
+                            </div>
+                            <div class="font-medium">{{ $annonce->objet->tranche_age }}</div>
+                            <span class="text-xs text-gray-500">Âge</span>
+                        </div>
+                    </div>
+
+                    <!-- Reviews -->
+                    <div class="mt-8">
+                        <h2 class="text-2xl font-bold mb-6 flex items-center">
+                            <i class="fas fa-star mr-2 text-[#e63a28]"></i>Avis ({{ $evaluationsObjet->count() + $evaluationsPartner->count() }})
+                        </h2>
+                        
+                        <!-- Product Reviews -->
+                        <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                            <div class="flex items-center mb-6">
+                                <div class="text-4xl font-bold mr-4 text-[#e63a28]">{{ number_format($evaluationsObjet->avg('note'), 1) }}</div>
+                                <div>
+                                    <div class="flex items-center mb-2">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            @if($i <= $evaluationsObjet->avg('note'))
+                                                <i class="fas fa-star text-[#e63a28]"></i>
+                                            @else
+                                                <i class="far fa-star text-gray-300"></i>
+                                            @endif
+                                        @endfor
+                                    </div>
+                                    <p class="text-sm text-gray-600">{{ $evaluationsObjet->count() }} avis sur le jouet</p>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="flex justify-between items-center mb-4">
-                            <span class="price-tag text-xs font-medium px-3 py-1 rounded-full shadow-sm">
-                                {{ number_format($annonce->prix_journalier, 2) }} MAD/jour
-                            </span>
-                           
-                        </div>
-
-                        <div class="mb-6 bg-blue-50 p-4 rounded-lg">
-                            <h3 class="text-lg font-semibold text-gray-800 mb-2 flex items-center">
-                                <i class="fas fa-align-left mr-2 text-blue-500"></i>Description
-                            </h3>
-                            <p class="text-gray-600">{{ $annonce->objet->description }}</p>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-4 mb-6">
-                            <div class="bg-white p-3 rounded-lg shadow-sm border border-gray-100">
-                                <p class="text-sm text-gray-500 flex items-center">
-                                    <i class="fas fa-city mr-2 text-blue-400"></i> Ville
-                                </p>
-                                <p class="font-medium mt-1">{{ $annonce->objet->ville }}</p>
-                            </div>
-                            <div class="bg-white p-3 rounded-lg shadow-sm border border-gray-100">
-                                <p class="text-sm text-gray-500 flex items-center">
-                                    <i class="fas fa-battery-three-quarters mr-2 text-green-400"></i> État
-                                </p>
-                                <p class="font-medium mt-1">{{ $annonce->objet->etat }}</p>
-                            </div>
-                            <div class="bg-white p-3 rounded-lg shadow-sm border border-gray-100">
-                                <p class="text-sm text-gray-500 flex items-center">
-                                    <i class="far fa-calendar-alt mr-2 text-purple-400"></i> Date de publication
-                                </p>
-                                <p class="font-medium mt-1">
-                                    {{ \Carbon\Carbon::parse($annonce->date_publication)->format('d/m/Y') }}
-                                </p>
-                            </div>
-                            <div class="bg-white p-3 rounded-lg shadow-sm border border-gray-100">
-                                <p class="text-sm text-gray-500 flex items-center">
-                                    <i class="fas fa-child mr-2 text-pink-400"></i> Tranche d'âge
-                                </p>
-                                <p class="font-medium mt-1">
-                                    {{ $annonce->objet->tranche_age}} 
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="reservation-section bg-gradient-to-br from-blue-50 to-purple-50 p-4 rounded-lg shadow-inner wow animate__fadeInUp" data-wow-delay="0.3s">
-                            <h3 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
-                                <i class="far fa-calendar-plus mr-2 text-purple-500"></i>Réserver ce jouet
-                            </h3>
                             
-                            <div class="mb-6">
-                               <div id="calendarContainer" class="my-8 p-4 border rounded-lg shadow-md"></div>
+                            @foreach($evaluationsObjet->take(2) as $review)
+                            <div class="border-t pt-4 mt-4">
+                                <div class="flex items-center mb-2">
+                                    <img class="w-10 h-10 rounded-full mr-3 border-2 border-[#e63a28]" 
+                                    src="{{ asset('storage/' . $review->client->image_profile) }}" 
+                                         alt="{{ $review->client->surnom }}">
+                                    <div>
+                                        <p class="font-medium">{{ $review->client->surnom }}</p>
+                                        <div class="flex items-center">
+                                            @for($i = 1; $i <= 5; $i++)
+                                                <i class="fas fa-star text-[{{ $i <= $review->note ? '#e63a28' : '#d1d5db' }}] text-sm"></i>
+                                            @endfor
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600">{{ $review->commentaire }}</p>
+                                <p class="text-xs text-gray-400 mt-2">
+                                    {{ \Carbon\Carbon::parse($review->created_at)->diffForHumans() }}
+                                </p>
                             </div>
+                            @endforeach
+                        </div>
 
-                            <form id="reservationForm" action="{{ route('reservation.store') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="annonce_id" value="{{ $annonce->id }}">
-                                
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <!-- Partner Reviews -->
+                        <div class="bg-white rounded-lg shadow-md p-6">
+                            <div class="flex items-center mb-6">
+                                <div class="text-4xl font-bold mr-4 text-[#e63a28]">{{ number_format($evaluationsPartner->avg('note'), 1) }}</div>
+                                <div>
+                                    <div class="flex items-center mb-2">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            @if($i <= $evaluationsPartner->avg('note'))
+                                                <i class="fas fa-star text-[#e63a28]"></i>
+                                            @else
+                                                <i class="far fa-star text-gray-300"></i>
+                                            @endif
+                                        @endfor
+                                    </div>
+                                    <p class="text-sm text-gray-600">{{ $evaluationsPartner->count() }} avis sur le partenaire</p>
+                                </div>
+                            </div>
+                            
+                            @foreach($evaluationsPartner->take(2) as $review)
+                            <div class="border-t pt-4 mt-4">
+                                <div class="flex items-center mb-2">
+                                    <img class="w-10 h-10 rounded-full mr-3 border-2 border-[#e63a28]" 
+                                         src="{{ $review->client->image_profil }}" 
+                                         alt="{{ $review->client->surnom }}">
                                     <div>
-                                        <label for="date_debut" class="block mb-2 text-sm font-medium text-gray-900">
-                                            <i class="far fa-calendar mr-1 text-blue-500"></i> Date de début
-                                        </label>
-                                        <input type="text" id="date_debut" name="date_debut" 
-                                               class="bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm" 
-                                               placeholder="Sélectionner une date" required readonly>
-                                    </div>
-                                    <div>
-                                        <label for="date_fin" class="block mb-2 text-sm font-medium text-gray-900">
-                                            <i class="far fa-calendar mr-1 text-blue-500"></i> Date de fin
-                                        </label>
-                                        <input type="text" id="date_fin" name="date_fin" 
-                                               class="bg-white border border-gray-200 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 shadow-sm" 
-                                               placeholder="Sélectionner une date" required readonly>
+                                        <p class="font-medium">{{ $review->client->surnom }}</p>
+                                        <div class="flex items-center">
+                                            @for($i = 1; $i <= 5; $i++)
+                                                <i class="fas fa-star text-[{{ $i <= $review->note ? '#e63a28' : '#d1d5db' }}] text-sm"></i>
+                                            @endfor
+                                        </div>
                                     </div>
                                 </div>
-                                
-                               <div id="priceCalculation" class="mb-4 hidden bg-white p-4 rounded-lg shadow-sm border border-blue-100 animate__animated animate__fadeIn">
-                                <div class="flex justify-between mb-2">
-                                    <span class="text-gray-600">Durée:</span>
-                                    <span id="durationDays" class="font-medium">0 jours</span>
-                                </div>
-                                <div class="flex justify-between mb-2">
-                                    <span class="text-gray-600">Prix journalier:</span>
-                                    <span class="font-medium">{{ number_format($annonce->prix_journalier, 2) }} MAD</span>
-                                </div>
-                                    <div class="border-t my-2 border-dashed"></div>
-                                    <div class="flex justify-between">
-                                        <span class="text-lg font-semibold">Total:</span>
-                                        <span id="totalPrice" class="text-lg font-bold text-blue-600">0.00 MAD</span>
-                                    </div>
-                                </div>
-                                
-                                <button type="submit" class="w-full btn-primary text-white font-medium py-3 px-4 rounded-lg flex items-center justify-center shadow-lg hover:shadow-xl">
-                                    <i class="fas fa-check-circle mr-2"></i> Réserver maintenant
-                                </button>
-                            </form>
+                                <p class="text-gray-600">{{ $review->commentaire }}</p>
+                                <p class="text-xs text-gray-400 mt-2">
+                                    {{ \Carbon\Carbon::parse($review->created_at)->diffForHumans() }}
+                                </p>
+                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="mt-12">
-                <div class="flex border-b border-gray-200 mb-6 wow animate__fadeIn">
-                    <button @click="activeTab = 'reviews'" 
-                            :class="{'border-b-2 border-blue-500 text-blue-600': activeTab === 'reviews'}" 
-                            class="px-4 py-2 font-medium text-sm focus:outline-none">
-                        <i class="fas fa-star mr-1"></i> Avis ({{ $evaluationsObjet->count() + $evaluationsPartner->count() }})
-                    </button>
-                    <button @click="activeTab = 'related'" 
-                            :class="{'border-b-2 border-blue-500 text-blue-600': activeTab === 'related'}" 
-                            class="px-4 py-2 font-medium text-sm focus:outline-none">
-                        <i class="fas fa-th-large mr-1"></i> Jouets similaires
-                    </button>
-                </div>
+            <!-- Right Column (Booking Form) -->
+            <div class="w-full lg:w-1/3">
+                <div class="sticky top-8 wow animate__fadeIn">
+                    <div class="bg-white rounded-xl shadow-lg p-6 border border-[#e63a28]/20">
+                        <!-- Price Header -->
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <span class="text-2xl font-bold text-[#e63a28]">
+                                    {{ number_format($annonce->prix_journalier, 2) }} MAD
+                                </span>
+                                <span class="text-gray-500">/jour</span>
+                            </div>
+                            <i class="fas fa-tag text-[#e63a28]/40 text-xl"></i>
+                        </div>
 
-                <div x-show="activeTab === 'reviews'" class="wow animate__fadeIn" data-wow-delay="0.1s">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-                            <h2 class="text-xl font-bold text-gray-800 mb-4">
-                                <i class="fas fa-comment-alt mr-2 text-purple-500"></i>Avis sur le jouet
-                            </h2>
+                        <!-- Date Picker -->
+                        <div class="mb-6">
+                            <div id="calendarContainer" class="border border-[#e63a28]/20 rounded-lg p-2"></div>
+                        </div>
+
+                        <!-- Reservation Form -->
+                        <form id="reservationForm" action="{{ route('reservation.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="annonce_id" value="{{ $annonce->id }}">
                             
-                            @php
-                                $averageObjetRating = $evaluationsObjet->avg('note');
-                                $reviewCount = $evaluationsObjet->count();
-                            @endphp
-                            
-                            <div class="flex items-center mb-6">
-                                <div class="text-4xl font-bold mr-4">{{ number_format($averageObjetRating, 1) }}/5</div>
+                            <!-- Date Inputs -->
+                            <div class="space-y-4 mb-6">
                                 <div>
-                                    <div class="flex items-center mb-1">
-                                        @for($i = 1; $i <= 5; $i++)
-                                            @if($i <= $averageObjetRating)
-                                                <i class="fas fa-star text-yellow-400"></i>
-                                            @elseif($i == ceil($averageObjetRating) && ($averageObjetRating - floor($averageObjetRating) >= 0.5))
-                                                <i class="fas fa-star-half-alt text-yellow-400"></i>
-                                            @else
-                                                <i class="far fa-star text-gray-300"></i>
-                                            @endif
-                                        @endfor
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                                        <i class="far fa-calendar-check mr-2 text-[#e63a28]"></i>Dates
+                                    </label>
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <input type="text" id="date_debut" name="date_debut" 
+                                               class="w-full p-3 border border-[#e63a28]/30 rounded-lg focus:ring-2 focus:ring-[#e63a28] focus:border-[#e63a28] placeholder-gray-400"
+                                               placeholder="Arrivée" readonly>
+                                        <input type="text" id="date_fin" name="date_fin" 
+                                               class="w-full p-3 border border-[#e63a28]/30 rounded-lg focus:ring-2 focus:ring-[#e63a28] focus:border-[#e63a28] placeholder-gray-400"
+                                               placeholder="Départ" readonly>
                                     </div>
-                                    <p class="text-sm text-gray-600">Basé sur {{ $reviewCount }} avis</p>
                                 </div>
                             </div>
-                            
-                            @if($reviewCount > 0)
-                                <div class="space-y-4">
-                                    @foreach($evaluationsObjet->take(3) as $evaluation)
-                                        <div class="border-b border-gray-200 pb-4 last:border-0 last:pb-0">
-                                            <div class="flex items-center mb-2">
-                                                <img class="w-8 h-8 rounded-full mr-2 object-cover border-2 border-white shadow" 
-                                                     src="{{ $evaluation->client->image_profil }}" 
-                                                     alt="{{ $evaluation->client->surnom }}">
-                                                <div>
-                                                    <p class="font-medium">{{ $evaluation->client->surnom }}</p>
-                                                    <div class="flex items-center">
-                                                        @for($i = 1; $i <= 5; $i++)
-                                                            @if($i <= $evaluation->note)
-                                                                <i class="fas fa-star text-yellow-300 text-xs"></i>
-                                                            @else
-                                                                <i class="far fa-star text-gray-300 text-xs"></i>
-                                                            @endif
-                                                        @endfor
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <p class="text-gray-600">{{ $evaluation->commentaire }}</p>
-                                            <p class="text-xs text-gray-400 mt-1">
-                                                {{ \Carbon\Carbon::parse($evaluation->created_at)->diffForHumans() }}
-                                            </p>
-                                        </div>
-                                    @endforeach
-                                </div>
-                                
-                                @if($reviewCount > 3)
-                                    <div class="mt-4 text-center">
-                                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium inline-flex items-center">
-                                            Voir tous les avis ({{ $reviewCount }}) <i class="fas fa-arrow-right ml-1"></i>
-                                        </a>
+
+                            <!-- Price Calculation -->
+                            <div id="priceCalculation" class="bg-[#e63a28]/10 rounded-lg p-4 mb-6 transition-all duration-300">
+                                <div class="space-y-2">
+                                    <div class="flex justify-between text-[#e63a28]">
+                                        <span>{{ $annonce->prix_journalier }} MAD x</span>
+                                        <span id="durationDays" class="font-medium">0 jours</span>
                                     </div>
-                                @endif
-                            @else
-                                <p class="text-gray-500 text-center py-4">
-                                    <i class="far fa-comment-dots fa-2x mb-2 text-gray-300"></i><br>
-                                    Aucun avis pour ce jouet.
-                                </p>
-                            @endif
-                        </div>
-                        
-                        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
-                            <h2 class="text-xl font-bold text-gray-800 mb-4">
-                                <i class="fas fa-user-tie mr-2 text-blue-500"></i>Avis sur le partenaire
-                            </h2>
-                            
-                            @php
-                                $averagePartnerRating = $evaluationsPartner->avg('note');
-                                $partnerReviewCount = $evaluationsPartner->count();
-                            @endphp
-                            
-                            <div class="flex items-center mb-6">
-                                <div class="text-4xl font-bold mr-4">{{ number_format($averagePartnerRating, 1) }}/5</div>
-                                <div>
-                                    <div class="flex items-center mb-1">
-                                        @for($i = 1; $i <= 5; $i++)
-                                            @if($i <= $averagePartnerRating)
-                                                <i class="fas fa-star text-yellow-400"></i>
-                                            @elseif($i == ceil($averagePartnerRating) && ($averagePartnerRating - floor($averagePartnerRating) >= 0.5))
-                                                <i class="fas fa-star-half-alt text-yellow-400"></i>
-                                            @else
-                                                <i class="far fa-star text-gray-300"></i>
-                                            @endif
-                                        @endfor
+                                    <div class="flex justify-between items-center pt-2">
+                                        <span class="font-semibold">Total</span>
+                                        <span id="totalPrice" class="text-2xl font-bold text-[#e63a28]">0.00 MAD</span>
                                     </div>
-                                    <p class="text-sm text-gray-600">Basé sur {{ $partnerReviewCount }} avis</p>
                                 </div>
                             </div>
-                            
-                            @if($partnerReviewCount > 0)
-                                <div class="space-y-4">
-                                    @foreach($evaluationsPartner->take(3) as $evaluation)
-                                        <div class="border-b border-gray-200 pb-4 last:border-0 last:pb-0">
-                                            <div class="flex items-center mb-2">
-                                                <img class="w-8 h-8 rounded-full mr-2 object-cover border-2 border-white shadow" 
-                                                     src="{{ $evaluation->client->image_profil }}" 
-                                                     alt="{{ $evaluation->client->surnom }}">
-                                                <div>
-                                                    <p class="font-medium">{{ $evaluation->client->surnom }}</p>
-                                                    <div class="flex items-center">
-                                                        @for($i = 1; $i <= 5; $i++)
-                                                            @if($i <= $evaluation->note)
-                                                                <i class="fas fa-star text-yellow-300 text-xs"></i>
-                                                            @else
-                                                                <i class="far fa-star text-gray-300 text-xs"></i>
-                                                            @endif
-                                                        @endfor
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <p class="text-gray-600">{{ $evaluation->commentaire }}</p>
-                                            <p class="text-xs text-gray-400 mt-1">
-                                                {{$evaluation->created_at ? \Carbon\Carbon::parse($evaluation->created_at)->diffForHumans() : 'N/A'}}
-                                            </p>
-                                        </div>
-                                    @endforeach
-                                </div>
-                                
-                                @if($partnerReviewCount > 3)
-                                    <div class="mt-4 text-center">
-                                        <a href="#" class="text-blue-600 hover:text-blue-800 text-sm font-medium inline-flex items-center">
-                                            Voir tous les avis ({{ $partnerReviewCount }}) <i class="fas fa-arrow-right ml-1"></i>
-                                        </a>
-                                    </div>
-                                @endif
-                            @else
-                                <p class="text-gray-500 text-center py-4">
-                                    <i class="far fa-comment-dots fa-2x mb-2 text-gray-300"></i><br>
-                                    Aucun avis pour ce partenaire.
-                                </p>
-                            @endif
-                        </div>
-                    </div>
-                </div>
 
-                <div x-show="activeTab === 'related'" class="wow animate__fadeIn" data-wow-delay="0.2s">
-                    <div class="bg-white rounded-lg shadow-md p-6">
-                        <h2 class="text-2xl font-bold mb-6 flex items-center">
-                            <i class="fas fa-th-large mr-2 text-blue-500"></i> Jouets Similaires
-                        </h2>
-                        
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                            @foreach($relatedProduits as $produit)
-                                @php
-                                    $annonce = $produit->annonces->first();
-                                @endphp
-                                
-                                <a href="{{ route('annonceID', ['id' => $annonce->id]) }}" 
-                                   class="toy-card group">
-                                    <div class="relative h-48 overflow-hidden rounded-t-lg bg-gradient-to-br from-pink-50 to-blue-50">
-                                        @if($produit->images->first())
-                                            @if($annonce->premium)
-                                                <div class="premium-badge">
-                                                    <i class="fas fa-crown mr-1"></i> Premium
-                                                </div>
-                                            @endif
-                                            <img src="{{ asset($produit->images->first()->url) }}" 
-                                                 class="w-full h-full object-cover duration-300 group-hover:scale-110 transition-transform"
-                                                 alt="{{ $produit->nom }}">
-                                        @else
-                                            <div class="w-full h-full flex items-center justify-center">
-                                                <i class="fas fa-image text-gray-400 text-3xl"></i>
-                                            </div>
-                                        @endif
-                                    </div>
-                                    
-                                    <div class="p-4 bg-white">
-                                        <h3 class="font-medium text-black-900 truncate">{{ $produit->nom }}</h3>
-                                        <div class="mt-2 flex items-center justify-between">
-                                            <span class="text-lg font-bold text-emerald-600">
-                                                {{ $annonce->prix_journalier }} DH/jour
-                                            </span>
-                                            <span class="px-2 py-1 text-xs rounded-full {{ $produit->etat === 'Neuf' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800' }}">
-                                                {{ ucfirst($produit->etat) }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                </a>
-                            @endforeach
-                        </div>
+                            <!-- Submit Button -->
+                            <button type="submit" 
+                                    class="w-full bg-[#e63a28] hover:bg-[#c5311f] text-white font-semibold py-4 px-6 rounded-lg 
+                                           transition-all duration-300 transform hover:scale-[1.02] shadow-lg hover:shadow-[#e63a28]/20">
+                                <i class="fas fa-lock mr-2"></i>Réserver maintenant
+                            </button>
+                        </form>
 
-                        <div class="mt-8 flex justify-center">
-                            <a href="{{ route('annonces') }}" 
-                               class="btn-primary text-white px-6 py-3 rounded-lg font-medium inline-flex items-center">
-                                Voir tous nos jouets <i class="fas fa-arrow-right ml-2"></i>
-                            </a>
-                        </div>
-
-                        @if($relatedProduits->isEmpty())
-                            <div class="text-center py-8 text-gray-500">
-                                <i class="fas fa-search fa-2x mb-2 text-gray-300"></i><br>
-                                Aucun jouet similaire trouvé
+                        <!-- Safety Info -->
+                        <div class="mt-6 text-center text-sm text-[#71AA34]">
+                            <div class="flex items-center justify-center space-x-2">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Paiement 100% sécurisé</span>
                             </div>
-                        @endif
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        @show
-    </div>
 
+        <!-- Related Products -->
+        <div class="mt-12">
+            <h2 class="text-2xl font-bold mb-6 flex items-center">
+                <i class="fas fa-th-large mr-2 text-[#e63a28]"></i>Jouets Similaires
+            </h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                @foreach($relatedProduits as $produit)
+                    @php $annonce = $produit->annonces->first(); @endphp
+                    <a href="{{ route('annonceID', ['id' => $annonce->id]) }}" 
+                       class="group bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow">
+                        <div class="relative h-48 overflow-hidden rounded-t-xl">
+                            @if($produit->images->first())
+                                @if($annonce->premium)
+                                    <div class="absolute top-2 left-2 z-10 bg-[#e63a28] text-white px-2 py-1 rounded-full text-xs font-semibold">
+                                        <i class="fas fa-crown mr-1"></i> Premium
+                                    </div>
+                                @endif
+                                <img src="{{ asset($produit->images->first()->url) }}" 
+                                     class="w-full h-full object-cover duration-300 group-hover:scale-110"
+                                     alt="{{ $produit->nom }}">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center bg-gray-100">
+                                    <i class="fas fa-image text-gray-400 text-3xl"></i>
+                                </div>
+                            @endif
+                        </div>
+                        
+                        <div class="p-4">
+                            <h3 class="font-medium text-gray-900 truncate">{{ $produit->nom }}</h3>
+                            <div class="mt-2 flex items-center justify-between">
+                                <span class="text-lg font-bold text-[#e63a28]">
+                                    {{ $annonce->prix_journalier }} MAD/jour
+                                </span>
+                                <span class="px-2 py-1 text-xs rounded-full bg-[#e63a28]/10 text-[#e63a28]">
+                                    {{ ucfirst($produit->etat) }}
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    @show
+</div>
+
+<style>
+    .swiper-button-next,
+    .swiper-button-prev {
+        background-color: rgba(230, 58, 40, 0.8) !important;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+    }
+    
+    .swiper-button-next:hover,
+    .swiper-button-prev:hover {
+        background-color: rgba(230, 58, 40, 1) !important;
+        transform: scale(1.1);
+    }
+    
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+        color: white !important;
+        font-size: 18px;
+    }
+
+    .swiper-pagination-bullet-active {
+        background: #e63a28 !important;
+    }
+
+    #priceCalculation {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    
+    #priceCalculation.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+</style>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>

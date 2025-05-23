@@ -7,12 +7,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
-    
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
     
     <style>
-          body {
+         body{
+                font-family: 'Sour Gummy', sans-serif;
+        }
+          /* body {
         font-family: 'Indie Flower', cursive;
-    }
+    } */
         .rating-star {
             font-size: 1rem;
             cursor: pointer;
@@ -38,8 +41,9 @@
 
 
 <body class="bg-gray-50 text-gray-800">
+        @include('components.sideBar')
     <div class="max-w-3xl mx-auto py-12 px-6">
-        <h1 class="text-3xl font-bold text-center text-red-700 mb-10">Évaluation de votre réservation</h1>
+        <h1 class="text-3xl font-bold text-center text-[#e63a28] mb-10">Évaluation de votre réservation</h1>
 
         <form action="{{ route('evaluations.store') }}" method="POST" class="space-y-8" x-data="{ submitted: false }" x-on:submit.prevent="fetch($event.target.action, {
             method: 'POST',
