@@ -203,7 +203,7 @@
                         'Usage' => 'bg-amber-100 text-amber-800'
                     ];
                 @endphp
-
+             @if($annonce)
                 <a href="{{ route('annonceID', ['id' => $annonce->id]) }}" 
                    class="group relative block bg-white rounded-xl shadow-md hover:shadow-md transition-all duration-300 overflow-hidden wow fadeInUp">
                     <div class="relative h-72 overflow-hidden">
@@ -265,6 +265,7 @@
                         </span>
                     </div>
                 </a>
+                 @endif
             @endforeach
         </div>
 
