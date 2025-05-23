@@ -347,9 +347,10 @@
                                         <i class="fas fa-crown mr-1"></i> Premium
                                     </div>
                                 @endif
-                                <img src="{{ asset($produit->images->first()->url) }}" 
-                                     class="w-full h-full object-cover duration-300 group-hover:scale-110"
-                                     alt="{{ $produit->nom }}">
+                                <img src="{{ asset('storage/' . $produit->images->first()->url) }}" 
+                                    class="w-full h-full object-cover duration-300 group-hover:scale-110"
+                                    alt="{{ $produit->nom }}">
+
                             @else
                                 <div class="w-full h-full flex items-center justify-center bg-gray-100">
                                     <i class="fas fa-image text-gray-400 text-3xl"></i>

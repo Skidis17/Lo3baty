@@ -118,7 +118,7 @@
                         <div class="">
                             <div class="flex items-start gap-9">
                                 @if($image)
-                                <img src="{{ asset($image->url) }}" 
+                                <img src="{{ asset('storage/' . $image->url) }}" 
                                      class="w-24 h-24 object-cover rounded-lg" 
                                      alt="Image du jouet">
                                 @endif
@@ -235,7 +235,7 @@
 
                 <div class="space-y-4">
                     <div x-show="selectedReservation.image">
-                        <img :src="selectedReservation.image" 
+                        <img src="{{ asset('storage/' . $image->url) }}" 
                              class="w-full h-48 object-cover rounded-lg" 
                              alt="Image du jouet">
                     </div>
