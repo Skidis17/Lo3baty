@@ -11,8 +11,8 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('client_id')->constrained('utilisateurs')->cascadeOnDelete();
             $table->foreignId('annonce_id')->constrained('annonces')->cascadeOnDelete();
-            $table->date('date_debut');
-            $table->date('date_fin');
+            $table->dateTime('date_debut');
+            $table->dateTime('date_fin');
             $table->boolean('is_email')->default(0);
             $table->enum('statut', ['en_attente', 'confirmée', 'refusée'])->default('en_attente');
             $table->date('evaluation_date')->nullable();
