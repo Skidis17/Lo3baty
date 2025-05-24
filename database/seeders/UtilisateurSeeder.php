@@ -12,40 +12,28 @@ class UtilisateurSeeder extends Seeder
     {
         // Création du 1 er utilisateur
         Utilisateur::create([
-            'nom' => 'EL MOURABET',
-            'prenom' => 'NADA',
-            'surnom' => 'e_nada',
-            'email' => 'nada.elmourabet@etu.uae.ac.ma',
-            'mot_de_passe' => Hash::make('nada123'),
-            'role' => 'client',
-            'image_profil' => 'images/profils/profil.jpg', 
-            'is_active' => true,
-            'email_verified_at' => now(), 
-        ]);
-
-        // Création du 2 eme utilisateur
-        Utilisateur::create([
-            'nom' => 'El ouazgani',
-            'prenom' => 'Assiya',
-            'surnom' => 'assi_ya',
-            'email' => 'assiya@gmail.com',
-            'mot_de_passe' => Hash::make('assia123'),
-            'role' => 'client',
-            'image_profil' => 'images/profils/profil.jpg', 
-            'is_active' => true,
-            'email_verified_at' => now(), 
-        ]);
-
-         Utilisateur::create([
-            'nom' => 'Sadki',
+            'nom' => 'Bensaddik',
             'prenom' => 'Mohamed',
-            'surnom' => 'skidis',
-            'email' => 'sadki@gmail.com',
-            'mot_de_passe' => Hash::make('sadki123'),
+            'surnom' => 'm.bens',
+            'email' => 'bensm@gmail.com',
+            'mot_de_passe' => Hash::make('test1234'),
             'role' => 'client',
             'image_profil' => 'images/profils/profil.jpg', 
             'is_active' => true,
             'email_verified_at' => now(), 
         ]);
+
+        Utilisateur::create([
+            'nom' => 'Bensaddik',
+            'prenom' => 'Omar',
+            'surnom' => 'o.bens',
+            'email' => 'benso@gmail.com',
+            'mot_de_passe' => Hash::make('test1234'),
+            'role' => 'client',
+            'image_profil' => 'images/profils/profil.jpg', 
+            'is_active' => true,
+            'email_verified_at' => now(), 
+        ]);
+        
     }
 }

@@ -337,13 +337,13 @@
             
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                 @foreach($relatedProduits as $produit)
-                    @php $annonce = $produit->annonces->first(); @endphp
-                    @if($annonce)
-                     <a href="{{ route('annonceID', ['id' => $annonce->id]) }}" 
+                    @php $relatedAnnonce = $produit->annonces->first(); @endphp
+                    @if($relatedAnnonce)
+                     <a href="{{ route('annonceID', ['id' => $relatedAnnonce->id]) }}" 
                        class="group bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow">
                         <div class="relative h-48 overflow-hidden rounded-t-xl">
                             @if($produit->images->first())
-                                @if($annonce->premium)
+                                @if($relatedAnnonce->premium)
                                     <div class="absolute top-2 left-2 z-10 bg-[#e63a28] text-white px-2 py-1 rounded-full text-xs font-semibold">
                                         <i class="fas fa-crown mr-1"></i> Premium
                                     </div>
@@ -363,7 +363,7 @@
                             <h3 class="font-medium text-gray-900 truncate">{{ $produit->nom }}</h3>
                             <div class="mt-2 flex items-center justify-between">
                                 <span class="text-lg font-bold text-[#e63a28]">
-                                    {{ $annonce->prix_journalier }} MAD/jour
+                                    {{ $relatedAnnonce->prix_journalier }} MAD/jour
                                 </span>
                                 <span class="px-2 py-1 text-xs rounded-full bg-[#e63a28]/10 text-[#e63a28]">
                                     {{ ucfirst($produit->etat) }}
