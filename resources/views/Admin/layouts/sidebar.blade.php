@@ -6,7 +6,7 @@
         <div class="bg-white p-3 rounded-full shadow-xl border-4 border-blue-100 
                    hover:scale-105 transition-all duration-300 flex items-center justify-center"
              style="width: 150px; height: 150px;">
-            <img src="{{ Vite::asset('resources/images/logo1.png') }}" 
+            <img src="{{ asset('images/logo1.png') }}" alt="Logo"
                  class="h-28 w-28 object-contain">
         </div>
     </div>

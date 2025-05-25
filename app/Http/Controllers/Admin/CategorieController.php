@@ -22,12 +22,12 @@ class CategorieController extends Controller
 
     public function show(Categorie $categorie)
     {
-        return view('Admin.categories.show', compact('categorie'));
+        return view('admin.categories.show', compact('categorie'));
     }
 
     public function edit(Categorie $categorie)
     {
-        return view('Admin.categories.edit', compact('categorie'));
+        return view('admin.categories.edit', compact('categorie'));
     }
 public function destroy(Categorie $categorie)
 {
@@ -55,7 +55,7 @@ public function destroy(Categorie $categorie)
     }
     public function create()
 {
-    return view('Admin.categories.create');
+    return view('admin.categories.create');
 }
 
 public function store(Request $request)

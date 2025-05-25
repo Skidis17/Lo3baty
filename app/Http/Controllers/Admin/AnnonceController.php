@@ -20,12 +20,12 @@ class AnnonceController extends Controller
         $annonces = $query->paginate(10);
         $statuts = ['active', 'archive'];
 
-        return view('Admin.annonces.index', compact('annonces', 'statuts'));
+        return view('admin.annonces.index', compact('annonces', 'statuts'));
     }
 
     public function show(Annonce $annonce)
     {
         $annonce->load(['objet', 'partenaire']);
-        return view('Admin.annonces.show', compact('annonce'));
+        return view('admin.annonces.show', compact('annonce'));
     }
 }

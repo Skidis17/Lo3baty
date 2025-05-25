@@ -21,12 +21,12 @@ class ReservationController extends Controller
         $statuts = ['en_attente', 'confirmée', 'refusée'];
 
 
-        return view('Admin.reservations.index', compact('reservations', 'statuts'));
+        return view('admin.reservations.index', compact('reservations', 'statuts'));
     }
 
     public function show(Reservation $reservation)
     {
         $reservation->load(['client', 'annonce']);
-        return view('Admin.reservations.show', compact('reservation'));
+        return view('admin.reservations.show', compact('reservation'));
     }
 }

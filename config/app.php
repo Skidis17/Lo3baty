@@ -123,4 +123,29 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'providers' => [
+
+        /*
+        * Laravel Framework Service Providers...
+        */
+        // ... autres providers Laravel ici ...
+
+        /*
+        * Package Service Providers...
+        */
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        /*
+        * Application Service Providers...
+        */
+        // App\Providers\RouteServiceProvider::class,
+    ],
+
+    'aliases' => [
+
+        'App' => Illuminate\Support\Facades\App::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+
+        // ... autres facades ...
+    ],
+
 ];

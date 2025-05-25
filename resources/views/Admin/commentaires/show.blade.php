@@ -1,4 +1,4 @@
-@extends('Admin.layouts.app')
+@extends('admin.layouts.app')
 
 @section('content')
 <div class="flex min-h-screen bg-gray-50">
