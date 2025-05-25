@@ -16,7 +16,7 @@ class AdminSeeder extends Seeder
             'nom' => 'Admin',
             'prenom' => 'Test',
             'email' => 'admin@lo3baty.com',
-            'mot_pass' => 'admin123',
+            'password' => Hash::make('admin123'),
             'created_at' => Carbon::now()->subDay(),
             'updated_at' => Carbon::now()->subDay(),
         ]);

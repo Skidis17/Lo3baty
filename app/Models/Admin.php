@@ -14,20 +14,15 @@ class Admin extends Authenticatable
     use HasFactory, Notifiable;
     protected $table = 'admin';
 
-    protected $fillable = ['nom', 'prenom', 'email', 'mot_pass'];
+    protected $fillable = ['nom', 'prenom', 'email', 'password'];
 
     protected $hidden = [
-        'mot_pass',
+        'password',
         'remember_token',
     ];
 
-    public function getAuthPassword()
-    {
-        return $this->mot_pass;
-    }
-
-    public function setMotPassAttribute($value)
-    {
-        $this->attributes['mot_pass'] = Hash::make($value);
-    }
+    //public function setMotPassAttribute($value)
+    //{
+    //    $this->attributes['password'] = Hash::make($value);
+    //}
 }

@@ -16,6 +16,7 @@ class Evaluation_on_partners extends Model
         'partner_id',
         'client_id',
         'note',
+        'signaler',
         'commentaire'
     ];
 

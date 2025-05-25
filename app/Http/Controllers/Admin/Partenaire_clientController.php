@@ -43,6 +43,7 @@ class Partenaire_clientController extends Controller
         return view('admin.clients.index', compact('clients'));
     }
 
+
     // Toggle status pour les partenaires
     public function toggleStatusPartenaire(Utilisateur $partenaire)
     {

@@ -1,0 +1,5 @@
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^lo3baty\.shop$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www\.lo3baty\.shop$
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ /public/$1 [L]

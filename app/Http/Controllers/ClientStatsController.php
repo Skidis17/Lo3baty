@@ -7,7 +7,6 @@ use App\Models\Reservation;
 use App\Models\Reclamation;
 use App\Models\Utilisateur;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\DB;
 
 class ClientStatsController extends Controller
@@ -29,12 +28,20 @@ class ClientStatsController extends Controller
 
         $startDate = $client->created_at->format('d/m/Y');
 
-        // Calculate average note
+        // Average note
         $averageNote = DB::table('evaluation_on_clients')
             ->where('client_id', $user->id)
             ->avg('note');
 
         $averageNote = $averageNote ? round($averageNote, 2) : 'Aucune';
+
+        // ✨ Fetch evaluations with comments
+        $evaluations = DB::table('evaluation_on_clients')
+            ->where('client_id', $user->id)
+            ->whereNotNull('commentaire')
+            ->where('commentaire', '!=', '')
+            ->orderByDesc('created_at')
+            ->get();
 
         return view('client.stats', [
             'clientName' => $client->nom,
@@ -43,8 +50,8 @@ class ClientStatsController extends Controller
             'totalReservations' => $totalReservations,
             'totalReclamations' => $totalReclamations,
             'startDate' => $startDate,
-            'averageNote' => $averageNote
+            'averageNote' => $averageNote,
+            'evaluations' => $evaluations 
         ]);
     }
 }
-

@@ -240,6 +240,7 @@
 
                 <div class="space-y-4">
 
+                    
                     <div>
                         <p class="text-sm text-gray-500 mb-2">État de la réservation</p>
                         <span class="statut-badge" 

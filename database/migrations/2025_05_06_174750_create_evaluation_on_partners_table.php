@@ -14,6 +14,7 @@ return new class extends Migration {
             $table->foreignId('client_id')->constrained('utilisateurs')->cascadeOnDelete(); // Client évaluateur
             $table->tinyInteger('note');
             $table->text('commentaire')->nullable();
+            $table->boolean('signaler')->default(0);
             $table->timestamps();
         });
     }
