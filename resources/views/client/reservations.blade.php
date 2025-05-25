@@ -239,12 +239,7 @@
                 </div>
 
                 <div class="space-y-4">
-                    <div x-show="selectedReservation.image">
-                       <img src="{{ asset('storage/' . $image->url) }}"
-                             class="w-full h-48 object-cover rounded-lg" 
-                             alt="Image du jouet">
-                    </div>
-                    
+
                     <div>
                         <p class="text-sm text-gray-500 mb-2">État de la réservation</p>
                         <span class="statut-badge" 
