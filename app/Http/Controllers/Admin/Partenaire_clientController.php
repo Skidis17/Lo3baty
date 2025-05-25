@@ -8,22 +8,38 @@ use Illuminate\Http\Request;
 class Partenaire_clientController extends Controller
 {
     // Affichage des partenaires
-    public function indexPartenaires()
+    public function indexPartenaires(Request $request)
     {
-        $partenaires = Utilisateur::where('role', 'partenaire')
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
-
+        $query = Utilisateur::where('role', 'partenaire');
+    
+        if ($request->filled('surnom')) {
+            $query->where('surnom', 'like', '%' . $request->surnom . '%');
+        }
+    
+        if ($request->filled('statut')) {
+            $query->where('is_active', $request->is_active === 'actif' ? 1 : 0);
+        }
+    
+        $partenaires = $query->orderBy('created_at', 'desc')->paginate(10);
+    
         return view('admin.partenaires.index', compact('partenaires'));
     }
 
     // Affichage des clients
-    public function indexClients()
+    public function indexClients(Request $request)
     {
-        $clients = Utilisateur::where('role', 'client')
-            ->orderBy('created_at', 'desc')
-            ->paginate(10);
-
+        $query = Utilisateur::where('role', 'client');
+    
+        if ($request->filled('surnom')) {
+            $query->where('surnom', 'like', '%' . $request->surnom . '%');
+        }
+    
+        if ($request->filled('statut')) {
+            $query->where('is_active', $request->statut === 'actif' ? 1 : 0);
+        }
+    
+        $clients = $query->orderBy('created_at', 'desc')->paginate(10);
+    
         return view('admin.clients.index', compact('clients'));
     }
 
