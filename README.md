@@ -31,8 +31,9 @@ Projet réalisé dans le cadre du module **WEB II** par :
 - **Blade** (Template engine Laravel)
 - **Tailwind CSS** (Framework CSS)
 - **MySQL** (Base de données)
-- **JavaScript & Alpine.js** (Interactivité)
+- **JavaScript, Alpine.js & Ajax** (Interactivité)
 - **Vite** (Build tool Laravel + Tailwind)
+- **Hostinger** (Hosting the website)
 
 ---
 
