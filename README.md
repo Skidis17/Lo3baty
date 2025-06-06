@@ -1,6 +1,7 @@
 # Lo3baty
 
 > Plateforme de location de jouets entre particuliers – Partagez, louez, et jouez autrement !
+> Le siteweb: https://lo3baty.shop/
 
 ---
 
@@ -56,3 +57,4 @@ Avant tout, installez sur votre machine :
 ```bash
 git clone https://github.com/votre-utilisateur/lo3baty.git
 cd lo3baty
+
